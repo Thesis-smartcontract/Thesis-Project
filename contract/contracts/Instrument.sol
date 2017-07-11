@@ -20,8 +20,9 @@ contract Instrument {
   Pool[] pools;
   uint YEAR_GAP = 6; 
   uint cycleYear = 0;
-  address[] verified;
+  Verify[] verified;
 
+  struct Verify { address walletAdd; bool verified; }
   /**
 
    */
@@ -34,6 +35,11 @@ contract Instrument {
    */  
   function createPool(uint midAge) {
     // TODO : create a new pool for the collection
+    pools.push(Pool({
+      participants: participants.set(this, 0, address),
+      total: 1.
+      midAge: midAge
+    }))
   }
   
   /**
@@ -42,13 +48,21 @@ contract Instrument {
   function addToPool() {
     // TODO : add a new user to the correct 
     // pool in the pool collection
+    uint index = poolForAge(user).participants.size;
+    poolForAge(user).participants.set(this, index, user);
   }
   
   /**
 
    */
-  function poolForAge() {
+  function poolForAge(Participant storage self) {
     // TODO : find the right pool for a new participant
+    for(uint i = 0; i < pools.length; i++) {
+      if(pools[i].midAge + 5 > self.startAge && pools[i].midAge - 5 < self.startAge) {
+        return pools[i];
+        break;
+      }
+    }
   }
   
   /**
@@ -64,6 +78,7 @@ contract Instrument {
    */
   function removeFromPool(address[] addr) {
     // TODO : set the live boolean to false for these addr
+
   }
   
   /**
@@ -71,6 +86,14 @@ contract Instrument {
    */
   function withdrawl(address[] addr) {
     // TODO : set the live boolean to false for these addr
+    for(uint i = 0; i < addr.length; i++) {
+      for(uint j = 0; j < verified.length; j++) {
+        if(addr[i] === verified[j].walletAdd) {
+          verified[j].verified = false;
+        }
+      }
+    }
+    
   }
 
   /**
