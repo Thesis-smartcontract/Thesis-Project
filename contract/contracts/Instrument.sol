@@ -49,6 +49,7 @@ contract Instrument {
   function addToPool() {
     // TODO : add a new user to the correct 
     // pool in the pool collection
+    // user
     uint index = poolForAge(user).participants.size;
     poolForAge(user).participants.set(this, index, user);
   }
@@ -58,6 +59,8 @@ contract Instrument {
    */
   function poolForAge(Participant storage self) {
     // TODO : find the right pool for a new participant
+    // public
+
     for(uint i = 0; i < pools.length; i++) {
       if(pools[i].midAge + 5 > self.startAge && pools[i].midAge - 5 < self.startAge) {
         return pools[i];
@@ -85,6 +88,9 @@ contract Instrument {
   /**
 
    */
+  function releaseDividend() {
+    // TODO : release dividend, 
+    // called by admin
   function withdrawl(address[] addr) {
     // TODO : set the live boolean to false for these addr
     for(uint i = 0; i < addr.length; i++) {
@@ -94,7 +100,6 @@ contract Instrument {
         }
       }
     }
-    
   }
 
   /**
