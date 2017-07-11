@@ -20,15 +20,18 @@ db.once('open', () => {
 const app = express()
   .use(parser.json())
   .use(parser.urlencoded({ extended: true }))
-  .use(express.static('/public'))
+  .use(express.static('public'))
   .use(morgan('dev'))
   .use('/api/users', userRoutes)
   .use('/api/admin', adminRoutes)
+  .listen(PORT, 'localhost', () => {
+    console.log(`Successfully connected to server on PORT: ${PORT}`)
+  })
 
-app.listen(PORT, err => {
-  if(err){
-    console.log('Err in connecting to the server');
-  } else {
-    console.log(`Successfully connected to server on PORT: ${PORT}`);
-  }
-})
+// app.listen(PORT, err => {
+//   if(err){
+//     console.log('Err in connecting to the server');
+//   } else {
+//     console.log(`Successfully connected to server on PORT: ${PORT}`);
+//   }
+// })
