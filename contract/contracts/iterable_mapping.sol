@@ -1,7 +1,16 @@
 /// @dev Models a uint -> uint mapping where it is possible to iterate over all keys.
 struct IterableMapping {
+  //struct are custom defined/new types that can group several variables
   struct itmap {
+    // is a type mapping(_KeyType => _ValueType) 
+    // keyType can be any type except for a mapping type, dynamically sized array, a contract, an enum and a struct
+    // valueType can be any type including mappings the default value is "zero state" of whatever type is defined
+    // keyType data is not actually stored only its keccak256 hash which is used to look up the value. So its essentially replacing the key
+    // mapping do not have a length or a concept of a key or value being "set"
+    // only allowed for state variables or as storage references types in internal functions
+    // setting mapping to public you can use a getter. Ex: return Mapper Example(<address>).balances(this)
     mapping(uint => IndexValue) data;
+    //KeyFlag is the types in the array. An empty [] indicates its has a dynamic size
     KeyFlag[] keys;
     uint size;
   }
@@ -10,6 +19,8 @@ struct IterableMapping {
 
   struct KeyFlag { uint key; bool deleted; }
 
+  // function (<parameter types>) internal|external [constant] [payable] [returns (<return types>)]
+  // functions are default 
   function insert(itmap storage self, uint key, uint value) returns (bool replaced) {
     uint keyIndex = self.data[key].keyIndex;
     self.data[key].value = value;
