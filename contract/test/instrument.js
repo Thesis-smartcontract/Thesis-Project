@@ -73,7 +73,7 @@ contract('Instrument', (accounts) => {
   });
 
   it("should delete from pool", () => {
-        var instrument;
+    var instrument;
     var poolIdx;
     var midAgeForPool = 72;
     var age = 69;
@@ -91,11 +91,11 @@ contract('Instrument', (accounts) => {
       poolIdx = pool.c[0];
       return instrument.pool.call(poolIdx);
     })
-    .then(pool => {
-      assert.equal(pool[0].c[0], 0, "Initial user number is incorrect");
-      assert.equal(pool[2].c[0], midAgeForPool, "Did not place participant in the correct pool");
-      return instrument.signContract({ from: accounts[0] });
-    })
+    // .then(pool => {
+    //   assert.equal(pool[0].c[0], 0, "Initial user number is incorrect");
+    //   assert.equal(pool[2].c[0], midAgeForPool, "Did not place participant in the correct pool");
+    //   return instrument.signContract({ from: accounts[0] });
+    // })
     .then(() => {
       return instrument.pool.call(poolIdx);
     })
@@ -104,14 +104,14 @@ contract('Instrument', (accounts) => {
       assert.equal(pool[2].c[0], midAgeForPool, "Did not place participant in the correct pool");
     })
     .then(() => {
-      return instrument.removeFromPool([ accounts[0] ]);
+      return instrument.removeFromPool([ accounts[0] ], { from: accounts[0] });
     })
     .then(() => {
-      return instrument.pools();
+      return instrument.pool.call(poolIdx);
     })
-    .then(pools => {
-      assert.equal(pools[poolIdx].midAge, midAgeForPool, "Did not place participant in the correct pool");
-      assert.equal(pools[poolIdx].participants.get(accounts[0]), false, "Failed to delete user");
+    .then(pool => {
+      assert.equal(pool[0].c[0], 0, "Did not delete participant");
+      assert.equal(pool[2].c[0], midAgeForPool, "Did not place participant in the correct pool");
     })
   });
 

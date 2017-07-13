@@ -30,8 +30,13 @@ contract Instrument {
     string msg
   );
 
+  event Delete(
+    address addr,
+    uint count,
+    string msg
+  );
+
   event Size(
-    // address addr,
     uint size
   );
 
@@ -157,11 +162,19 @@ contract Instrument {
    from program. The program will loop through 
    */
   function removeFromPool(address[] addrs) {
-    // TODO : set the live boolean to false for these addr
-    // for (var i = 0; i < addrs.length; i++) {
-    //   IterableMapping.remove()
-    // }
-    // Log(addr, age, "verified user");
+    uint count = 0;
+    for (var i = 0; i < addrs.length; i++) {
+      //get pool
+      for (var p = 0; p < pools.length; p++) {
+        if (IterableMapping.contains(pools[p].participants, addrs[i])) {
+          count++;
+          IterableMapping.remove(pools[p].participants, addrs[i]);
+          Delete(addrs[i], 1, "deleted user"); 
+          break;
+        }
+      }
+    }
+    Delete(msg.sender, count, "deleted block of users");
   }
 
   /**
