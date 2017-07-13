@@ -40,7 +40,6 @@ contract Instrument {
     uint size
   );
 
-  // struct Verify { address walletAdd; bool verified; }
   /**
 
    */
@@ -170,8 +169,19 @@ contract Instrument {
 
    */
   function earlyExit() {
-    // TODO : logic for leaving early
-    // user
+    for (var p = 0; p < pools.length; p++) {
+      if (IterableMapping.contains(pools[p].participants, msg.sender)) {
+        count++;
+        IterableMapping.remove(pools[p].participants, msg.sender);
+        // uint INVESTMENT = COST * (10 ** 18)
+        // delete waitlist[msg.sender]
+        // dividends[msg.sender] = (.9 * INVESTMENT);
+        // dividends[owner] = (.1 * INVESTMENT);
+
+        Delete(msg.sender, 1, "removed user from pool"); 
+        break;
+      }
+    }
   }
   
   /**
