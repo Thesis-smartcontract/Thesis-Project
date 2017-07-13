@@ -55,7 +55,6 @@ contract('Instrument', (accounts) => {
     return Instrument.deployed()
     .then(instance => {
       instrument = instance;
-
       return instrument.verify(accounts[0], age, { from: accounts[0] });
     })
     .then(() => {
@@ -79,15 +78,12 @@ contract('Instrument', (accounts) => {
       return instrument.pool.call(poolIdx);
     })
     .then(pool => {
-      // console.log("pool", pool);
       assert.equal(pool[0].c[0], 1, "Failed to create user");
-      // assert.equal(startingBalance - price, balance(accounts[0]), "Failed to withraw money from user");
       assert.equal(JSON.parse(pool[1]), price * (10 ** 18), "Failed to send money to contract");
       assert.equal(pool[2].c[0], midAgeForPool, "Did not place participant in the correct pool");
     })
     .catch(e => { 
       console.log(e);
-      setStatus("Project funding didn't work");
     });
   });
 
@@ -133,27 +129,34 @@ contract('Instrument', (accounts) => {
     var instrument;
     var poolIdx;
     var age = 21;
+    var startingBalance = balance(accounts[1]);
+    var price = 10;
 
     return Instrument.deployed()
-    .then((instance) => {
+    .then(instance => {
       instrument = instance;
-      return instrument.signContract({ from: accounts[0] }, age);
+      return instrument.verify(accounts[1], age, { from: accounts[1] });
     })
     .then(() => {
-      return instrument.poolForAge(age);
+      return instrument.poolForAge.call(age);
     })
     .then(pool => {
-      poolIdx = pool;
-      return instrument.earlyExit();
+      poolIdx = pool.c[0];
+      return instrument.sendTransaction({ from: accounts[1], value: price * (10 ** 18) });
     })
     .then(() => {
-      return instrument.pools();
+      return instrument.earlyExit({ from: accounts[1] });
     })
-    .then(pools => {
-      assert.equal(pools[poolIdx].participants.get(accounts[0]), 10000, "Failed to let user exit");
-      assert.equal(pools[poolIdx].balance, 0, "Failed to return funds");
-      // need to get fund's balance somehow
-      assert.equal(web3.fromWei(web3.eth.getBalance(accounts[0])) , 0, "Failed to impose early exit penalty");
+    .then(() => {
+      return instrument.withdraw({ from: accounts[1] });
+    })
+    .then(() => {
+      return instrument.pool.call(poolIdx);
+    })
+    .then(pool => {
+      assert.equal(pool[0].c[0], 0, "Did not delete participant");
+      console.log("balance after signup vs expected", balance(accounts[1]), "|", startingBalance - .9 * price * 2);
+      console.log("contract eth vs expected: ", balance(instrument.contract.address), "|", .9 * price * 2);
     });
   });
 
@@ -161,17 +164,22 @@ contract('Instrument', (accounts) => {
     var instrument;
     var poolIdx;
     var age = 21;
+    var startingBalance = balance(accounts[1]);
+    var price = 10;
 
     return Instrument.deployed()
     .then(instance => {
       instrument = instance;
-      return instrument.signContract({ from: accounts[0] }, age);
+      return instrument.verify(accounts[1], age, { from: accounts[0] });
     })
     .then(() => {
-      return instrument.poolForAge(age);
+      return instrument.poolForAge.call(age);
     })
     .then(pool => {
-      poolIdx = pool;
+      poolIdx = pool.c[0];
+      return instrument.sendTransaction({ from: accounts[1], value: price * (10 ** 18) });
+    })
+    .then(() => {
       var promises = [];
       for (var i = 0; i < 5; i++) {
         promises.push(instrument.releaseDividends({ from: accounts[0] }));
@@ -179,40 +187,53 @@ contract('Instrument', (accounts) => {
       return promises;
     })
     .then(() => {
-      return instrument.earlyExit();
+      return instrument.earlyExit({ from: accounts[1] });
     })
     .then(() => {
-      return instrument.pools();
+      return instrument.withdraw({ from: accounts[1] });
     })
-    .then(pools => {
-      assert.equal(pools[poolIdx].participants.get(accounts[0]), true, "Failed to prevent 5yo user from exiting");
-      // need to get fund's balance somehow
-      assert.equal(pools[poolIdx].balance, 10000, "Should not let user leave with funds");
+    .then(() => {
+      return instrument.pool.call(poolIdx);
+    })
+    .then(pool => {
+      assert.equal(pool[0].c[0], 1, "Incorrectly deleted participant");
+      console.log("balance after signup vs expected", balance(accounts[1]), "|", startingBalance - 20);
+      console.log("contract eth vs expected: ", balance(instrument.contract.address), "|", price * 2);
     });
   });
 
   it("should prevent exit if pool is recieving dividends", () => {
     var instrument;
     var poolIdx;
-    var age = 69;
+    var age = 71;
+    var startingBalance = balance(accounts[1]);
+    var price = 10;
 
     return Instrument.deployed()
     .then(instance => {
       instrument = instance;
-      return instrument.signContract({ from: accounts[0] }, age);
+      return instrument.verify(accounts[1], age, { from: accounts[0] });
     })
     .then(() => {
-      return instrument.poolForAge(age);
+      return instrument.poolForAge.call(age);
     })
     .then(pool => {
-      poolIdx = pool;
-      return instrument.earlyExit();
+      poolIdx = pool.c[0];
+      return instrument.sendTransaction({ from: accounts[1], value: price * (10 ** 18) });
     })
     .then(() => {
-      return instrument.pools();
+      return instrument.earlyExit({ from: accounts[1] });
     })
-    .then(pools => {
-      assert.equal(pools[poolIdx].participants.get(accounts[0]), true, "Failed to prevent user over 65 (pool is collecting) from exiting");
+    .then(() => {
+      return instrument.withdraw({ from: accounts[1] });
+    })
+    .then(() => {
+      return instrument.pool.call(poolIdx);
+    })
+    .then(pool => {
+      assert.equal(pool[0].c[0], 1, "Incorrectly deleted participant");
+      console.log("balance after signup vs expected", balance(accounts[1]), "|", startingBalance - 20);
+      console.log("contract eth vs expected: ", balance(instrument.contract.address), "|", price * 2);
     });
   });
 
