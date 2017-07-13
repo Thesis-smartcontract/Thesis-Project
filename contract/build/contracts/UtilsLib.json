@@ -1,8 +1,15 @@
 {
   "contract_name": "UtilsLib",
   "abi": [],
-  "unlinked_binary": "0x60606040523415600b57fe5b5b60338060196000396000f30060606040525bfe00a165627a7a72305820aa741380e434ad19cc07dd156c8bbce654f7a1010c96b2478e57e88e9afe2a460029",
-  "networks": {},
+  "unlinked_binary": "0x60606040523415600b57fe5b5b60338060196000396000f30060606040525bfe00a165627a7a72305820de1a971cb6a64b0ca52a3ceb94ec9def716e9e94add8a93fd2399359abd956790029",
+  "networks": {
+    "1499963266618": {
+      "events": {},
+      "links": {},
+      "address": "0xe1679e2ccebbde015275c899b0bc5dccc735aba8",
+      "updated_at": 1499963750853
+    }
+  },
   "schema_version": "0.0.5",
-  "updated_at": 1499907672930
+  "updated_at": 1499963750853
 }

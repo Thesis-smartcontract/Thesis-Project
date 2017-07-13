@@ -85,26 +85,43 @@ contract Instrument {
     Log(addr, age, "verified user");
   }
 
+  function () payable {
+    uint COST = 10 * (10 ** 18);
+    Participant user = waitlist[msg.sender];
+
+    if (!user.verified) {
+      Log(msg.sender, user.startAge, "sender is not verified");
+      throw;
+    }
+
+    if (user.added) {
+      Log(msg.sender, user.startAge, "sender is already participating");
+      throw;
+    } 
+
+    if(msg.value < COST) {
+      Log(msg.sender, user.startAge, "did not meet buy-in criteria");
+      throw;
+    }
+    
+    signContract(user);
+  }
    /**
 
    */
-  function signContract() payable {
+  function signContract(Participant user) private {
     // uint index = poolForAge(user).participants.size;
     // poolForAge(user).participants.set(this, index, user);
-    Participant user = waitlist[msg.sender];
-    if (!user.verified || user.added) {
-      //TODO : Event -> failed to add participant
-      Log(msg.sender, user.startAge, "failed to add user");
-      return;
-    } 
+    // uint COST = 50 ** 18;
+
     
-    //TODO : move money to pool
     user.verified = false;
     user.added = true;
     uint poolIdx = poolForAge(user.startAge);
+    pools[poolIdx].totalEth += msg.value;
     IterableMapping.set(pools[poolIdx].participants, msg.sender, true);
-    //TODO : Event -> added participant
-    Log(msg.sender, user.startAge, "added user");
+  
+    Log(msg.sender, user.startAge, "new participant signed contract");
   }
   
   /**
@@ -177,12 +194,14 @@ contract Instrument {
     Delete(msg.sender, count, "deleted block of users");
   }
 
+
   /**
 
    */
   function releaseDividend() {
     // TODO : release dividend, 
     // called by admin
+    
   }
 
   function withdrawl(address[] addr) {
@@ -213,4 +232,3 @@ contract Instrument {
     // admin
   }
 }
-
