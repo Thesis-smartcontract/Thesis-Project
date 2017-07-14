@@ -65,16 +65,13 @@ contract('Instrument', (accounts) => {
       return instrument.pool.call(poolIdx);
     })
     .then(pool => {
-      // console.log("balance before signup", instrument);
-      console.log("balance before signup", balance(accounts[0]));
-      console.log("contract ether before signup", balance(instrument.contract.address));
       assert.equal(pool[0].c[0], 0, "Initial user number is incorrect");
       assert.equal(pool[2].c[0], midAgeForPool, "Did not place participant in the correct pool");
-      return instrument.sendTransaction({ from: accounts[0], value: price * (10 ** 18) });
+      return instrument.signContract({ from: accounts[0], value: price * (10 ** 18) });
     })
     .then(() => {
-      console.log("balance after signup vs expected", balance(accounts[0]), "|", startingBalance - 20);
-      console.log("expected contract eth vs expected: ", price * 2, "|", balance(instrument.contract.address));
+      assert.approximately(balance(accounts[0]), startingBalance - 20, .1, "Did not remove contract cost from account balance.")
+      assert.approximately(price * 2, balance(instrument.contract.address), .1, "Did not add ether to contract.")
       return instrument.pool.call(poolIdx);
     })
     .then(pool => {
@@ -142,7 +139,7 @@ contract('Instrument', (accounts) => {
     })
     .then(pool => {
       poolIdx = pool.c[0];
-      return instrument.sendTransaction({ from: accounts[1], value: price * (10 ** 18) });
+      return instrument.signContract({ from: accounts[1], value: price * (10 ** 18) });
     })
     .then(() => {
       return instrument.earlyExit({ from: accounts[1] });
@@ -155,8 +152,8 @@ contract('Instrument', (accounts) => {
     })
     .then(pool => {
       assert.equal(pool[0].c[0], 0, "Did not delete participant");
-      console.log("balance after signup vs expected", balance(accounts[1]), "|", startingBalance - .9 * price * 2);
-      console.log("contract eth vs expected: ", balance(instrument.contract.address), "|", .9 * price * 2);
+      // console.log("balance after signup vs expected", balance(accounts[1]), "|", startingBalance - .9 * price * 2);
+      // console.log("contract eth vs expected: ", balance(instrument.contract.address), "|", .9 * price * 2);
     });
   });
 
@@ -177,7 +174,7 @@ contract('Instrument', (accounts) => {
     })
     .then(pool => {
       poolIdx = pool.c[0];
-      return instrument.sendTransaction({ from: accounts[1], value: price * (10 ** 18) });
+      return instrument.signContract({ from: accounts[1], value: price * (10 ** 18) });
     })
     .then(() => {
       var promises = [];
@@ -197,8 +194,8 @@ contract('Instrument', (accounts) => {
     })
     .then(pool => {
       assert.equal(pool[0].c[0], 1, "Incorrectly deleted participant");
-      console.log("balance after signup vs expected", balance(accounts[1]), "|", startingBalance - 20);
-      console.log("contract eth vs expected: ", balance(instrument.contract.address), "|", price * 2);
+      // console.log("balance after signup vs expected", balance(accounts[1]), "|", startingBalance - 20);
+      // console.log("contract eth vs expected: ", balance(instrument.contract.address), "|", price * 2);
     });
   });
 
@@ -219,7 +216,7 @@ contract('Instrument', (accounts) => {
     })
     .then(pool => {
       poolIdx = pool.c[0];
-      return instrument.sendTransaction({ from: accounts[1], value: price * (10 ** 18) });
+      return instrument.signContract({ from: accounts[1], value: price * (10 ** 18) });
     })
     .then(() => {
       return instrument.earlyExit({ from: accounts[1] });
@@ -232,8 +229,8 @@ contract('Instrument', (accounts) => {
     })
     .then(pool => {
       assert.equal(pool[0].c[0], 1, "Incorrectly deleted participant");
-      console.log("balance after signup vs expected", balance(accounts[1]), "|", startingBalance - 20);
-      console.log("contract eth vs expected: ", balance(instrument.contract.address), "|", price * 2);
+      // console.log("balance after signup vs expected", balance(accounts[1]), "|", startingBalance - 20);
+      // console.log("contract eth vs expected: ", balance(instrument.contract.address), "|", price * 2);
     });
   });
 

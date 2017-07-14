@@ -10,6 +10,7 @@ contract Instrument {
     uint startAge;
     bool verified;
     bool added;
+    uint approvalDate;
   }
 
   struct Pool {
@@ -19,18 +20,21 @@ contract Instrument {
   }
 
   /* Local variables */
-  Pool[] pools;
-  mapping(address => Participant) waitlist;
-  address owner;
+  Pool[] private pools;
+  mapping(address => Participant) private waitlist;
+  address private owner;
+  bool private stopped = false;
+
+  /* Constants */
 
   /* Events */
-  event Log(
+  event LogEvent(
     address addr,
-    uint age,
+    uint value,
     string msg
   );
 
-  event Delete(
+  event LogDelete(
     address addr,
     uint count,
     string msg
@@ -39,6 +43,18 @@ contract Instrument {
   event Size(
     uint size
   );
+
+  /* Modifiers */
+  modifier costs(uint price) { if (msg.value >= price) _; }
+  modifier stopInEmergency { if (!stopped) _; }
+  modifier onlyInEmergency { if (stopped) _; }
+  modifier adminOnly {
+    require(msg.sender == owner);
+    _;
+  }
+  // modifier checkInvariants {
+
+  // }
 
   /**
 
@@ -52,7 +68,7 @@ contract Instrument {
     }
   }
   
-  function pool(uint idx) returns (uint participants, uint totalEth, uint midAge) {
+  function pool(uint idx) public returns (uint participants, uint totalEth, uint midAge) {
     participants = pools[idx].participants.size;
     totalEth = pools[idx].totalEth;
     midAge = pools[idx].midAge;
@@ -60,7 +76,7 @@ contract Instrument {
   /**
 
    */  
-  function createPool(uint midAge) {
+  function createPool(uint midAge) private {
     // TODO : create a new pool for the collection
     // pools.push(Pool({
     //   participants: participants.set(this, 0, address),
@@ -77,42 +93,47 @@ contract Instrument {
   /**
 
    */
-  function verify(address addr, uint age) {
+  function verify(address addr, uint age) public {
     waitlist[addr].verified = true;
     waitlist[addr].startAge = age;
     waitlist[addr].added = false;
-    Log(addr, age, "verified user");
+    waitlist[addr].approvalDate = block.timestamp;
+    LogEvent(addr, age, "verified user");
   }
 
-  function () payable {
-    uint COST = 10 * (10 ** 18);
-    Participant user = waitlist[msg.sender];
-
-    if (!user.verified) {
-      Log(msg.sender, user.startAge, "sender is not verified");
-      throw;
-    }
-
-    if (user.added) {
-      Log(msg.sender, user.startAge, "sender is already participating");
-      throw;
-    } 
-
-    if(msg.value < COST) {
-      Log(msg.sender, user.startAge, "did not meet buy-in criteria");
-      throw;
-    }
-    
-    signContract(user);
+  function () public payable stopInEmergency {
+    LogEvent(msg.sender, 0, "Donation or incorrect payment made to fallback function.");
   }
    /**
 
    */
-  function signContract(Participant user) private {
+  function signContract() public payable stopInEmergency {
     // uint index = poolForAge(user).participants.size;
     // poolForAge(user).participants.set(this, index, user);
     // uint COST = 50 ** 18;
+    uint COST = 10 * (10 ** 18);
+    Participant user = waitlist[msg.sender];
 
+    if (!user.verified) {
+      LogEvent(msg.sender, user.startAge, "sender is not verified");
+      throw;
+    }
+
+    if (user.added) {
+      LogEvent(msg.sender, user.startAge, "sender is already participating");
+      throw;
+    } 
+
+    if(msg.value < COST) {
+      LogEvent(msg.sender, user.startAge, "did not meet buy-in criteria");
+      throw;
+    }
+
+    if (block.timestamp > user.approvalDate + 1 years) {
+      LogEvent(msg.sender, user.startAge, "approval is only valid for one year");
+      delete waitlist[msg.sender];
+      throw;
+    }
     
     user.verified = false;
     user.added = true;
@@ -120,13 +141,13 @@ contract Instrument {
     pools[poolIdx].totalEth += msg.value;
     IterableMapping.set(pools[poolIdx].participants, msg.sender, true);
   
-    Log(msg.sender, user.startAge, "new participant signed contract");
+    LogEvent(msg.sender, user.startAge, "new participant signed contract");
   }
   
   /**
 
    */
-  function poolForAge(uint age) returns (uint idx) {
+  function poolForAge(uint age) public returns (uint idx) {
     uint BASE = 20;
     uint GAP = 6;
     uint currentMid = BASE + GAP / 2;
@@ -168,17 +189,16 @@ contract Instrument {
   /**
 
    */
-  function earlyExit() {
+  function earlyExit() public stopInEmergency {
     for (var p = 0; p < pools.length; p++) {
       if (IterableMapping.contains(pools[p].participants, msg.sender)) {
-        count++;
         IterableMapping.remove(pools[p].participants, msg.sender);
         // uint INVESTMENT = COST * (10 ** 18)
-        // delete waitlist[msg.sender]
+        // Logdelete waitlist[msg.sender]
         // dividends[msg.sender] = (.9 * INVESTMENT);
         // dividends[owner] = (.1 * INVESTMENT);
 
-        Delete(msg.sender, 1, "removed user from pool"); 
+        LogDelete(msg.sender, 1, "removed user from pool"); 
         break;
       }
     }
@@ -188,7 +208,7 @@ contract Instrument {
    Admin passes the contract a list of people to withdraw
    from program. The program will loop through 
    */
-  function removeFromPool(address[] addrs) {
+  function removeFromPool(address[] addrs) public {
     uint count = 0;
     for (var i = 0; i < addrs.length; i++) {
       //get pool
@@ -196,40 +216,28 @@ contract Instrument {
         if (IterableMapping.contains(pools[p].participants, addrs[i])) {
           count++;
           IterableMapping.remove(pools[p].participants, addrs[i]);
-          Delete(addrs[i], 1, "deleted user"); 
+          LogDelete(addrs[i], 1, "deleted user"); 
           break;
         }
       }
     }
-    Delete(msg.sender, count, "deleted block of users");
+    LogDelete(msg.sender, count, "deleted block of users");
   }
 
 
   /**
 
    */
-  function releaseDividend() {
+  function releaseDividend() public {
     // TODO : release dividend, 
     // called by admin
     
   }
 
-  function withdrawl(address[] addr) {
-    // TODO : set the live boolean to false for these addr
-    // for(uint i = 0; i < addr.length; i++) {
-    //   for(uint j = 0; j < verified.length; j++) {
-    //     if(addr[i] === verified[j].walletAdd) {
-    //       verified[j].verified = false;
-    //     }
-    //   }
-    // }
-    
-  }
-
   /**
 
    */
-  function collectDividend() {
+  function collectDividend() public stopInEmergency {
     // TODO : collect dividend, 
     // called by user
   }
@@ -237,8 +245,18 @@ contract Instrument {
   /**
 
    */
-  function selfDestruct() {
+  function selfDestruct() public adminOnly {
     // TODO : kill contract, return eth to users
     // admin
+
+  }
+
+  /**
+
+   */
+  function breakCircuit() public adminOnly {
+    // TODO : kill contract, return eth to users
+    // admin
+
   }
 }
