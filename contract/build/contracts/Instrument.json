@@ -3,6 +3,14 @@
   "abi": [
     {
       "constant": false,
+      "inputs": [],
+      "name": "breakCircuit",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
       "inputs": [
         {
           "name": "addrs",
