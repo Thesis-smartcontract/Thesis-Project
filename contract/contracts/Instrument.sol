@@ -25,6 +25,7 @@ contract Instrument {
   mapping(address => uint) public pendingDividends;
   bool private stopped = false;
   address private owner;
+  uint cost = 10;
 
   /* Events */
   event LogEvent(
@@ -110,21 +111,25 @@ contract Instrument {
     uint COST = 10 * (10 ** 18);
     Participant user = waitlist[msg.sender];
 
-    if (!user.verified) {
-      LogEvent(msg.sender, user.startAge, "sender is not verified");
-      throw;
-    }
+    // if (!user.verified) {
+    //   LogEvent(msg.sender, user.startAge, "sender is not verified");
+    //   throw;
+    // }
 
-    if (user.added) {
-      LogEvent(msg.sender, user.startAge, "sender is already participating");
-      throw;
-    } 
+    // if (user.added) {
+    //   LogEvent(msg.sender, user.startAge, "sender is already participating");
+    //   throw;
+    // } 
 
-    if(msg.value < COST) {
-      LogEvent(msg.sender, user.startAge, "did not meet buy-in criteria");
-      throw;
-    }
-    
+    // if(msg.value < COST) {
+    //   LogEvent(msg.sender, user.startAge, "did not meet buy-in criteria");
+    //   throw;
+    // }
+
+    assert(!user.added);
+    assert(user.verified);
+    assert(msg.value >= COST);
+
     signContract(user);
   // function () public payable stopInEmergency {
   //   LogEvent(msg.sender, 0, "Donation or incorrect payment made to fallback function.");
@@ -195,11 +200,19 @@ contract Instrument {
   function earlyExit() public stopInEmergency {
     for (var p = 0; p < pools.length; p++) {
       if (IterableMapping.contains(pools[p].participants, msg.sender)) {
+        
+        // restrictions on early exit
+        require(pools[p].midAge < 70);
+        require(block.timestamp < waitlist[msg.sender].approvalDate + 5 years);
+
+        // remove from pool
         IterableMapping.remove(pools[p].participants, msg.sender);
-        // uint INVESTMENT = COST * (10 ** 18)
-        // Logdelete waitlist[msg.sender]
-        // pendingDividends[msg.sender] = (.9 * INVESTMENT);
-        // pendingDividends[owner] = (.1 * INVESTMENT);
+
+        // send money back
+        uint invenstment = cost * (10 ** 18);
+        pendingDividends[msg.sender] = (invenstment * 9) / 10;
+        pendingDividends[owner] += invenstment / 10;
+        pools[p].totalEth -= invenstment;
 
         LogDelete(msg.sender, 1, "removed user from pool"); 
         break;
@@ -214,7 +227,6 @@ contract Instrument {
   function removeFromPool(address[] addrs) public {
     uint count = 0;
     for (var i = 0; i < addrs.length; i++) {
-      //get pool
       for (var p = 0; p < pools.length; p++) {
         if (IterableMapping.contains(pools[p].participants, addrs[i])) {
           count++;
@@ -232,9 +244,6 @@ contract Instrument {
 
    */
   function releaseDividends() public {
-    // TODO : release dividend, 
-    // called by admin
-    // require(owner === msg.sender);
     for (var p = 0; p < pools.length; p++) {
       if(pools[p].midAge >= 70) {
         uint size = pools[p].participants.size;
@@ -254,15 +263,20 @@ contract Instrument {
   function collectDividend() public stopInEmergency returns (bool) {
     var amount = pendingDividends[msg.sender];
       if (amount > 0) {
-          pendingDividends[msg.sender] = 0;
-          if (!msg.sender.send(amount)) {
-              pendingDividends[msg.sender] = amount;
-              return false;
-          }
+        pendingDividends[msg.sender] = 0;
+        if (!msg.sender.send(amount)) {
+          pendingDividends[msg.sender] = amount;
+          return false;
+        }
+
+        // for (var p = 0; p < pools.length; p++) {
+        //   if (IterableMapping.contains(pools[p].participants, addrs[i])) {
+        //     pools[p].totalEth -= amount;
+        //     break;
+        //   }
+        // }
       }
-      for(var i = 0; i < pools.length; i++ ) {
-        pools[i].totalEth -= amount;
-      }
+
       return true;
   }
   
