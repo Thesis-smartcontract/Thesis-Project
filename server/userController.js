@@ -1,4 +1,9 @@
 const User = require('../database/userModel')
+const Client = require('coinbase').Client;
+const client = new Client({
+  'apiKey': 'L3KYRril1zRuwQeS',
+  'apiSecret': '0FK9juFD0mr5wW0sb0o6sCyb6sS4inZ5'
+})
 
 module.exports = {
   getAllUsers: (req, res) => {
@@ -15,6 +20,11 @@ module.exports = {
       if (!user) return res.json({success: false, message: 'user already exists'})
       if (err) return console.log(err)
       res.json({success: true, message: 'user created', user: user});
+    })
+  },
+  getEthPrice: (req, res) => {
+    client.getSellPrice({'currencyPair': 'ETH-USD'}, (err, price) => {
+      return res.send(price)
     })
   }
 }

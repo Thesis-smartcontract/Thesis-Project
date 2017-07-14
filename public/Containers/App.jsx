@@ -19,8 +19,6 @@ const store = createStore(reducers, applyMiddleware(ReduxThunk, ReduxPromise));
 
 // import { Route, HashRouter, NavLink } from 'react-router-dom';
 
-
-
 const App = () => {
  return (
   <Provider store={store}>
