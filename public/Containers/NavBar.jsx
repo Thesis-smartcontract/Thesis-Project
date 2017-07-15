@@ -10,7 +10,7 @@ const NavBar = () => {
   if(admin) {
     userOrAdmin = (<li><NavLink to="/admin" activeClassName="activeNav">Admin</NavLink></li>);
   } else {
-    userOrAdmin = (<li><NavLink to="/wallet" activeClassName="activeNav">Wallet</NavLink></li>);
+    userOrAdmin = (<li><NavLink to="/userPoolInfo" activeClassName="activeNav">Your Pool</NavLink></li>);
   }
 
   return (

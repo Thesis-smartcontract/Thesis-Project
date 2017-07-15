@@ -13,7 +13,9 @@ export const UserPool = (state={
 }, action) => {
   switch (action.type) {
     case GET_ETH_AMOUNT: 
-      return Object.assign({}, state, { ethAmount: action.payload })
+      console.log('you are in reducer')
+      console.log(state.ethAmount)
+      return Object.assign({}, state, { ethAmount: state.ethAmount + action.payload })
     case GET_POOL_AGE:
       return Object.assign({}, state, { poolAge: action.payload })
     case GET_POOL_PART:
