@@ -2,7 +2,7 @@ pragma solidity ^0.4.4;
 
 import "./IterableMapping.sol";
 
-/** @title Gennuity: EthTech For Social Security */
+/** @title Gennuity: EthTech for Social Security */
 contract Instrument {
 
   /* Contract-specific structures */
@@ -25,8 +25,12 @@ contract Instrument {
   mapping(address => uint) public pendingDividends;
   bool stopped = false;
   address owner;
+
+  /* Constants */
   uint cost = 10;
   uint poolShiftCounter = 0;
+  uint poolGap = 6;
+  uint minAge = 20;
 
   /* Events */
   event LogEvent(
@@ -64,11 +68,9 @@ contract Instrument {
    * @dev Creates the Gennuity contract.
    */
   function Instrument() {
-    uint BASE = 20;
-    uint GAP = 6;
     owner = msg.sender;
     for (var i = 0; i < 12; i++) {
-      createPool((BASE + GAP / 2) + (GAP + 1) * i);
+      createPool((minAge + poolGap / 2) + (poolGap + 1) * i);
     }
   }
   
@@ -121,7 +123,7 @@ contract Instrument {
    *      being sent to the contract because this a) costs gas, b) requires 10eth.
    */
   function () payable {
-    uint COST = 10 * (10 ** 18);
+    uint COST = cost * (10 ** 18);
     Participant user = verifiedUsers[msg.sender];
 
     assert(!user.added);
@@ -153,14 +155,12 @@ contract Instrument {
    *         allocated to.
    */
   function poolForAge(uint age) public returns (uint idx) {
-    uint BASE = 20;
-    uint GAP = 6;
-    uint currentMid = BASE + GAP / 2;
     idx = 0;
-
-    while (age > currentMid + GAP / 2 && idx < 12) {
-      currentMid += GAP + 1;
-      idx++;
+    for (var p = 0; p < pools.length; p++) {
+      if (pools[p].midAge + 3 >= age && pools[p].midAge - 3 <= age) {
+        idx = p;
+        break;
+      }
     }
   }
   
@@ -235,11 +235,30 @@ contract Instrument {
           pendingDividends[addr] = totalEth / (size * 20);
         }
       }
+      // shift pool's midAge
       pools[p].midAge++;
     }
-    poolShiftCounter++;
+    checkForNewPool();
   }
   
+  /**
+   * @dev As old pools end, new pools will be created. Checks the current 
+   *      gap, and will shift the entire array of pools before adding a new 
+   *      one at the beginning. 
+   */
+  function checkForNewPool() private stopInEmergency {
+    if (pools[0].midAge == (minAge + 1 + (poolGap / 2))) {
+      for (var i = pools.length - 1; i > 0; i--) {
+        pools[i] = pools[i - 1];
+      }
+      Pool storage newPool;
+      newPool.midAge = minAge - (poolGap / 2);
+      newPool.totalEth = 0;
+      newPool.participants.size = 0;
+      pools[0] = newPool;
+    }
+  }
+
   /**
    * @dev A user can attempt to collect their dividends. It is
    *      recommended to test the availablility with a call before

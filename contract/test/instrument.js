@@ -4,7 +4,7 @@ var Instrument = artifacts.require("./Instrument.sol");
 contract('Instrument', (accounts) => {
 
   function balance(account) {
-  return JSON.parse(web3.fromWei(web3.eth.getBalance(account)), "ether");
+    return JSON.parse(web3.fromWei(web3.eth.getBalance(account)), "ether");
   };
 
   it("should get pool from user age", () => {
@@ -130,7 +130,7 @@ contract('Instrument', (accounts) => {
     var instrument;
     var poolIdx;
     var midAgeForPool = 72;
-    var age = 69;
+    var age = 70;
     var startingBalance = balance(accounts[4]);
     var price = 10;
     var finalBalanceWithoutDividend = balance(accounts[4]) - (2 * price);
@@ -139,7 +139,6 @@ contract('Instrument', (accounts) => {
     return Instrument.deployed()
     .then(instance => {
       instrument = instance;
-
       return instrument.verify(accounts[4], age, { from: accounts[0] });
     })
     .then(() => {
@@ -165,6 +164,13 @@ contract('Instrument', (accounts) => {
       return instrument.releaseDividends({ from: accounts[0] });
     })
     .then(() => {
+      var promises = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(x => {
+        return instrument.pool.call(x);
+      })
+      return Promise.all(promises);
+    })
+    .then((pools) => {
+      console.log(pools);
       return instrument.pendingDividends.call(accounts[4]);
     })
     .then(data => {
@@ -173,9 +179,19 @@ contract('Instrument', (accounts) => {
       return instrument.collectDividend({ from: accounts[4] });
     })
     .then(info => {
+      console.log("transaction", info);
       assert.approximately(balance(accounts[4]), finalBalanceWithoutDividend + parsed, .1, "User did not recieve dividend");
-      instrument.removeFromPool([accounts[4]], {from : accounts[0] });
-    })
+      return instrument.removeFromPool([accounts[4]], {from : accounts[0] });
+    });
+    // .then(() => {
+    //   return instrument.poolForAge.call(age);
+    // })
+    // .then((pool) => {
+    //   return instrument.pool.call(pool);
+    // })
+    // .then(pool => {
+    //   assert.equal(pool[0].c[0], 0, "Failed to delete user");
+    // });
   });
 
   it("should increment counter and pool's mid upon dividend calling", () => {
@@ -183,16 +199,16 @@ contract('Instrument', (accounts) => {
     var instrument;
     var poolIdx;
     var midAgeForPool = 73;
-    var age = 69;
-    var startingBalance = balance(accounts[3]);
+    var age = 71;
+    var startingBalance = balance(accounts[1]);
     var SKIP_YEARS = 5;
     var price = 10;
 
     return Instrument.deployed()
     .then(instance => {
+      console.log(instance.verify);
       instrument = instance;
-
-      return instrument.verify(accounts[3], age, { from: accounts[3] });
+      return instrument.verify(accounts[1], age, { from: accounts[0] });
     })
     .then(() => {
       return instrument.poolForAge.call(age);
@@ -202,10 +218,11 @@ contract('Instrument', (accounts) => {
       return instrument.pool.call(poolIdx);
     })
     .then(pool => {
+      console.log("pool before sign", pool);
       assert.equal(pool[0].c[0], 0, "Initial user number is incorrect"); 
       // assert.equal(pool[2].c[0], midAgeForPool, "Did not place participant in the correct pool");
       midAgeForPool = pool[2].c[0];
-      return instrument.sendTransaction({ from: accounts[3], value: price * (10 ** 18) });
+      return instrument.sendTransaction({ from: accounts[1], value: price * (10 ** 18) });
     })
     .then(() => {
       return instrument.pool.call(poolIdx);
@@ -214,12 +231,25 @@ contract('Instrument', (accounts) => {
       assert.equal(pool[0].c[0], 1, "Failed to create user");
     })
     .then(pool => {
-      return instrument.releaseDividends({ from: accounts[3] });
+      console.log('about to release dividends');
+      return instrument.releaseDividends({ from: accounts[0] });
     })
     .then(() => {
+      var promises = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(x => {
+        return instrument.pool.call(x);
+      })
+      return Promise.all(promises);
+    })
+    .then((pools) => {
+      console.log(pools);
+      return instrument.poolForAge.call(age + 1);
+    })
+    .then((pool) => {
+      poolIdx = pool.c[0];
       return instrument.pool.call(poolIdx);
     })
     .then(pool => {
+      console.log("pool", pool);
       assert.equal(pool[2].c[0], midAgeForPool + 1, "Midage increased by 1");
     });
   });
