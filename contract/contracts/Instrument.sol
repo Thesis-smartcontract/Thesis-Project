@@ -1,9 +1,8 @@
 pragma solidity ^0.4.4;
 
 import "./IterableMapping.sol";
-import "./UtilsLib.sol";
 
-/** @title Gennuity: EthTech for social security */
+/** @title Gennuity: EthTech For Social Security */
 contract Instrument {
 
   /* Contract-specific structures */
@@ -24,10 +23,10 @@ contract Instrument {
   Pool[] pools;
   mapping(address => Participant) private verifiedUsers;
   mapping(address => uint) public pendingDividends;
-  bool private stopped = false;
-  address private owner;
+  bool stopped = false;
+  address owner;
   uint cost = 10;
-  uint yearlyPoolCounter = 0;
+  uint poolShiftCounter = 0;
 
   /* Events */
   event LogEvent(
@@ -80,18 +79,19 @@ contract Instrument {
    * @return totalEth Collective amount of 
    * @return midAge
    */
-  function pool(uint idx) public returns (uint participants, uint totalEth, uint midAge) {
+  function pool(uint idx)
+    public
+    returns (uint participants,
+             uint totalEth,
+             uint midAge) {
     participants = pools[idx].participants.size;
     totalEth = pools[idx].totalEth;
     midAge = pools[idx].midAge;
   }
 
   /**
-   * @dev Gives information about a specific pool.
-   * @param idx Index for the pool of interest.
-   * @return participants Number of users in the pool.
-   * @return totalEth Collective amount of 
-   * @return midAge
+   * @dev Creates and pushes new pool to the pools array.
+   * @param midAge The middle age for the pool to be created.
    */
   function createPool(uint midAge) private {
     Pool storage newPool;
@@ -137,8 +137,6 @@ contract Instrument {
    * @param user The cleared user to be added.
    */
   function signContract(Participant user) private {
-    uint COST = 10 * (10 ** 18);
-    
     user.verified = false;
     user.added = true;
     uint poolIdx = poolForAge(user.startAge);
@@ -209,8 +207,8 @@ contract Instrument {
 
           // remove user, revoke dividends
           IterableMapping.remove(pools[p].participants, addrs[i]);
-          pendingDividends[owner] += pendingDividends[addr[i]];
-          pendingDividends[addr[i]] = 0;
+          pendingDividends[owner] += pendingDividends[addrs[i]];
+          pendingDividends[addrs[i]] = 0;
 
           LogDelete(addrs[i], 1, "deleted user");
           count++;
@@ -239,11 +237,13 @@ contract Instrument {
       }
       pools[p].midAge++;
     }
-    poolYearlyCounter++;
+    poolShiftCounter++;
   }
   
   /**
-
+   * @dev A user can attempt to collect their dividends. It is
+   *      recommended to test the availablility with a call before
+   *      envoking a transfer.
    */
   function collectDividend() public stopInEmergency returns (bool) {
     var amount = pendingDividends[msg.sender];
@@ -256,22 +256,36 @@ contract Instrument {
       }
       return true;
   }
-  
-  /**
-
-   */
-  function selfDestruct() public adminOnly {
-    // TODO : kill contract, return eth to users
-    // admin
-
-  }
 
   /**
-
+   * @dev This will pause the contract. Triggers the program
+   *      emergency state that locks down most functions.
    */
   function breakCircuit() public adminOnly {
     // TODO : kill contract, return eth to users
     // admin
+    
+  }
 
+  /**
+   * @dev Called when updating the terms of the contract. Migrates
+   *      the funds and user data to the new contact address. 
+   */
+  // function upgradeContractTransfer(address newContract) 
+  //   public adminOnly 
+  //   returns (Pool[] pools, 
+  //           mapping(address => Participant) verifiedUsers,
+  //           mapping(address => uint) pendingDividends,
+  //           uint poolShiftCounter) {
+
+  // }
+
+  /**
+   * @dev This will destroy the contract, and return funds to the
+   *      owner. Can be called in emergency to prevent user funds from
+   *      being siphoned if admin access is comprimised.
+   */
+  function selfDestruct() public adminOnly {
+    selfdestruct(owner);
   }
 }

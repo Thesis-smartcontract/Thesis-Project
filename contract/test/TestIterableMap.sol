@@ -7,7 +7,7 @@ import "../contracts/TestMapping.sol";
 contract TestIterableMap {
 
   function testCanSetAndGetParticipant() {
-    IterableMapping.itmap storage testMap;
+    IterableMapping.itmap testMap;
     address testAddr = msg.sender;
 
     IterableMapping.set(testMap, testAddr, true);
@@ -17,7 +17,7 @@ contract TestIterableMap {
   }
 
   function testCanRemoveParticipant() {
-    IterableMapping.itmap storage testMap;
+    IterableMapping.itmap testMap;
     address testAddr = msg.sender;
 
     IterableMapping.set(testMap, testAddr, true);
@@ -32,15 +32,11 @@ contract TestIterableMap {
   }
 
   function testCanIterateOverParticipants() {
-    IterableMapping.itmap storage testMap;
+    IterableMapping.itmap testMap;
     address testAddr1 = msg.sender;
     uint count = 0;
     uint expectedCount = 1;
-    
     IterableMapping.set(testMap, testAddr1, true);
-
-    // bytes4 callbackId = bytes4(sha3("cb()"));
-    // IterableMapping.forEach(testMap, callbackId);
 
     for (var i = IterableMapping.iterate_start(testMap); IterableMapping.iterate_valid(testMap, i); i = IterableMapping.iterate_next(testMap, i)) {
       var (key, value) = IterableMapping.iterate_get(testMap, i);
@@ -51,7 +47,7 @@ contract TestIterableMap {
   }
 
   function testItermapIntegration() {
-    IterableMapping.itmap storage testMap;
+    IterableMapping.itmap testMap;
     address testAddr1 = msg.sender;
     uint count = 0;
     uint expectedCount = 1;
