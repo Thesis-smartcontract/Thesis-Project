@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { getEthPrice } from '../../Actions/User/UserActions.js'
+import { getEthPrice, getPoolEthAmount } from '../../Actions/User/UserActions.js'
 import { connect } from 'react-redux'
 
 class UserPoolInfo extends Component {
   constructor(props) {
     super(props)
-    console.log(props)
   }
 
   async componentDidMount() {
@@ -14,7 +13,7 @@ class UserPoolInfo extends Component {
   }
 
   render() {
-    let { userPool } = this.props;
+    let { userPool, getPoolEthAmount } = this.props;
     return (
     <div>
     <ul>
@@ -23,6 +22,7 @@ class UserPoolInfo extends Component {
       <li>{userPool.poolPart}</li>
       <li>{userPool.ethPrice}</li>
     </ul>
+      <button onClick={getPoolEthAmount.bind(null, 5)}>Increment</button>
     </div>
     )
   }
@@ -33,4 +33,5 @@ const mapStateToProps = state => ({
   userPool: state.UserPool
 })
 
-export default connect(mapStateToProps, { getEthPrice })(UserPoolInfo);
+
+export default connect(mapStateToProps, { getEthPrice, getPoolEthAmount })(UserPoolInfo);

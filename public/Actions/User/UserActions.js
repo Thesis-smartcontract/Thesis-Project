@@ -10,9 +10,11 @@ export const GET_ETH_PRICE = 'GET_ETH_PRICE'
 // to call these function use store.dispatch(getPoolEthAmount)
 // you can get the state by using store.getState()
 
-export const getPoolEthAmount = () => {
+export const getPoolEthAmount = (incrementAmount) => {
+  console.log('you clicked')
   return {
-    type: GET_ETH_AMOUNT
+    type: GET_ETH_AMOUNT,
+    payload: incrementAmount
   };
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -17,10 +17,66 @@ import UserPoolInfo from '../Containers/User/UserPoolInfo'
 
 const store = createStore(reducers, applyMiddleware(ReduxThunk, ReduxPromise));
 
+
+import { default as Web3} from 'web3';
+import { default as contract } from 'truffle-contract'
+// import instrument_artifacts from '../../contract/build/contracts/Instrument.json'
+// var Instrument = contract(instrument_artifacts);
+
+// var accounts;
+// var account;
+// var instrument;
+// let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 // import { Route, HashRouter, NavLink } from 'react-router-dom';
 
-const App = () => {
- return (
+class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      account: this.props.account,
+      Instrument: this.props.Instrument
+    }
+  }
+
+  componentDidMount() {
+    var instrument;
+    var poolIdx;
+    var midAgeForPool = 72;
+    var age = 69;
+    var price = 10;
+    var web3 = this.props.web3
+    var account = this.props.account
+    console.log('props',this.props)
+
+
+    this.props.Instrument.deployed().then(instance => {
+      instrument = instance;
+      return instrument.verify(account, age, { from: account });
+    })
+    .then(() => {
+      return instrument.poolForAge.call(age);
+    })
+    .then((pool) => {
+      poolIdx = pool.c[0];
+      return instrument.pool.call(poolIdx);
+    })
+    .then(pool => {
+      pool.forEach((p,i) => {
+        console.log('this is the pool info midage?', JSON.parse(p))
+      })
+
+      console.log('the pool',pool)
+      console.log("balance before signup", instrument);
+    })
+    .catch(e => { 
+      console.log(e);
+    });
+  }
+
+ render() {
+  console.log(this.state)
+   return (
   <Provider store={store}>
   <HashRouter>
     <div>
@@ -38,7 +94,8 @@ const App = () => {
     </div>
    </HashRouter>
    </Provider>
- ) 
+  ) 
+ }
 }
 
 export default App;
