@@ -27,6 +27,7 @@ contract Instrument {
   bool private stopped = false;
   address private owner;
   uint cost = 10;
+  uint yearlyPoolCounter = 0;
 
   /* Events */
   event LogEvent(
@@ -102,10 +103,10 @@ contract Instrument {
   
   /**
    * @dev Admin verifies the age of the user after genomic test. Allows user
-   *   to sign up for the contract.
+   *      to sign up for the contract.
    * @param addr Address to be verified.
    * @param age Age of the verified user. Reference for adding to pool, and 
-   *   also allowing them to sign up only within one year. 
+   *        also allowing them to sign up only within one year. 
    */
   function verify(address addr, uint age) public {
     verifiedUsers[addr].verified = true;
@@ -117,7 +118,7 @@ contract Instrument {
 
   /**
    * @dev Fallback function to recieve payments. Prevents any "donations"
-   *   being sent to the contract because this a) costs gas, b) requires 10eth.
+   *      being sent to the contract because this a) costs gas, b) requires 10eth.
    */
   function () payable {
     uint COST = 10 * (10 ** 18);
@@ -132,7 +133,7 @@ contract Instrument {
 
   /**
    * @dev Adds a participant to the correct pool after a verified 
-   *   user sends ether to invoke contract.
+   *      user sends ether to invoke contract.
    * @param user The cleared user to be added.
    */
   function signContract(Participant user) private {
@@ -151,7 +152,7 @@ contract Instrument {
    * @dev Returns the index of the correct pool for a given age.
    * @param age Age of user we are concerned with.
    * @return idx The index of the pool users of this age are
-   *   allocated to.
+   *         allocated to.
    */
   function poolForAge(uint age) public returns (uint idx) {
     uint BASE = 20;
@@ -167,9 +168,9 @@ contract Instrument {
   
   /**
    * @dev A user can invoke this function if they want to exit the 
-   *   contract, leave their pool and get their money back. Can only be
-   *   invoked within 5 years of signing up, and if the pool is not 
-   *   receiving dividends.
+   *      contract, leave their pool and get their money back. Can only be
+   *      invoked within 5 years of signing up, and if the pool is not 
+   *      receiving dividends.
    */
   function earlyExit() public stopInEmergency {
     for (var p = 0; p < pools.length; p++) {
@@ -195,18 +196,24 @@ contract Instrument {
   }
   
   /**
-   * @dev Admin passes a list of people who failed to pass verifying 
-   *   genetic info to the org. Will remove those users from
-   * @param user The cleared user to be added.
+   * @dev Admin passes a list of people who failed the genetic test.
+   *      Will remove those users from pool and collect their unclaimed 
+   *      dividends.
+   * @param addrs Array of users to be removed.
    */
   function removeFromPool(address[] addrs) public {
     uint count = 0;
     for (var i = 0; i < addrs.length; i++) {
       for (var p = 0; p < pools.length; p++) {
         if (IterableMapping.contains(pools[p].participants, addrs[i])) {
-          count++;
+
+          // remove user, revoke dividends
           IterableMapping.remove(pools[p].participants, addrs[i]);
-          LogDelete(addrs[i], 1, "deleted user"); 
+          pendingDividends[owner] += pendingDividends[addr[i]];
+          pendingDividends[addr[i]] = 0;
+
+          LogDelete(addrs[i], 1, "deleted user");
+          count++;
           break;
         }
       }
@@ -216,7 +223,9 @@ contract Instrument {
 
 
   /**
-
+   * @dev Admin triggers yearly release of dividends for pools
+   *      above the age threshold. This is used to increment the pool
+   *      mid age, as well.
    */
   function releaseDividends() public {
     for (var p = 0; p < pools.length; p++) {
@@ -230,8 +239,9 @@ contract Instrument {
       }
       pools[p].midAge++;
     }
+    poolYearlyCounter++;
   }
-
+  
   /**
 
    */
