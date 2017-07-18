@@ -30,11 +30,6 @@ body {
   padding-left: 30px;
   padding-right: 30px;
 }
-/* 
-.headline .logo .title {
-  font-size: 100px;
-  text-align: center;
-} */
 
 .headline h1 {
   font-size: 70px;
@@ -89,7 +84,7 @@ body, hr.fancy-line:after {
 }
 
 img {
-  width: 30%;
+  width: 20%;
 } 
 
 .eth-icon {
