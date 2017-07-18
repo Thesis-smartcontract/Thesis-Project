@@ -27,7 +27,7 @@ const App = () => {
     <div>
       <NavBar />
       <Switch>
-        <Route exact path="/" component={Landing}/>
+        <Route exact path="/" component={Home}/>
         <Route path="/approval" component={ApprovalPage}/>
         <Route path="/contributing" component={Contributing}/>
         <Route path="/tokenDetail" component={TokenDetail}/>
@@ -35,7 +35,6 @@ const App = () => {
         <Route path="/about" component={About}/>
         <Route path="/admin" component={Admin}/>
         <Route path="/userPoolInfo" component={UserPoolInfo}/>
-        <Route path="/home" component={Home}/>
       </Switch>
     </div>
    </HashRouter>

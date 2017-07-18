@@ -35,11 +35,11 @@ const NavBar = () => {
           {userOrAdmin}
           <li className="nav-item">
             <a href="https://twitter.com/" target="_blank" className="nav-link">
-                <i className="fa fa-twitter" aria-hidden="true"></i> Link to our twitter(twitter icon)
+                <i className="fa fa-twitter" aria-hidden="true"></i>
             </a>
           </li>
           <li className="nav-item">
-            <a href="https://github.com/" target="_blank" className="nav-link"> Link to our github(github icon)
+            <a href="https://github.com/" target="_blank" className="nav-link">
                 <i className="fa fa-github" aria-hidden="true"></i>
             </a>
           </li>

@@ -6,6 +6,7 @@ import Home from './Home.jsx';
 import Mission from './Mission.jsx';
 import Strategy from './Strategy.jsx';
 import './home.css';
+// import EthIcon from 'public/Components/Home/eth_icon.png';
 
 module.exports = class Home extends Component {
 

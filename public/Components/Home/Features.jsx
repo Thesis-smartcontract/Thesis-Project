@@ -5,17 +5,20 @@ const Features = (props) => {
   let info = [
     {
       title: 'Transparency',
+      glyph: 'fa fa-search',
       detail: `Contract source code and testing is freely 
                avaiable on github.`
     },
     {
       title: 'Reliablity',
+      glyph: 'fa fa-shield',
       detail: `The platform is self-executing. The only admin
                required is verifying user age with a genetic
                swab test, and triggering yearly dividends.`
     },
     {
       title: 'Security',
+      glyph: 'fa fa-key',
       detail: `The contract is heavily tested within our
                own platform, as well as leading 3rd party
                vendors. Built with circuit-break guards, 
@@ -24,6 +27,7 @@ const Features = (props) => {
     },
     {
       title: 'Anonymity',
+      glyph: 'fa fa-user-secret',
       detail: `Your ether wallet is the only personal data we 
                require. Yuor genetic swabs are usedto ensure age,
                but cannot be used to trace users.`
@@ -34,6 +38,7 @@ const Features = (props) => {
     .map((feat, idx) => 
       <Feature 
         key={idx}
+        glyph={feat.glyph}
         title={feat.title} 
         detail={feat.detail}
       />
@@ -41,7 +46,7 @@ const Features = (props) => {
 
   return (
     <div className="features">
-      {features}
+       {features} 
     </div>
   );
 };
