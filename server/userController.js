@@ -14,6 +14,18 @@ module.exports = {
         res.json({ success: true, message: 'all users', users: users })
       })
   },
+  getUserInfo: (req, res) => {
+    console.log(req)
+    User
+      .findOne({
+        'walletId': req.params.walletAddress
+      })
+      .exec( function(err, user) {
+        if (err) return console.log(err)
+        if (!user) return res.json({ success: false, message: "user doesn't exist", user: user })
+        res.json({ success: true, message: 'user', user: user })
+      })
+  },
   create: (req, res) => {
     const newUser = new User(req.body);
     newUser.save(function(err, user) {

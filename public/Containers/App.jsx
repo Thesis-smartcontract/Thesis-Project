@@ -13,14 +13,19 @@ import FAQ from '../Containers/User/FAQ.jsx';
 import TokenDetail from '../Components/User/TokenDetail.jsx';
 import Admin from '../Containers/Admin/Admin';
 import NavBar from '../Containers/NavBar';
+<<<<<<< 01ce559ea37d4390e6e1f33788ab0551c2f76bef
 import UserPoolInfo from '../Containers/User/UserPoolInfo';
 import Home from '../Components/Home/Home.jsx'
 
+=======
+import UserPoolInfo from '../Containers/User/UserPoolInfo'
+import { account, web3, Instrument } from '../web3.js'
+>>>>>>> Worked with user pool page to work with web3 and blockchain
 const store = createStore(reducers, applyMiddleware(ReduxThunk, ReduxPromise));
 
 
-import { default as Web3} from 'web3';
-import { default as contract } from 'truffle-contract'
+// import { default as Web3} from 'web3';
+// import { default as contract } from 'truffle-contract'
 // import instrument_artifacts from '../../contract/build/contracts/Instrument.json'
 // var Instrument = contract(instrument_artifacts);
 
@@ -31,52 +36,51 @@ import { default as contract } from 'truffle-contract'
 // import { Route, HashRouter, NavLink } from 'react-router-dom';
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      account: this.props.account,
-      Instrument: this.props.Instrument
-    }
-  }
 
   componentDidMount() {
-    var instrument;
-    var poolIdx;
-    var midAgeForPool = 72;
-    var age = 69;
-    var price = 10;
-    var web3 = this.props.web3
-    var account = this.props.account
-    console.log('props',this.props)
+    // var instrument;
+    // var poolIdx;
+    // var midAgeForPool = 72;
+    // var age = 69;
+    // var price = 10;
 
+    // Instrument.deployed().then(instance => {
+    //   console.log('the user acct', account)
+    //   instrument = instance
+    //   instrument.verify(account, 75, { from: account })
+    //   console.log('instrument address', instrument.address)
+    //   return instrument.poolForAge.call(age);
+    // }).then((pool) => {
+    //   poolIdx = pool.c[0];
+    //   return instrument.pool.call(poolIdx);
+    // }).then(pool => {
+    //   console.log('pool??',pool)
+    //   console.log('bitchass')
+    //   // return instrument.earlyExit({ from: account })
+      
+    // }).then(() => {
+    //   console.log('hello')
+    //   return instrument.poolForAge.call(age);
+    //   console.log('world')
+    // })
+    // .then((pool) => {
+    //   poolIdx = pool.c[0];
+    //   return instrument.pool.call(poolIdx);
+    // })
+    // .then(pool => {
+    //   // pool.forEach((p,i) => {
+    //   //   console.log('this is the pool info midage?', JSON.parse(p))
+    //   // })
 
-    this.props.Instrument.deployed().then(instance => {
-      instrument = instance;
-      return instrument.verify(account, age, { from: account });
-    })
-    .then(() => {
-      return instrument.poolForAge.call(age);
-    })
-    .then((pool) => {
-      poolIdx = pool.c[0];
-      return instrument.pool.call(poolIdx);
-    })
-    .then(pool => {
-      pool.forEach((p,i) => {
-        console.log('this is the pool info midage?', JSON.parse(p))
-      })
-
-      console.log('the pool',pool)
-      console.log("balance before signup", instrument);
-    })
-    .catch(e => { 
-      console.log(e);
-    });
+    //   console.log('the pool',pool)
+    //   console.log("balance before signup", instrument);
+    // })
+    // .catch(e => { 
+    //   console.log(e);
+    // });
   }
 
  render() {
-  console.log(this.state)
    return (
   <Provider store={store}>
   <HashRouter>
