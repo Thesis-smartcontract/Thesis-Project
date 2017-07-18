@@ -3,6 +3,7 @@ import './logo.scss';
 
 const Headline = (props) => (
   <div className="headline">
+    <h1 className="title">Gennuity</h1>
     <div className="logo">
       <div className="active-logo">
         <div className="side left"></div>
@@ -11,7 +12,6 @@ const Headline = (props) => (
         <div className="side back"></div>
         <div className="shadow"></div>
       </div>
-      <h1 className="title">Gennuity</h1>
     </div>
     <h1>Social Security for the 21st Century</h1>
     <div className="eth-icon">
