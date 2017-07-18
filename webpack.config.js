@@ -2,6 +2,7 @@ const path = require('path');
 
 const SRC_DIR = path.resolve(__dirname, 'public');
 const BUILD_DIR = path.resolve(__dirname, 'public');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: path.resolve(SRC_DIR, 'index.js'),

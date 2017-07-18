@@ -13,7 +13,8 @@ import FAQ from '../Containers/User/FAQ.jsx';
 import TokenDetail from '../Components/User/TokenDetail.jsx';
 import Admin from '../Containers/Admin/Admin';
 import NavBar from '../Containers/NavBar';
-import UserPoolInfo from '../Containers/User/UserPoolInfo'
+import UserPoolInfo from '../Containers/User/UserPoolInfo';
+import Home from '../Components/Home/Home.jsx'
 
 const store = createStore(reducers, applyMiddleware(ReduxThunk, ReduxPromise));
 
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/about" component={About}/>
         <Route path="/admin" component={Admin}/>
         <Route path="/userPoolInfo" component={UserPoolInfo}/>
+        <Route path="/home" component={Home}/>
       </Switch>
     </div>
    </HashRouter>

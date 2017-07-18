@@ -1,0 +1,41 @@
+
+body {
+  background-color: light-grey;
+  width: 100%;
+}
+
+.container {
+  display: grid;
+  grid-gap: 20px;
+
+}
+
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.feature {
+  padding: 10px;
+  margin: 10px;
+}
+
+.feature h1.feature-title {
+}
+
+.feature p.feature-detail {
+  font-size: 20px;
+}
+
+.headline h1 {
+  font-size: 50px;
+}
+
+.headline h2 {
+  font-size: 30px;
+}
+
+.mission p {
+  font-size: 18px;
+}

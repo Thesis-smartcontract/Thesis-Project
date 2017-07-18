@@ -1,18 +1,21 @@
+import React, { Component } from 'react';
+import Feature from './Feature.jsx';
+
 const Features = (props) => {
   let info = [
     {
-      title: 'Transparent',
+      title: 'Transparency',
       detail: `Contract source code and testing is freely 
                avaiable on github.`
     },
     {
-      title: 'Reliable',
+      title: 'Reliablity',
       detail: `The platform is self-executing. The only admin
                required is verifying user age with a genetic
                swab test, and triggering yearly dividends.`
     },
     {
-      title: 'Secure',
+      title: 'Security',
       detail: `The contract is heavily tested within our
                own platform, as well as leading 3rd party
                vendors. Built with circuit-break guards, 
@@ -20,7 +23,7 @@ const Features = (props) => {
                self-destruct support.`
     },
     {
-      title: 'Anonymous',
+      title: 'Anonymity',
       detail: `Your ether wallet is the only personal data we 
                require. Yuor genetic swabs are usedto ensure age,
                but cannot be used to trace users.`
@@ -28,16 +31,19 @@ const Features = (props) => {
   ];
 
   let features = info
-    .map(feat => 
+    .map((feat, idx) => 
       <Feature 
+        key={idx}
         title={feat.title} 
         detail={feat.detail}
       />
     );
 
   return (
-    <div>
-      {features};
+    <div className="features">
+      {features}
     </div>
   );
-}
+};
+
+module.exports = Features;

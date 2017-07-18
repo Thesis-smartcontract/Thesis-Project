@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
+import Button from './Button.jsx';
+import Features from './Features.jsx';
+import Headline from './Headline.jsx';
+import Home from './Home.jsx';
+import Mission from './Mission.jsx';
+import Strategy from './Strategy.jsx';
+import './home.css';
 
-
-class Home extends Component {
+module.exports = class Home extends Component {
 
   render() {
     return (
-      <div>
-        <Navbar/>
+      <div className="container home">
         <Headline/>
         <Features/>
         <Strategy/>
         <Mission/>
         <div>
-          <Button name="More Info"/>
-          <Button name="Sign Up"/>
+          <Button title="More Info" to="/about"/>
+          <Button title="Sign Up" to="/approval"/>
         </div>
       </div>
     )
   }
-}
+};

@@ -1,7 +1,11 @@
+import React, { Component } from 'react';
+
 const Feature = (props) => (
-  <div class="feature">
-    <img src={props.url} class="feature-image"></img>
-    <h1 class="feature-title">{props.title}</h1>
-    <p class="feature-detail">{props.detail}</p>
+  <div className="feature">
+    <img src={props.url} className="feature-image"></img>
+    <h1 className="feature-title">{props.title}</h1>
+    <p className="feature-detail">{props.detail}</p>
   </div>
 );
+
+module.exports = Feature;

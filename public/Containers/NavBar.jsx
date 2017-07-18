@@ -32,7 +32,7 @@ const NavBar = () => {
           <li><NavLink to="/tokenDetail" activeClassName="activeNav">Token Details</NavLink></li>
           <li><NavLink to="/approval" activeClassName="activeNav">Get Approved</NavLink></li>
           <li><NavLink to="/faq" activeClassName="activeNav">FAQ</NavLink></li>
-          {walletOrAdmin}
+          {userOrAdmin}
           <li className="nav-item">
             <a href="https://twitter.com/" target="_blank" className="nav-link">
                 <i className="fa fa-twitter" aria-hidden="true"></i> Link to our twitter(twitter icon)
