@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { account, web3, Instrument } from '../../web3.js'
+// import { account, web3, Instrument } from '../../web3.js'
 export const GET_POOL_INFO = 'GET_POOL_INFO';
 export const GET_ETH_PRICE = 'GET_ETH_PRICE';
 export const IS_VERIFIED = 'IS_VERIFIED'
@@ -16,7 +16,7 @@ export const isVerified = (walletAddress) => {
   }
 }
 
-export const getPoolInfo = async () => {
+export const getPoolInfo = async (Instrument) => {
   let instrument;
   let poolIdx;
   let poolInfoObj = {};
@@ -38,10 +38,15 @@ export const getPoolInfo = async () => {
     poolInfoObj.poolEthTotal = JSON.parse(pool[1])
     poolInfoObj.midAge = JSON.parse(pool[2])
   })
-  console.log(poolInfoObj)
+  if(isFound) {
+    return {
+      type: GET_POOL_INFO,
+      payload: poolInfoObj
+    };
+  }
   return {
     type: GET_POOL_INFO,
-    payload: poolInfoObj
+    payload: false
   };
 };
 

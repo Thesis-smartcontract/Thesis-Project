@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import ReduxThunk from 'redux-thunk';
-import ReduxPromise from 'redux-promise';
-import reducers from '../Reducers/RootReducer';
+import { Provider, connect } from 'react-redux';
 import Landing from '../Components/User/LandingPage.jsx';
 import ApprovalPage from '../Components/User/ApprovalPage.jsx';
 import Contributing from '../Containers/User/Contributing';
@@ -13,79 +9,37 @@ import FAQ from '../Containers/User/FAQ.jsx';
 import TokenDetail from '../Components/User/TokenDetail.jsx';
 import Admin from '../Containers/Admin/Admin';
 import NavBar from '../Containers/NavBar';
-<<<<<<< 01ce559ea37d4390e6e1f33788ab0551c2f76bef
-import UserPoolInfo from '../Containers/User/UserPoolInfo';
 import Home from '../Components/Home/Home.jsx'
-
-=======
-import UserPoolInfo from '../Containers/User/UserPoolInfo'
-import { account, web3, Instrument } from '../web3.js'
->>>>>>> Worked with user pool page to work with web3 and blockchain
-const store = createStore(reducers, applyMiddleware(ReduxThunk, ReduxPromise));
-
-
-// import { default as Web3} from 'web3';
-// import { default as contract } from 'truffle-contract'
-// import instrument_artifacts from '../../contract/build/contracts/Instrument.json'
-// var Instrument = contract(instrument_artifacts);
-
-// var accounts;
-// var account;
-// var instrument;
-// let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-// import { Route, HashRouter, NavLink } from 'react-router-dom';
+import UserPoolInfo from '../Containers/User/UserPoolInfo';
+import { getEthPrice, getPoolInfo, isVerified } from '../Actions/User/UserActions.js';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
-    // var instrument;
-    // var poolIdx;
-    // var midAgeForPool = 72;
-    // var age = 69;
-    // var price = 10;
+  }
 
-    // Instrument.deployed().then(instance => {
-    //   console.log('the user acct', account)
-    //   instrument = instance
-    //   instrument.verify(account, 75, { from: account })
-    //   console.log('instrument address', instrument.address)
-    //   return instrument.poolForAge.call(age);
-    // }).then((pool) => {
-    //   poolIdx = pool.c[0];
-    //   return instrument.pool.call(poolIdx);
-    // }).then(pool => {
-    //   console.log('pool??',pool)
-    //   console.log('bitchass')
-    //   // return instrument.earlyExit({ from: account })
-      
-    // }).then(() => {
-    //   console.log('hello')
-    //   return instrument.poolForAge.call(age);
-    //   console.log('world')
-    // })
-    // .then((pool) => {
-    //   poolIdx = pool.c[0];
-    //   return instrument.pool.call(poolIdx);
-    // })
-    // .then(pool => {
-    //   // pool.forEach((p,i) => {
-    //   //   console.log('this is the pool info midage?', JSON.parse(p))
-    //   // })
+  async componentDidMount() {
+    console.log('app props',this.props)
 
-    //   console.log('the pool',pool)
-    //   console.log("balance before signup", instrument);
-    // })
-    // .catch(e => { 
-    //   console.log(e);
-    // });
+    const { getEthPrice, isVerified, getPoolInfo, userPool, admin, web3Instance, } = this.props;
+    // await isAdmin(web3Instance.account)
+    // if(!admin.isAdmin) {
+      await getEthPrice()
+      await isVerified(web3Instance.Account)
+      if(userPool.isVerified) {
+        await getPoolInfo(web3Instance.Instrument);
+      }
+    // }
   }
 
  render() {
+   const { store } = this.props;
    return (
   <Provider store={store}>
   <HashRouter>
     <div>
-      <NavBar />
+      <NavBar admin={false}/>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path="/approval" component={ApprovalPage}/>
@@ -99,8 +53,16 @@ class App extends Component {
     </div>
    </HashRouter>
    </Provider>
-  ) 
+  );
  }
+};
+
+const mapStateToProps = state => {
+  return {
+    web3Instance: state.Web3Instance,
+    userPool: state.UserPool,
+    admin: state.Admin
+  };
 }
 
-export default App;
+export default connect(mapStateToProps, { getEthPrice, getPoolInfo, isVerified })(App);

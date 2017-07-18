@@ -18,7 +18,7 @@ module.exports = {
     console.log(req)
     User
       .findOne({
-        'walletId': req.params.walletAddress
+        walletId: req.params.walletAddress
       })
       .exec( function(err, user) {
         if (err) return console.log(err)
