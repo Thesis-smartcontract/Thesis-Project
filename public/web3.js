@@ -18,3 +18,5 @@ Instrument.setProvider(web3.currentProvider)
 const account = web3.eth.coinbase
 
 export {account, web3, Instrument}
+
+// finish this!

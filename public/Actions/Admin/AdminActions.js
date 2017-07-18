@@ -1,12 +1,12 @@
 import axios from 'axios';
+import { account, web3, Instrument } from '../../web3.js'
 
+export const IS_ADMIN = 'IS_ADMIN';
 
-
-export const FETCH_ADMINS = 'GET_ADMINS';
-
-export const getAdmins = () => {
+export const getAdmins = (userAddress) => {
+  const request = axios.get(`http://localhost:3000/api/admin/${userAddress}`)
   return {
-    type: FETCH_ADMINS,
-    payload: axios.get("http://localhost:3000/api/getAdmins")
+    type: IS_ADMIN,
+    payload: request.success
   };
 };

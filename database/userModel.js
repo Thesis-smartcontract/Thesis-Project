@@ -5,7 +5,8 @@ const userSchema = mongoose.Schema({
   email: String,
   startAge: { type: Number, min: 20 },
   verified: { type: Boolean, default: false },
-  testResults: {type: [{isLiving: Boolean, date: Date, age: Number}], default: [{ isLiving: false, date: null, age: null}]}
+  testResults: {type: [{isLiving: Boolean, date: Date, age: Number}], default: [{ isLiving: false, date: null, age: null}]},
+  isDeleted: { type: Boolean, default: false }
 })
 
 const User = mongoose.model('User', userSchema)

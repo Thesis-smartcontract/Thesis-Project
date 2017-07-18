@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { getEthPrice, getPoolInfo, isVerified } from '../../Actions/User/UserActions.js'
 import { connect } from 'react-redux'
-import { account, web3, Instrument } from '../../web3.js'
 import PoolInfo from '../../Components/User/PoolInfo.js'
+// delete this after only here for testing purposes
+import Admin from '../Admin/Admin'
 
 class UserPoolInfo extends Component {
   constructor(props) {
@@ -16,23 +17,6 @@ class UserPoolInfo extends Component {
     this.verifyButton = this.verifyButton.bind(this)
   }
 
-  async componentWillMount() {
-    // const { getEthPrice, isVerified } = this.props;
-    // await getEthPrice();
-    // await isVerified();
-    // console.log('the user pool info after is verified line 23', this.props.userPool)
-  }
-
-  async componentDidMount() {
-    const { getEthPrice, isVerified } = this.props;
-    await getEthPrice();
-    await isVerified();
-    const { getPoolInfo, userPool } = this.props;
-    if(userPool.isVerified) {
-      await getPoolInfo();
-    }
-  }
-
   togglePoolInfo() {
     let { userPool } = this.props;
     this.setState({
@@ -41,7 +25,7 @@ class UserPoolInfo extends Component {
   }
 
   verifyButton() {
-    Instrument.deployed().then(instance => {
+    this.props.web3Instance.Instrument.deployed().then(instance => {
       return instance.sendTransaction({ from: account, value: 10 * (10 ** 18) })
     })
     .then((transObj) => {
@@ -49,32 +33,44 @@ class UserPoolInfo extends Component {
       console.log('transaction obj', transObj)
     })
   }
+
+  getDividend() {
+    
+  }
   render() {
     let isInDatabaseButton = null;
 
     let { userPool } = this.props;
     if( this.state.showPoolInfo === true ) {
       isInDatabaseButton = <PoolInfo userPoolInfoObj={userPool}/> 
-    } else if(userPool.isVerified) {
+    } else if(userPool.isInPool) {
       isInDatabaseButton = <button onClick={this.togglePoolInfo}>Get Your Pool Info</button>
+    } else if(userPool.isVerified === true && userPool.isInPool === false) {
+      isInDatabaseButton = <div><p>Your DNA has been verified!</p><button onClick={this.verifyButton}>Sign Contract</button></div>
     } else if(userPool.isVerified === false) {
-      isInDatabaseButton = <button onClick={this.verifyButton}>Verify Your Acct</button>
-    } else {
+      isInDatabaseButton = <p>Awaiting to verify your DNA Sample</p>
+    } else if (userPool.isVerified === null) {
       isInDatabaseButton = <p>Please Sign Up!</p>
     }
 
     return (
       <div>
+        <button onClick={this.togglePoolInfo}>Get Your Pool Info</button>
         {isInDatabaseButton}
+        {/* delete this later only here for testing purposes */}
+        <Admin />
       </div>
     )
   }
 
 }
 
-const mapStateToProps = state => ({
-  userPool: state.UserPool
-})
+const mapStateToProps = state => {
+  return {
+    userPool: state.UserPool,
+    web3Instance: state.Web3Instance
+  }
+}
 
 
 export default connect(mapStateToProps, { getEthPrice, getPoolInfo, isVerified })(UserPoolInfo);
