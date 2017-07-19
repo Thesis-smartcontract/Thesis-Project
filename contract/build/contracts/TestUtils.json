@@ -1,8 +1,0 @@
-{
-  "contract_name": "TestUtils",
-  "abi": [],
-  "unlinked_binary": "0x60606040523415600b57fe5b5b60338060196000396000f30060606040525bfe00a165627a7a72305820ceb5dbb1a4141c6334e1ebbc24255645b61bc51b0247d255d00519a896b47c370029",
-  "networks": {},
-  "schema_version": "0.0.5",
-  "updated_at": 1499892440944
-}
