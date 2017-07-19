@@ -1,3 +1,4 @@
 node_modules
 bundle.js
 public/bower_components
+.env

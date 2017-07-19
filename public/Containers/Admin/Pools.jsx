@@ -19,35 +19,6 @@ export default class Pools extends Component {
 
     this.init();
   }
-
-  // init() {
-  //   Instrument.setProvider(web3.currentProvider);
-
-  //   web3.eth.getAccounts((err, accs) => {
-  //     if (err != null) {
-  //       alert("There was an error fetching your accounts.");
-  //       return;
-  //     }
-
-  //     if (accs.length == 0) {
-  //       alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
-  //       return;
-  //     }
-
-  //     accounts = accs;
-  //     account = accounts[0];
-  
-  //     Instrument.deployed().then(instance => {
-  //       instrument = instance;
-  //       return instrument.pools({ from: account[0] });
-  //     }).then(pools => {
-  //       this.state.pools = pools;
-  //     }).catch(e => {
-  //       console.log(e);
-  //       self.setStatus("Error getting balance; see log.");
-  //     });
-  //   });
-  // }
   
   render() {
     var pools = this.state.pools.map((pool, idx) => (

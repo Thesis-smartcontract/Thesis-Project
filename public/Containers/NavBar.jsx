@@ -1,16 +1,14 @@
 import { NavLink } from 'react-router-dom';
 import React from 'react'
 
-let admin = true;
-
-const NavBar = () => {
+const NavBar = ({admin}) => {
 
   let userOrAdmin = null;
 
   if(admin) {
     userOrAdmin = (<li><NavLink to="/admin" activeClassName="activeNav">Admin</NavLink></li>);
   } else {
-    userOrAdmin = (<li><NavLink to="/wallet" activeClassName="activeNav">Wallet</NavLink></li>);
+    userOrAdmin = (<li><NavLink to="/userPoolInfo" activeClassName="activeNav">Your Pool</NavLink></li>);
   }
 
   return (

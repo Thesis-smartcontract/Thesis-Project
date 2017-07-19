@@ -163,7 +163,23 @@ contract Instrument {
       }
     }
   }
-  
+
+    /**
+   * @dev Returns the index of the correct pool for a given user address
+   * @return idx The index of the pool user of this address is
+   *         allocated to.
+   */
+  function poolForAddress() public returns (uint idx, bool found) {
+    found = false;
+    for (var p = 0; p < pools.length; p++) {
+      if (IterableMapping.contains(pools[p].participants, msg.sender)) {
+        idx = p;
+        found = true;
+        break;
+      }
+    }
+  }
+
   /**
    * @dev A user can invoke this function if they want to exit the 
    *      contract, leave their pool and get their money back. Can only be
@@ -283,6 +299,7 @@ contract Instrument {
   function breakCircuit() public adminOnly {
     // TODO : kill contract, return eth to users
     // admin
+    stopped = true;
     
   }
 
