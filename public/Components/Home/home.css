@@ -7,7 +7,6 @@ body {
 .container {
   display: grid;
   grid-gap: 40px;
-
 }
 
 .features {

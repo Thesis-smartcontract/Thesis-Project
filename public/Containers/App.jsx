@@ -15,6 +15,7 @@ import Admin from '../Containers/Admin/Admin';
 import NavBar from '../Containers/NavBar';
 import UserPoolInfo from '../Containers/User/UserPoolInfo';
 import Home from '../Components/Home/Home.jsx'
+import Footer from '../Components/Footer/Footer.jsx'
 
 const store = createStore(reducers, applyMiddleware(ReduxThunk, ReduxPromise));
 
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/admin" component={Admin}/>
         <Route path="/userPoolInfo" component={UserPoolInfo}/>
       </Switch>
+      <Footer />
     </div>
    </HashRouter>
    </Provider>

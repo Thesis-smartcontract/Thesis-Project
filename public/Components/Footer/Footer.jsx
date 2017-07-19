@@ -1,0 +1,16 @@
+import React, { Component } from 'react';
+import Icon from './Icon.jsx';
+import VertDiv from './VertDiv.jsx';
+import './footer.css';
+
+const Footer = (props) => (
+  <div className="footer">
+    <p className="footer-content">2017 Gennuity Inc</p>
+    <VertDiv />
+    <Icon href="https://twitter.com/" icon="fa fa-twitter"/>
+    <VertDiv />
+    <Icon href="https://github.com/" icon="fa fa-github"/>
+  </div>
+);
+
+module.exports = Footer;
