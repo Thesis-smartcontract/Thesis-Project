@@ -55,10 +55,7 @@ class UserPoolInfo extends Component {
 
     return (
       <div>
-        <button onClick={this.togglePoolInfo}>Get Your Pool Info</button>
         {isInDatabaseButton}
-        {/* delete this later only here for testing purposes */}
-        <Admin />
       </div>
     )
   }

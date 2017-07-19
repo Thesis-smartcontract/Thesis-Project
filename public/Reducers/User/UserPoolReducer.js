@@ -25,11 +25,10 @@ export const UserPool = (state={
     case GET_ETH_PRICE:
       return Object.assign({}, state, { ethPrice: action.payload.data.data.amount });
     case IS_VERIFIED:
-      if(action.payload.user) {
-        return Object.assign({}, state, { isVerified: action.payload.user.verified });
+      if(action.payload.data.success) {
+        return Object.assign({}, state, { isVerified: action.payload.data.user.verified });
       }
-      //using this below for testing purposes
-      return Object.assign({}, state, { isVerified: true });
+      return state;
     default:
       return state;
   }

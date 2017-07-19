@@ -20,12 +20,22 @@ adminRouter.put('/deleteUser', (req, res, next) => {
 },AdminController.deleteUser)
 
 adminRouter.get('/:walletAddress', (req, res) => {
+  console.log('the request', req)
   Admin.findOne({ walletId: req.params.walletAddress })
     .exec( function(err, admin) {
       if (err) return console.log(err);
       if (!admin) return res.json({ success: false, message: "admin doesn't exist", admin: admin });
       autho = true;
       res.json({ success: true, message: 'admin', admin: admin });
+    })
+})
+
+adminRouter.post('/', (req, res) => {
+    const newAdmin = new Admin(req.body);
+    newAdmin.save(function(err, admin) {
+      if (!admin) return res.json({success: false, message: 'admin already exists'})
+      if (err) return console.log(err)
+      res.json({success: true, message: 'admin created', admin: admin});
     })
 })
 

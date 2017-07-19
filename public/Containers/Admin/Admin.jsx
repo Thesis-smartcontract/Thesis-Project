@@ -6,11 +6,18 @@ import Portal from './Portal.jsx';
 import { account, web3, Instrument } from '../../web3.js';
 import VerifyUser from '../../Components/Admin/VerifyUser';
 import DeleteUser from '../../Components/Admin/DeleteUser';
+import GetDividend from '../../Components/Admin/GetDividend'
+import ReleaseDividend from '../../Components/Admin/ReleaseDividend'
+import AdminNavBar from '../../Components/Admin/AdminNavBar'
 
 class Admin extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      clicked: ''
+    }
 
+    this.navBarClick = this.navBarClick.bind(this);
     this.handleVerifySubmit = this.handleVerifySubmit.bind(this);
     this.handleDeleteSubmit = this.handleDeleteSubmit.bind(this);
   }
@@ -19,7 +26,7 @@ class Admin extends Component {
     alert('verify submit in parent component Admin!')
 
     // let instrument;
-    // Instrument.deployed().then(instance => {
+    // this.props.web3.Instrument.deployed().then(instance => {
     //   instrument = instance;
     //   instrument.verify(userAddress, userAge, { from: account })
     // })
@@ -32,7 +39,7 @@ class Admin extends Component {
 
   handleDeleteSubmit(userAddress) {
     // let instrument;
-    // Instrument.deployed().then(instance => {
+    // this.props.web3.Instrument.deployed().then(instance => {
     //   instrument = instance;
     //   return instrument.removeFromPool(userAddress, { from: account });
     // })
@@ -40,23 +47,46 @@ class Admin extends Component {
       walletId: userAddress
     })
   }
+  
+  navBarClick(clicked) {
+    this.setState({
+      clicked: clicked
+    })
+  }
 
   render(){
+    let currentAdminView = null;
+
+    if(this.state.clicked === 'verifyUser') {
+      currentAdminView = <VerifyUser 
+                              handleVerifySubmit={this.handleVerifySubmit}
+                              />;
+    } else if(this.state.clicked === 'deleteUser') {
+      currentAdminView = <DeleteUser
+                              handleDeleteSubmit={this.handleVerifySubmit}
+                              />
+    } else if(this.state.clicked === 'releaseDiv') {
+      currentAdminView = <GetDividend
+                              
+                              />
+    } else if(this.state.clicked === 'getDiv') {
+      currentAdminView = <ReleaseDividend
+                              
+                              />
+    }
+
     return(
       <div>
-        <VerifyUser 
-          handleVerifySubmit={this.handleVerifySubmit}
-        />
-        {/* <DeleteUser
-          handleDeleteSubmit={this.handleVerifySubmit}
-        /> */}
+        <AdminNavBar navBarClick={this.navBarClick}/>
+        {currentAdminView}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  admin: state.Admin
+  admin: state.Admin,
+  web3: state.Web3Instance
 })
 
 export default connect(mapStateToProps, {})(Admin);

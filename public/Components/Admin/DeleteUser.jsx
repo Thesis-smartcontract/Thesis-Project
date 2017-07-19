@@ -32,18 +32,16 @@ class DeleteUser extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          User's Wallet Address:  
-          <input name="walletAddress" type="text" value={this.walletAddress} onChange={this.handleChange} />
-        </label>
-        <br />
-        <label>
-          User's Age:
-          <input name="userAge" type="number" value={this.userAge} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div>
+        <p>Delete A User</p>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            User's Wallet Address:  
+            <input name="walletAddress" type="text" value={this.walletAddress} onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
     )
   }
 }

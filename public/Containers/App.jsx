@@ -12,6 +12,7 @@ import NavBar from '../Containers/NavBar';
 import Home from '../Components/Home/Home.jsx'
 import UserPoolInfo from '../Containers/User/UserPoolInfo';
 import { getEthPrice, getPoolInfo, isVerified } from '../Actions/User/UserActions.js';
+import { isAdmin } from '../Actions/Admin/AdminActions.js';
 
 class App extends Component {
   constructor(props) {
@@ -19,40 +20,38 @@ class App extends Component {
 
   }
 
-  async componentDidMount() {
-    console.log('app props',this.props)
+  componentDidMount() {
 
-    const { getEthPrice, isVerified, getPoolInfo, userPool, admin, web3Instance, } = this.props;
-    // await isAdmin(web3Instance.account)
-    // if(!admin.isAdmin) {
-      await getEthPrice()
-      await isVerified(web3Instance.Account)
-      if(userPool.isVerified) {
-        await getPoolInfo(web3Instance.Instrument);
-      }
-    // }
+    const { getEthPrice, isVerified, web3Instance, isAdmin } = this.props;
+      //change this string back into a variable later using this to toggle admin stuff
+      isAdmin(web3Instance.Account)
+      getEthPrice()
+      isVerified(web3Instance.Account)
   }
 
  render() {
    const { store } = this.props;
+   if(this.props.userPool.isVerified) {
+     this.props.getPoolInfo(this.props.web3Instance.Instrument);
+   }
    return (
-  <Provider store={store}>
-  <HashRouter>
-    <div>
-      <NavBar admin={false}/>
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route path="/approval" component={ApprovalPage}/>
-        <Route path="/contributing" component={Contributing}/>
-        <Route path="/tokenDetail" component={TokenDetail}/>
-        <Route path="/faq" component={FAQ}/>
-        <Route path="/about" component={About}/>
-        <Route path="/admin" component={Admin}/>
-        <Route path="/userPoolInfo" component={UserPoolInfo}/>
-      </Switch>
-    </div>
-   </HashRouter>
-   </Provider>
+    <Provider store={store}>
+    <HashRouter>
+      <div>
+        <NavBar admin={this.props.admin.isAdmin}/>
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route path="/approval" component={ApprovalPage}/>
+          <Route path="/contributing" component={Contributing}/>
+          <Route path="/tokenDetail" component={TokenDetail}/>
+          <Route path="/faq" component={FAQ}/>
+          <Route path="/about" component={About}/>
+          <Route path="/admin" component={Admin}/>
+          <Route path="/userPoolInfo" component={UserPoolInfo}/>
+        </Switch>
+      </div>
+    </HashRouter>
+    </Provider>
   );
  }
 };
@@ -65,4 +64,4 @@ const mapStateToProps = state => {
   };
 }
 
-export default connect(mapStateToProps, { getEthPrice, getPoolInfo, isVerified })(App);
+export default connect(mapStateToProps, { getEthPrice, getPoolInfo, isVerified, isAdmin })(App);
