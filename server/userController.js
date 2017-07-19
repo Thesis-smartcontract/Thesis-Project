@@ -15,7 +15,6 @@ module.exports = {
       })
   },
   getUserInfo: (req, res) => {
-    console.log(req)
     User
       .findOne({
         walletId: req.params.walletAddress

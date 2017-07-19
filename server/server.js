@@ -24,7 +24,7 @@ const app = express()
   .use(parser.urlencoded({ extended: true }))
   .use(express.static('public'))
   .use(morgan('dev'))
-  .use('/api/users', userRoutes)
+  .use('/api/user', userRoutes)
   .use('/api/admin', adminRoutes)
   .listen(PORT, 'localhost', () => {
     console.log(`Successfully connected to server on PORT: ${PORT}`)

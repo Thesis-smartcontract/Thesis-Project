@@ -20,7 +20,6 @@ adminRouter.put('/deleteUser', (req, res, next) => {
 },AdminController.deleteUser)
 
 adminRouter.get('/:walletAddress', (req, res) => {
-  console.log('the request', req)
   Admin.findOne({ walletId: req.params.walletAddress })
     .exec( function(err, admin) {
       if (err) return console.log(err);

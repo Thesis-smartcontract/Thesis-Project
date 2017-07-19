@@ -9,7 +9,7 @@ export const IS_VERIFIED = 'IS_VERIFIED'
 // to call these function use store.dispatch(getPoolEthAmount)
 // you can get the state by using store.getState()
 export const isVerified = (walletAddress) => {
-  const request = axios.get(`http://localhost:3000/api/users/user/${walletAddress}`)
+  const request = axios.get(`http://localhost:3000/api/user/find/${walletAddress}`)
   return {
     type: IS_VERIFIED,
     payload: request
@@ -51,7 +51,7 @@ export const getPoolInfo = async (Instrument) => {
 };
 
 export const getEthPrice = () => {
-  const request = axios.get('http://localhost:3000/api/users/ethPrice')
+  const request = axios.get('http://localhost:3000/api/user/ethPrice')
   return {
     type: GET_ETH_PRICE,
     payload: request

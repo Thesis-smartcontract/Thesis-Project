@@ -7,7 +7,6 @@ const initialState = {
 export const Admin = (state=initialState, action) => {
   switch(action.type) {
     case IS_ADMIN: {
-      console.log('admin reducer payload', action.payload)
       return Object.assign({}, state, {
         isAdmin: action.payload.data.success
       })
