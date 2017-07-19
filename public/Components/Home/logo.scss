@@ -8,10 +8,11 @@ $speed: 10;
   padding: 0px;
 }
 
-.logo h1.title {
+.headline h1.title {
+  // margin-left: 50px;
   font-size: 120px;
-  display: inline;
-  text-align: center;
+  // display: inline;
+  margin: auto;
 }
 
 .active-logo {
