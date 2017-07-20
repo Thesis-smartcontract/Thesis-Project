@@ -1,0 +1,27 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* grid-template-columns: repeat(6, 1fr);
+  grid-gap: 2px; */
+  text-align: center;
+  padding: 15px;
+}
+
+.footer p {
+  color: slategrey;
+}
+
+.footer a {
+  color: slategray;
+}
+
+.vertical-divider {
+    color: slategray; 
+}
+
+.footer-content {
+  /* text-align: center; */
+  margin: 0px;
+  padding: 8px;
+}

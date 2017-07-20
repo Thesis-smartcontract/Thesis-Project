@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "google-code-prettify": "^1.0.5"
   }
 }

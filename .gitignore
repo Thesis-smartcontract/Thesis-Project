@@ -1,4 +1,6 @@
 node_modules
 bundle.js
 public/bower_components
+contract/build/contracts
+package-lock.json
 .env
