@@ -5,26 +5,33 @@ class ApprovalPage extends Component {
   constructor(){
     super();
     this.state= {
-      ethWallet: '',
+      walletId: '',
       email: '',
-      age: null,
-      donate: null
+      startAge: null
     }
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleSubmitClick(stateObj) {
-    axios.post('http://localhost:3000/api/users', {
-      ethWallet: stateObj.ethWallet,
+    if(stateObj.startAge >= 20){
+    axios.post('http://localhost:8080/api/user/', {
+      walletId: stateObj.walletId,
       email: stateObj.email,
-      age: stateObj.age
+      startAge: stateObj.startAge
     })
       .then(userInfo => {
-        res.status(202).send(userInfo);
+        if(userInfo.data.success){
+          alert('You have been created');
+        } else {
+          alert('You already exist in the database');
+        }
       })
       .catch(err => {
         console.log(err);
       })
+    } else {
+      alert('You have to be at least 20 years old');
+    }
   }
 
   handleInputChange(event){
@@ -43,7 +50,7 @@ class ApprovalPage extends Component {
           <label>
             Ethereum Wallet:
             <input
-              name="ethWallet"
+              name="walletId"
               type="text"
               placeholder="Enter Ethereum Wallet"
               onChange={this.handleInputChange}
@@ -63,7 +70,7 @@ class ApprovalPage extends Component {
           <label>
             Age:
             <input
-              name="age"
+              name="startAge"
               type="number"
               placeholder="Enter Age"
               onChange={this.handleInputChange}

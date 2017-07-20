@@ -11,6 +11,7 @@ import Admin from '../Containers/Admin/Admin';
 import NavBar from '../Containers/NavBar';
 import Home from '../Components/Home/Home.jsx'
 import UserPoolInfo from '../Containers/User/UserPoolInfo';
+import SmartContract from '../Containers/User/SmartContract.jsx';
 import { getEthPrice, getPoolInfo, isVerified } from '../Actions/User/UserActions.js';
 import { isAdmin } from '../Actions/Admin/AdminActions.js';
 import Footer from '../Components/Footer/Footer.jsx'
@@ -49,6 +50,7 @@ class App extends Component {
           <Route path="/about" component={About}/>
           <Route path="/admin" component={Admin}/>
           <Route path="/userPoolInfo" component={UserPoolInfo}/>
+          <Route path="/smartContract" component={SmartContract}/>
         </Switch>
         <Footer />
       </div>
