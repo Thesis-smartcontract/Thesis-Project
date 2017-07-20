@@ -8,26 +8,22 @@ $speed: 10;
   padding: 0px;
 }
 
-.headline h1.title {
-  // margin-left: 50px;
-  font-size: 120px;
-  // display: inline;
-  margin: auto;
+.d-logo {
+  height: 300px; 
+  width: 200px; 
+  position: relative;
+  order: 0;
 }
 
-.active-logo {
-  width: 400px;
-  height: 400px;
-  margin: 0 auto;
-  position: relative;
-  perspective: 300px;
-  perspective-origin: 50% 40%;
+.logo h1.title {
+  font-size: 100px;
+  order: 1;
 }
 
 .side {
   position: absolute;
-  left: 140px;
-  top: 150px;
+  left: 40px;
+  top: 45px;
   width: 0;
   height: 0;
   border-left: 60px solid transparent;
@@ -35,6 +31,19 @@ $speed: 10;
   border-bottom: 120px solid #ccc;
   transform-origin: 50% 0%;
   animation: spin $speed+s infinite linear;
+}
+
+.side-bottom {
+  position: absolute;
+  left: 40px;
+  top: 145px;
+  width: 0;
+  height: 0;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  border-top: 120px solid #ccc;
+  transform-origin: 50% 100%;
+  animation: spin-bottom $speed+s infinite linear;
 }
 
 .back {
@@ -49,6 +58,49 @@ $speed: 10;
   animation-delay: -($speed * 0.75) + s;
 }
 
+.back-bottom {
+  animation-delay: -($speed/2) + s;
+}
+
+.right-bottom {
+  animation-delay: -($speed/4) + s;
+}
+
+.left-bottom {
+  animation-delay: -($speed * 0.75) + s;
+}
+
+@keyframes spin-bottom {
+  0% {
+    transform: rotateY(0deg) rotateX(-30deg);
+    border-top-color: lighten($color, 5%);
+  }
+  25% {
+    transform: rotateY(90deg) rotateX(-30deg);
+    border-top-color: lighten($color, 25%);
+    opacity: 1;
+  }
+  25.1% {
+    opacity: 0;
+  }
+  50% {
+    transform: rotateY(180deg) rotateX(-30deg);
+    border-top-color: darken($color, 12%);
+  }
+  74.9% {
+    opacity: 0;
+  }
+  75% {
+    transform: rotateY(270deg) rotateX(-30deg);
+    border-top-color: darken($color, 15%);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateY(360deg) rotateX(-30deg);
+    border-top-color: lighten($color, 5%);
+  }
+}
+
 @keyframes spin {
   0% {
     transform: rotateY(0deg) rotateX(30deg);
@@ -56,7 +108,7 @@ $speed: 10;
   }
   25% {
     transform: rotateY(90deg) rotateX(30deg);
-    border-bottom-color: darken($color, 5%);
+    border-bottom-color: lighten($color, 25%);
     opacity: 1;
   }
   25.1% {
@@ -77,26 +129,5 @@ $speed: 10;
   100% {
     transform: rotateY(360deg) rotateX(30deg);
     border-bottom-color: lighten($color, 5%);
-  }
-}
-
-
-.shadow {
-  position: absolute;
-  top: 300px;
-  left: 175px;
-  width: 50px;
-  height: 50px;
-  background-color: #bbb;
-  box-shadow: 0 0 40px 40px #bbb;
-  animation: shadow $speed+s infinite linear;
-}
-
-@keyframes shadow {
-  0% {
-    transform: rotateX(90deg) rotateZ(0deg);
-  }
-  100% {
-    transform: rotateX(90deg) rotateZ(-360deg);
   }
 }
