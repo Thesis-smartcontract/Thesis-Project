@@ -25,12 +25,18 @@ class UserPoolInfo extends Component {
   }
 
   verifyButton() {
+    let { web3Instance } = this.props;
+    console.log(web3Instance.Account)
     this.props.web3Instance.Instrument.deployed().then(instance => {
-      return instance.sendTransaction({ from: account, value: 10 * (10 ** 18) })
+      return instance.sendTransaction({ from: web3Instance.Account, value: 10 * (Math.pow(10, 18)) })
     })
     .then((transObj) => {
       console.log('youre in here')
       console.log('transaction obj', transObj)
+    })
+    .catch(err => {
+      console.log(err);
+      debugger
     })
   }
 

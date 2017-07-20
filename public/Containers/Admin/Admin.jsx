@@ -38,6 +38,7 @@ class Admin extends Component {
     // })
   }
   handleVerifySubmit(userAddress, userAge, isLiving) {
+
     alert('verify submit in parent component Admin!')
     let instrument;
     userAge = parseInt(userAge)
@@ -49,11 +50,11 @@ class Admin extends Component {
       age: userAge,
     })
     .then(updatedUser => {
+      console.log(updatedUser);
       if(updatedUser.data.success) {
-        alert(updatedUser.data.user)
         this.props.web3.Instrument.deployed().then(instance => {
           instrument = instance;
-          instrument.verify(userAddress, userAge, { from: account })
+          instrument.verify(userAddress, userAge, { from: this.props.web3.Account });
         })
       } else {
         alert(updatedUser.data.message)

@@ -27,7 +27,6 @@ contract Instrument {
   address owner;
 
   /* Constants */
-  uint cost = 10;
   uint poolShiftCounter = 0;
   uint poolGap = 6;
   uint minAge = 20;
@@ -123,7 +122,7 @@ contract Instrument {
    *      being sent to the contract because this a) costs gas, b) requires 10eth.
    */
   function () payable {
-    uint COST = cost * (10 ** 18);
+    uint COST = 10 * (10 ** 18);
     Participant user = verifiedUsers[msg.sender];
 
     assert(!user.added);
@@ -198,10 +197,10 @@ contract Instrument {
         IterableMapping.remove(pools[p].participants, msg.sender);
 
         // send money back
-        uint invenstment = cost * (10 ** 18);
-        pendingDividends[msg.sender] = (invenstment * 9) / 10;
-        pendingDividends[owner] += invenstment / 10;
-        pools[p].totalEth -= invenstment;
+        uint investment = 10 * (10 ** 18);
+        pendingDividends[msg.sender] = (investment * 9) / 10;
+        pendingDividends[owner] += investment / 10;
+        pools[p].totalEth -= investment;
 
         LogDelete(msg.sender, 1, "removed user from pool"); 
         break;

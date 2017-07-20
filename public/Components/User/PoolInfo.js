@@ -4,10 +4,10 @@ const PoolInfo = ({ userPoolInfoObj }) => {
   return (
   <div>
     <ul>
-      <li>{userPoolInfoObj.poolMidAge}</li>
-      <li>{userPoolInfoObj.numPoolPart}</li>
-      <li>{userPoolInfoObj.ethAmount}</li>
-      <li>{userPoolInfoObj.ethPrice}</li>
+      <li>Pool Mid-Age: {userPoolInfoObj.poolMidAge}</li>
+      <li>Number of Participants: {userPoolInfoObj.numPoolPart}</li>
+      <li>Total Eth In Pool: {(userPoolInfoObj.ethAmount / Math.pow(10, 18))}</li>
+      <li>Current Eth Price: {userPoolInfoObj.ethPrice}</li>
     </ul>
   </div>
   )

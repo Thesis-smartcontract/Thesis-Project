@@ -31,7 +31,9 @@ const NavBar = ({admin}) => {
           <li><NavLink to="/approval" activeClassName="activeNav">Get Approved</NavLink></li>
           <li><NavLink to="/faq" activeClassName="activeNav">FAQ</NavLink></li>
           <li><NavLink to="/smartContract" activeClassName="activeNav">Smart Contract</NavLink></li>
-          {userOrAdmin}
+          {/* {userOrAdmin} */}
+          <li><NavLink to="/admin" activeClassName="activeNav">Admin</NavLink></li>
+          <li><NavLink to="/userPoolInfo" activeClassName="activeNav">Your Pool</NavLink></li>
         </ul>
       </div>
     </div>

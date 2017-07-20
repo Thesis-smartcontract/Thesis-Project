@@ -25,17 +25,16 @@ class App extends Component {
   componentDidMount() {
     const { getEthPrice, isVerified, web3Instance, isAdmin } = this.props;
     console.log('this is the web3 account', web3Instance.Account)
-      //change this string back into a variable later using this to toggle admin stuff
-      isAdmin(web3Instance.Account)
-      getEthPrice()
-      isVerified(web3Instance.Account)
+    isAdmin(web3Instance.Account)
+    getEthPrice()
+    isVerified(web3Instance.Account)
+    this.props.getPoolInfo(web3Instance.Instrument, web3Instance.Account);
+   
   }
 
  render() {
    const { store } = this.props;
-   if(this.props.userPool.isVerified) {
-     this.props.getPoolInfo(this.props.web3Instance.Instrument);
-   }
+   
    return (
     <Provider store={store}>
     <HashRouter>
@@ -58,7 +57,7 @@ class App extends Component {
     </Provider>
   );
  }
-};
+}
 
 const mapStateToProps = state => {
   return {

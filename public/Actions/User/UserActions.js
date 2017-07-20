@@ -16,7 +16,7 @@ export const isVerified = (walletAddress) => {
   }
 }
 
-export const getPoolInfo = async (Instrument) => {
+export const getPoolInfo = async (Instrument, Account) => {
   let instrument;
   let poolIdx;
   let poolInfoObj = {};
@@ -25,7 +25,7 @@ export const getPoolInfo = async (Instrument) => {
   await Instrument.deployed().then(instance => {
     instrument = instance;
     console.log('the instrument inside user actions line 27', instrument)
-    return instrument.poolForAddress.call();
+    return instrument.poolForAddress.call({from: Account});
   }).then((indexObj) => {
     poolIdx = JSON.parse(indexObj[0])
     isFound = JSON.parse(indexObj[1])
