@@ -21,8 +21,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-
     const { getEthPrice, isVerified, web3Instance, isAdmin } = this.props;
+    console.log('the current user account address in app line 24', web3Instance.Account)
+    console.log(web3Instance.Web3)
       //change this string back into a variable later using this to toggle admin stuff
       isAdmin(web3Instance.Account)
       getEthPrice()

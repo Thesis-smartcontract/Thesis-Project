@@ -19,14 +19,13 @@ class DeleteUser extends Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state.walletAddress, this.state.userAge)
     const { handleDeleteSubmit } = this.props;
-    if(this.state.userAge >= 20 && this.state.walletAddress !== '') {
-      handleVerifySubmit(this.state.walletAddress, this.state.userAge)
+    if(this.state.walletAddress !== '') {
+      handleVerifySubmit(this.state.walletAddress)
     }
     else {
       event.preventDefault()
-      alert('User must be 20 years or older or address must be filled')
+      alert('Address must be filled')
     }
   }
 

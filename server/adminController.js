@@ -2,8 +2,9 @@ const User = require('../database/userModel')
 
 module.exports = {
   addTestResultToUser: (req, res) => {
-    const testResults = req.body.testResults
-    User.findOneAndUpdate({walletId: req.body.walletId}, 
+    const testResults = req.body
+    console.log(req.body)
+    User.findOneAndUpdate({walletId: testResults.walletId}, 
                           { $set: {
                               verified: true
                             },
