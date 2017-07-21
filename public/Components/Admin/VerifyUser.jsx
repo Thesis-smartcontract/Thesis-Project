@@ -31,7 +31,6 @@ class VerifyUser extends Component {
       })
     }
     else {
-      event.preventDefault()
       alert('Please completely fill out form')
     }
   }

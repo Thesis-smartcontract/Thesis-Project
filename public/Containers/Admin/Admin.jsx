@@ -38,8 +38,6 @@ class Admin extends Component {
     // })
   }
   handleVerifySubmit(userAddress, userAge, isLiving) {
-
-    alert('verify submit in parent component Admin!')
     let instrument;
     userAge = parseInt(userAge)
     isLiving = (isLiving === 'true')
@@ -50,11 +48,13 @@ class Admin extends Component {
       age: userAge,
     })
     .then(updatedUser => {
-      console.log(updatedUser);
       if(updatedUser.data.success) {
         this.props.web3.Instrument.deployed().then(instance => {
           instrument = instance;
-          instrument.verify(userAddress, userAge, { from: this.props.web3.Account });
+          return instrument.verify(userAddress, userAge, { from: this.props.web3.Account });
+        })
+        .then((res) => {
+          console.log(res)
         })
       } else {
         alert(updatedUser.data.message)
@@ -63,11 +63,7 @@ class Admin extends Component {
   }
 
   handleDeleteSubmit(userAddress) {
-    // let instrument;
-    // this.props.web3.Instrument.deployed().then(instance => {
-    //   instrument = instance;
-    //   return instrument.removeFromPool(userAddress, { from: account });
-    // })
+
     axios.put('http://localhost:3000/api/admin/deleteUser', {
       walletId: userAddress
     })
@@ -75,20 +71,26 @@ class Admin extends Component {
       if(!user) {
         alert('User does not exist')
       } else {
-        alert(user)
+        let instrument;
+        this.props.web3.Instrument.deployed().then(instance => {
+          instrument = instance;
+          instrument.removeFromPool([userAddress], { from: this.props.web3.Account });
+        })
+
+        console.log('the user from delete submit', user)
       }
     })
   }
   
   handleReleaseDivClick() {
-    //let instrument;
-    // this.props.web3.Instrument.deplayed().then(instance => {
-    //   instrument.instance;
-    //   return instrument.releaseDividends()
-    // }).then((res) => {
-    //   console.log(res)
+    let instrument;
+    this.props.web3.Instrument.deployed().then(instance => {
+      instrument =  instance;
+      return instrument.releaseDividends({ from: this.props.web3.Account })
+    }).then((res) => {
+      console.log(res)
     //   axios.put('http://localhost:3000/api/admin/updateDivDate')
-    // })
+    })
   }
 
   handleGetDivClick() {
@@ -116,14 +118,14 @@ class Admin extends Component {
                         />;
     } else if(this.state.clicked === 'deleteUser') {
       currentAdminView = <DeleteUser
-                          handleDeleteSubmit={this.handleVerifySubmit}
+                          handleDeleteSubmit={this.handleDeleteSubmit}
                         />
-    } else if(this.state.clicked === 'releaseDiv') {
+    } else if(this.state.clicked === 'getDiv') {
       currentAdminView = <GetDividend
                           handleGetDivClick={this.handleGetDivClick}
                           adminDividend={this.state.adminDividend}
                         />
-    } else if(this.state.clicked === 'getDiv') {
+    } else if(this.state.clicked === 'releaseDiv') {
       currentAdminView = <ReleaseDividend
                           handleReleaseDivClick={this.handleReleaseDivClick}
                         />

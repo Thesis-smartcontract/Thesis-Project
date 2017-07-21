@@ -19,12 +19,16 @@ class DeleteUser extends Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault()
     const { handleDeleteSubmit } = this.props;
     if(this.state.walletAddress !== '') {
-      handleVerifySubmit(this.state.walletAddress)
+      handleDeleteSubmit(this.state.walletAddress)
+      this.setState({
+        walletAddress: ''
+      })
+      
     }
     else {
-      event.preventDefault()
       alert('Address must be filled')
     }
   }
@@ -36,7 +40,7 @@ class DeleteUser extends Component {
         <form onSubmit={this.handleSubmit}>
           <label>
             User's Wallet Address:  
-            <input name="walletAddress" type="text" value={this.walletAddress} onChange={this.handleChange} />
+            <input name="walletAddress" type="text" value={this.state.walletAddress} onChange={this.handleChange} />
           </label>
           <input type="submit" value="Submit" />
         </form>
