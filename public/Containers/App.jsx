@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Provider, connect } from 'react-redux';
 import Landing from '../Components/User/LandingPage.jsx';
-import ApprovalPage from '../Components/User/ApprovalPage.jsx';
+import ApprovalPage from '../Components/User/ApprovalPage/ApprovalPage.jsx';
 import Contributing from '../Containers/User/Contributing';
 import About from '../Components/User/About.jsx';
 import FAQ from '../Containers/User/FAQ.jsx';
 import TokenDetail from '../Components/User/TokenDetail.jsx';
 import Admin from '../Containers/Admin/Admin';
 import NavBar from '../Containers/NavBar';
+import ContactUs from '../Components/User/ContactUs/ContactUs.jsx';
 import Home from '../Components/Home/Home.jsx'
 import UserPoolInfo from '../Containers/User/UserPoolInfo';
 import SmartContract from '../Containers/User/SmartContract.jsx';
@@ -41,20 +42,18 @@ class App extends Component {
     <HashRouter>
       <div>
         <Navbar admin={this.props.admin.isAdmin}/>
-        {/* <NavBar admin={this.props.admin.isAdmin}/> */}
-        <div className="content">
-          <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route path="/approval" component={ApprovalPage}/>
-            <Route path="/contributing" component={Contributing}/>
-            <Route path="/tokenDetail" component={TokenDetail}/>
-            <Route path="/faq" component={FAQ}/>
-            <Route path="/about" component={About}/>
-            <Route path="/admin" component={Admin}/>
-            <Route path="/userPoolInfo" component={UserPoolInfo}/>
-            <Route path="/smartContract" component={SmartContract}/>
-          </Switch>
-        </div>
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route path="/approval" component={ApprovalPage}/>
+          <Route path="/contributing" component={Contributing}/>
+          <Route path="/tokenDetail" component={TokenDetail}/>
+          <Route path="/faq" component={FAQ}/>
+          <Route path="/about" component={About}/>
+          <Route path="/admin" component={Admin}/>
+          <Route path="/userPoolInfo" component={UserPoolInfo}/>
+          <Route path="/smartContract" component={SmartContract}/>
+          <Route path="/contact" component={ContactUs}/>
+        </Switch>
         <Footer />
       </div>
     </HashRouter>

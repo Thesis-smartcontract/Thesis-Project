@@ -26,10 +26,11 @@ const NavBar = ({admin}) => {
       <div id="navbar" className="navbar-collapse collapse">
         <ul className="nav navbar-nav">
           <li className="active"><NavLink exact to="/about" exact activeClassName="activeNav">About</NavLink></li>
-          <li><NavLink to="/contributing" activeClassName="activeNav">Contributing</NavLink></li>
-          <li><NavLink to="/tokenDetail" activeClassName="activeNav">Token Details</NavLink></li>
+          {/* <li><NavLink to="/contributing" activeClassName="activeNav">Contributing</NavLink></li> */}
+          {/* <li><NavLink to="/tokenDetail" activeClassName="activeNav">Token Details</NavLink></li> */}
           <li><NavLink to="/approval" activeClassName="activeNav">Get Approved</NavLink></li>
-          <li><NavLink to="/faq" activeClassName="activeNav">FAQ</NavLink></li>
+          <li><NavLink to="/contactUs" activeClassName="activeNav">Contact Us</NavLink></li>
+          {/* <li><NavLink to="/faq" activeClassName="activeNav">FAQ</NavLink></li> */}
           <li><NavLink to="/smartContract" activeClassName="activeNav">Smart Contract</NavLink></li>
           {/* {userOrAdmin} */}
           <li><NavLink to="/admin" activeClassName="activeNav">Admin</NavLink></li>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 const Mission = (props) => (
   <div className="mission">
@@ -23,8 +24,12 @@ const Mission = (props) => (
       </p>
     </div>
     <div className="home-buttons">
-      <button type="submit" name="learn-more" value="Learn More" className="submit-btn"></button>
-      <button type="submit" name="learn-more" value="Sign Up" className="submit-btn"></button>
+      <Link to="/about">
+        <button type="submit" name="learn-more" value="Learn More" className="submit-btn">Learn More</button>
+      </Link>
+      <Link to="/approval">
+        <button type="submit" name="learn-more" value="Sign Up" className="submit-btn">Sign Up</button>
+      </Link>
     </div>
   </div> 
 );

@@ -19,10 +19,6 @@ module.exports = class Home extends Component {
         <Features/>
         <Strategy/>
         <Mission/>
-        <div>
-          <Button title="More Info" to="/about"/>
-          <Button title="Sign Up" to="/approval"/>
-        </div>
       </div>
     )
   }
