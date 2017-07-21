@@ -6,8 +6,8 @@ const Features = (props) => {
     {
       title: 'Transparency',
       glyph: 'fa fa-search',
-      detail: `Contract source code and testing is freely 
-               avaiable on github.`
+      detail: `Contract source code is freely available on 
+               github, as well as on this website.`
     },
     {
       title: 'Reliablity',
@@ -20,16 +20,16 @@ const Features = (props) => {
       title: 'Security',
       glyph: 'fa fa-key',
       detail: `The contract is heavily tested within our
-               own platform, as well as leading 3rd party
+               own platform, as well as by leading 3rd party
                vendors. Built with circuit-break guards, 
                built-in upgrade mechanisms, and fail-safe
                self-destruct support.`
     },
     {
-      title: 'Anonymity',
+      title: 'Anonimity',
       glyph: 'fa fa-user-secret',
-      detail: `Your ether wallet is the only personal data we 
-               require. Yuor genetic swabs are usedto ensure age,
+      detail: `An ether wallet is the only personal data 
+               required. Genetic swabs are used to ensure age,
                but cannot be used to trace users.`
     },
   ];
@@ -46,7 +46,10 @@ const Features = (props) => {
 
   return (
     <div className="features">
-       {features} 
+      <h1 className="title">Why Blockchain?</h1>
+      <div className="features-grid">
+        {features} 
+      </div>
     </div>
   );
 };
