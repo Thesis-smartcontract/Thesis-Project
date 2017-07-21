@@ -1,4 +1,40 @@
 .activeNav{
-  color: #555 !important;
-  background-color: #e7e7e7 !important;
+  color: #555;
+  /* background-color: #e7e7e7 !important; */
+}
+
+#contributing{
+  padding-top: 61px;
+}
+
+#about{
+  padding-top: 61px;
+}
+
+#home{
+  padding-top: 61px;
+}
+
+#pool-info{
+  padding-top: 61px;
+}
+
+#admin{
+  padding-top: 61px;
+}
+
+#contact{
+  padding-top: 61px;
+}
+
+#approval{
+  padding-top: 61px;
+}
+
+#documentation{
+  padding-top: 61px;
+}
+
+.top-of-page {
+  padding-top: 61px;
 }

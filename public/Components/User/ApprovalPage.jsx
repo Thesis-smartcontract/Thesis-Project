@@ -42,7 +42,7 @@ class ApprovalPage extends Component {
 
   render(){
     return(
-      <div>
+      <div id="approval" className="top-of-page">
         <form onSubmit={(event) => {
           event.preventDefault();
           this.handleSubmitClick(this.state);

@@ -1,33 +1,20 @@
 
 body {
-  background-color: light-grey;
+  background-color: #0a0a0a;
   width: 100%;
 }
 
-.container {
+.home {
+  background-color: #0a0a0a;
   display: grid;
-  grid-gap: 40px;
+  grid-gap: 0px;
 }
 
-.features {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
-}
-
-.feature {
-  padding: 10px;
-  margin: 10px;
-}
-
-.feature h1.feature-title {
-  text-align: center;
-}
-
-.feature p.feature-detail {
-  font-size: 18px;
-  padding-left: 30px;
-  padding-right: 30px;
+.headline {
+  background-color: #0a0a0a;
+  color: #cccccc;
+  padding-top: 100px;
+  padding-bottom: 150px;
 }
 
 .headline h1 {
@@ -44,8 +31,117 @@ body {
   margin-bottom: 120px;
 }
 
+.subhead {
+  background-color: #ececec;
+}
+
+.subhead h1 {
+  padding: 10px;
+   padding-top: 50px;
+}
+
+.eth-icon {
+  padding-top: 100px;
+  text-align: center;
+}
+
+.subhead .quick-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  padding-bottom: 100px;
+}
+
+.subhead h1 {
+  /* text-align: center; */
+  padding-left: 60px;
+}
+
+.subhead hr {
+  border-top-color: #0a0a0a;
+  margin: 10px;
+}
+
+.subhead .about {
+  font-size: 22px;
+  padding: 20px;
+  padding-left: 80px;
+  line-height: 2;
+}
+.subhead .next-steps {
+  font-size: 22px;
+  padding: 20px;
+  padding-right: 60px;
+  line-height: 2;
+}
+
+.features {
+  background-color: #cccccc;
+  padding-bottom: 150px;
+}
+
+.features h1.title {
+  text-align: center;
+  font-size: 50px;
+  padding: 70px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 40px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.feature {
+  padding: 10px;
+}
+
+.feature h1.feature-title {
+  text-align: center;
+  font-size: 30px;
+}
+
+.feature p.feature-detail {
+  font-size: 22px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.feature .fa {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 80px;
+}
+
+img {
+  width: 20%;
+} 
+
+.mission {
+  background-color: #ebebeb;
+}
+
+.mission .mission-title {
+  text-align: center;
+}
+
+.mission .mission-detail { 
+  margin: 0 auto;
+  width: 60%;
+}
+
 .mission p {
-  font-size: 16px;
+  font-size: 22px;
+}
+
+.mission hr {
+  border-top-color: #0a0a0a;
+  margin: 0 auto;
+  padding: 10px;
+  width: 70%
 }
 
 hr.fancy-line { 
@@ -73,20 +169,4 @@ hr.fancy-line, hr.fancy-line:before {
 
 body, hr.fancy-line:after {
     background: #f4f4f4;
-}
-
-.feature .fa {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 80px;
-}
-
-img {
-  width: 20%;
-} 
-
-.eth-icon {
-  padding-top: 120px;
-  text-align: center;
 }

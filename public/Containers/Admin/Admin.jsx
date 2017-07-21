@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux'
-import Sidebar from './Sidebar.jsx';
-import Portal from './Portal.jsx';
 import { account, web3, Instrument } from '../../web3.js';
 import VerifyUser from '../../Components/Admin/VerifyUser';
 import DeleteUser from '../../Components/Admin/DeleteUser';
@@ -132,7 +130,7 @@ class Admin extends Component {
     }
 
     return(
-      <div>
+      <div id="admin" className="top-of-page">
         <AdminNavBar navBarClick={this.navBarClick}/>
         {currentAdminView}
       </div>

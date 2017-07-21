@@ -124,10 +124,9 @@ contract Instrument {
   function () payable {
     uint COST = 10 * (10 ** 18);
     Participant user = verifiedUsers[msg.sender];
-
     assert(!user.added);
     assert(user.verified);
-    assert(msg.value >= COST);
+    assert(msg.value >= 10 * (10 ** 18));
 
     signContract(user);
   }

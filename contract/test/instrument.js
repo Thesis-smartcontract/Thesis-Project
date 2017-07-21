@@ -65,10 +65,9 @@ contract('Instrument', (accounts) => {
       return instrument.pool.call(poolIdx);
     })
     .then(pool => {
-      // console.log("pool", pool);
-      // console.log("balance before signup", instrument);
-      // console.log("balance before signup", balance(accounts[0]));
-      // console.log("contract ether before signup", balance(instrument.contract.address));
+      console.log("pool", pool);
+      console.log("balance before signup", balance(accounts[0]));
+      console.log("contract ether before signup", balance(instrument.contract.address));
       assert.equal(pool[0].c[0], 0, "Initial user number is incorrect");
       assert.equal(pool[2].c[0], midAgeForPool, "Did not place participant in the correct pool");
       return instrument.sendTransaction({ from: accounts[0], value: price * (Math.pow(10, 18)) });
@@ -80,12 +79,12 @@ contract('Instrument', (accounts) => {
     })
     .then(pool => {
       assert.equal(pool[0].c[0], 1, "Failed to create user");
-      assert.equal(JSON.parse(pool[1]), price * (Math.pow(10,18), "Failed to send money to contract"));
+      assert.equal(JSON.parse(pool[1]), price * (Math.pow(10,18)), "Failed to send money to contract");
       assert.equal(pool[2].c[0], midAgeForPool, "Did not place participant in the correct pool");
     })
-    .catch(e => { 
-      console.log(e);
-    });
+    // .catch(e => { 
+    //   console.log(e);
+    // });
   });
 
   it("should delete from pool", () => {

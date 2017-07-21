@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SmartContract = () => (
-  <div>
+  <div id="documentation">
     <pre className="prettyprint prettyprinted">
 
 {`

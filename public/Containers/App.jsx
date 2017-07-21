@@ -15,6 +15,7 @@ import SmartContract from '../Containers/User/SmartContract.jsx';
 import { getEthPrice, getPoolInfo, isVerified } from '../Actions/User/UserActions.js';
 import { isAdmin } from '../Actions/Admin/AdminActions.js';
 import Footer from '../Components/Footer/Footer.jsx'
+import Navbar from '../Components/Navbar/Navbar.jsx'
 
 class App extends Component {
   constructor(props) {
@@ -39,18 +40,21 @@ class App extends Component {
     <Provider store={store}>
     <HashRouter>
       <div>
-        <NavBar admin={this.props.admin.isAdmin}/>
-        <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route path="/approval" component={ApprovalPage}/>
-          <Route path="/contributing" component={Contributing}/>
-          <Route path="/tokenDetail" component={TokenDetail}/>
-          <Route path="/faq" component={FAQ}/>
-          <Route path="/about" component={About}/>
-          <Route path="/admin" component={Admin}/>
-          <Route path="/userPoolInfo" component={UserPoolInfo}/>
-          <Route path="/smartContract" component={SmartContract}/>
-        </Switch>
+        <Navbar admin={this.props.admin.isAdmin}/>
+        {/* <NavBar admin={this.props.admin.isAdmin}/> */}
+        <div className="content">
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route path="/approval" component={ApprovalPage}/>
+            <Route path="/contributing" component={Contributing}/>
+            <Route path="/tokenDetail" component={TokenDetail}/>
+            <Route path="/faq" component={FAQ}/>
+            <Route path="/about" component={About}/>
+            <Route path="/admin" component={Admin}/>
+            <Route path="/userPoolInfo" component={UserPoolInfo}/>
+            <Route path="/smartContract" component={SmartContract}/>
+          </Switch>
+        </div>
         <Footer />
       </div>
     </HashRouter>

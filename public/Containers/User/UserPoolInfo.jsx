@@ -64,7 +64,7 @@ class UserPoolInfo extends Component {
     }
 
     return (
-      <div>
+      <div id="pool-info" className="top-of-page">
         {isInDatabaseButton}
       </div>
     )
