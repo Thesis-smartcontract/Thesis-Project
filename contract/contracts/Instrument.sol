@@ -254,7 +254,7 @@ contract Instrument {
       // shift pool's midAge
       pools[p].midAge++;
     }
-    // checkForNewPool();
+    checkForNewPool();
   }
   
   /**

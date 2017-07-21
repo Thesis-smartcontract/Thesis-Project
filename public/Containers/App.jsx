@@ -14,6 +14,7 @@ import UserPoolInfo from '../Containers/User/UserPoolInfo';
 import { getEthPrice, getPoolInfo, isVerified } from '../Actions/User/UserActions.js';
 import { isAdmin } from '../Actions/Admin/AdminActions.js';
 import Footer from '../Components/Footer/Footer.jsx'
+import Navbar from '../Components/Navbar/Navbar.jsx'
 
 class App extends Component {
   constructor(props) {
@@ -39,7 +40,8 @@ class App extends Component {
     <Provider store={store}>
     <HashRouter>
       <div>
-        <NavBar admin={this.props.admin.isAdmin}/>
+        <Navbar/>
+        {/* <NavBar admin={this.props.admin.isAdmin}/> */}
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path="/approval" component={ApprovalPage}/>

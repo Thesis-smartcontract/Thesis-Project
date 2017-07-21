@@ -1,0 +1,72 @@
+.nav-bar {
+  background-color: transparent;
+  background: transparent;
+  color: transparent;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  align-self:stretch;
+  width:100%;
+}
+
+.logo {
+  display: flex;
+  justify-content: flex-left;
+  padding-left: 15px;
+}
+
+.logo a {
+  text-decoration: none;
+  background: transparent;
+}
+
+.logo img {
+  width: 32px;
+  height: 32px;
+}
+
+.logo h1 {
+  font-size: 20px;
+  color: #cce4cc;
+  font-weight: bold;
+  margin: 0px;
+  padding-left: 10px;
+}
+
+ul#nav-item-list {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px;
+  padding: 10px;
+}
+
+.nav-item {
+  padding: 10px;
+}
+
+li.nav-item a {
+  color: #cccccc;
+  transition: font-weight .1s ease-in;
+}
+
+ li.nav-item a:hover {
+  font-weight: bold;   
+  text-decoration: none;
+  color: white;
+} 
+
+a::after {
+  display: block;
+  content: attr(title);
+  font-weight: bold;
+  height: 1px;
+  color: transparent;
+  overflow: hidden;
+  visibility: hidden;
+}
