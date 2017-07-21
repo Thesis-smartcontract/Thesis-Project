@@ -1,6 +1,7 @@
 const adminRouter = require('express').Router()
 const Admin = require('../database/adminModel')
 const AdminController = require('./adminController')
+const DivTimerController = require('./divTImerController')
 let autho = true
 
 adminRouter.put('/addTestResult',  (req, res, next) => {
@@ -38,4 +39,5 @@ adminRouter.post('/', (req, res) => {
     })
 })
 
+adminRouter.post('/releaseDiv', DivTimerController.divCall)
 module.exports = adminRouter
