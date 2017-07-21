@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-const ReleaseDividend = () => {
+const ReleaseDividend = ({handleReleaseDivClick}) => {
   return (
     <div>
-      <button>Release Dividend</button>
+      <button onClick={handleReleaseDivClick}>Release Dividend</button>
     </div>
   )
 }

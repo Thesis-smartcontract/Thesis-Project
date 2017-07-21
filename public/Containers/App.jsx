@@ -11,6 +11,7 @@ import Admin from '../Containers/Admin/Admin';
 import NavBar from '../Containers/NavBar';
 import Home from '../Components/Home/Home.jsx'
 import UserPoolInfo from '../Containers/User/UserPoolInfo';
+import SmartContract from '../Containers/User/SmartContract.jsx';
 import { getEthPrice, getPoolInfo, isVerified } from '../Actions/User/UserActions.js';
 import { isAdmin } from '../Actions/Admin/AdminActions.js';
 import Footer from '../Components/Footer/Footer.jsx'
@@ -22,19 +23,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-
     const { getEthPrice, isVerified, web3Instance, isAdmin } = this.props;
-      //change this string back into a variable later using this to toggle admin stuff
-      isAdmin(web3Instance.Account)
-      getEthPrice()
-      isVerified(web3Instance.Account)
+    console.log('this is the web3 account', web3Instance.Account)
+    isAdmin(web3Instance.Account)
+    getEthPrice()
+    isVerified(web3Instance.Account)
+    this.props.getPoolInfo(web3Instance.Instrument, web3Instance.Account);
+   
   }
 
  render() {
    const { store } = this.props;
-   if(this.props.userPool.isVerified) {
-     this.props.getPoolInfo(this.props.web3Instance.Instrument);
-   }
+   
    return (
     <Provider store={store}>
     <HashRouter>
@@ -49,6 +49,7 @@ class App extends Component {
           <Route path="/about" component={About}/>
           <Route path="/admin" component={Admin}/>
           <Route path="/userPoolInfo" component={UserPoolInfo}/>
+          <Route path="/smartContract" component={SmartContract}/>
         </Switch>
         <Footer />
       </div>
@@ -56,7 +57,7 @@ class App extends Component {
     </Provider>
   );
  }
-};
+}
 
 const mapStateToProps = state => {
   return {

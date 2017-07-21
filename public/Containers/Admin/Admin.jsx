@@ -20,34 +20,89 @@ class Admin extends Component {
     this.navBarClick = this.navBarClick.bind(this);
     this.handleVerifySubmit = this.handleVerifySubmit.bind(this);
     this.handleDeleteSubmit = this.handleDeleteSubmit.bind(this);
+    this.handleReleaseDivClick = this.handleReleaseDivClick.bind(this);
+    this.handleGetDivClick = this.handleGetDivClick.bind(this);
   }
 
-  handleVerifySubmit(userAddress, userAge, isLiving) {
-    alert('verify submit in parent component Admin!')
-
+  componentDidMount() {
     // let instrument;
+
     // this.props.web3.Instrument.deployed().then(instance => {
     //   instrument = instance;
-    //   instrument.verify(userAddress, userAge, { from: account })
+    //   return instrument.pendingDividends.call(this.props.web3.account);
     // })
+    // .then(amount => {
+    //    this.setState({
+    //      adminDividend: amount
+    //    })
+    // })
+  }
+  handleVerifySubmit(userAddress, userAge, isLiving) {
+    let instrument;
+    userAge = parseInt(userAge)
+    isLiving = (isLiving === 'true')
+
     axios.put('http://localhost:3000/api/admin/addTestResult', {
       walletId: userAddress,
       isLiving: isLiving,
       age: userAge,
     })
+    .then(updatedUser => {
+      if(updatedUser.data.success) {
+        this.props.web3.Instrument.deployed().then(instance => {
+          instrument = instance;
+          return instrument.verify(userAddress, userAge, { from: this.props.web3.Account });
+        })
+        .then((res) => {
+          console.log(res)
+        })
+      } else {
+        alert(updatedUser.data.message)
+      }
+    })
   }
 
   handleDeleteSubmit(userAddress) {
-    // let instrument;
-    // this.props.web3.Instrument.deployed().then(instance => {
-    //   instrument = instance;
-    //   return instrument.removeFromPool(userAddress, { from: account });
-    // })
+
     axios.put('http://localhost:3000/api/admin/deleteUser', {
       walletId: userAddress
     })
+    .then(user => {
+      if(!user) {
+        alert('User does not exist')
+      } else {
+        let instrument;
+        this.props.web3.Instrument.deployed().then(instance => {
+          instrument = instance;
+          instrument.removeFromPool([userAddress], { from: this.props.web3.Account });
+        })
+
+        console.log('the user from delete submit', user)
+      }
+    })
   }
   
+  handleReleaseDivClick() {
+    let instrument;
+    this.props.web3.Instrument.deployed().then(instance => {
+      instrument =  instance;
+      return instrument.releaseDividends({ from: this.props.web3.Account })
+    }).then((res) => {
+      console.log(res)
+    //   axios.put('http://localhost:3000/api/admin/updateDivDate')
+    })
+  }
+
+  handleGetDivClick() {
+    // this.props.web3.Instrument.deplayed().then(instance => {
+    //   instrument.instance;
+    //   return instrument.collectDividend()
+    // }).then((res) => {
+    //   console.log(res)
+    //   axios.put('http://localhost:3000/api/admin/updateDivDate')
+    // })
+  }
+
   navBarClick(clicked) {
     this.setState({
       clicked: clicked
@@ -59,20 +114,21 @@ class Admin extends Component {
 
     if(this.state.clicked === 'verifyUser') {
       currentAdminView = <VerifyUser 
-                              handleVerifySubmit={this.handleVerifySubmit}
-                              />;
+                          handleVerifySubmit={this.handleVerifySubmit}
+                        />;
     } else if(this.state.clicked === 'deleteUser') {
       currentAdminView = <DeleteUser
-                              handleDeleteSubmit={this.handleVerifySubmit}
-                              />
-    } else if(this.state.clicked === 'releaseDiv') {
-      currentAdminView = <GetDividend
-                              
-                              />
+                          handleDeleteSubmit={this.handleDeleteSubmit}
+                        />
     } else if(this.state.clicked === 'getDiv') {
+      currentAdminView = <GetDividend
+                          handleGetDivClick={this.handleGetDivClick}
+                          adminDividend={this.state.adminDividend}
+                        />
+    } else if(this.state.clicked === 'releaseDiv') {
       currentAdminView = <ReleaseDividend
-                              
-                              />
+                          handleReleaseDivClick={this.handleReleaseDivClick}
+                        />
     }
 
     return(

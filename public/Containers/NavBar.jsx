@@ -30,17 +30,10 @@ const NavBar = ({admin}) => {
           <li><NavLink to="/tokenDetail" activeClassName="activeNav">Token Details</NavLink></li>
           <li><NavLink to="/approval" activeClassName="activeNav">Get Approved</NavLink></li>
           <li><NavLink to="/faq" activeClassName="activeNav">FAQ</NavLink></li>
-          {userOrAdmin}
-          <li className="nav-item">
-            <a href="https://twitter.com/" target="_blank" className="nav-link">
-                <i className="fa fa-twitter" aria-hidden="true"></i>
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="https://github.com/" target="_blank" className="nav-link">
-                <i className="fa fa-github" aria-hidden="true"></i>
-            </a>
-          </li>
+          <li><NavLink to="/smartContract" activeClassName="activeNav">Smart Contract</NavLink></li>
+          {/* {userOrAdmin} */}
+          <li><NavLink to="/admin" activeClassName="activeNav">Admin</NavLink></li>
+          <li><NavLink to="/userPoolInfo" activeClassName="activeNav">Your Pool</NavLink></li>
         </ul>
       </div>
     </div>

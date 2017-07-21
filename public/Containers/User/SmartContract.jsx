@@ -1,3 +1,10 @@
+import React from 'react';
+
+const SmartContract = () => (
+  <div>
+    <pre className="prettyprint prettyprinted">
+
+{`
 pragma solidity ^0.4.4;
 
 import "./IterableMapping.sol";
@@ -27,6 +34,7 @@ contract Instrument {
   address owner;
 
   /* Constants */
+  uint cost = 10;
   uint poolShiftCounter = 0;
   uint poolGap = 6;
   uint minAge = 20;
@@ -122,7 +130,7 @@ contract Instrument {
    *      being sent to the contract because this a) costs gas, b) requires 10eth.
    */
   function () payable {
-    uint COST = 10 * (10 ** 18);
+    uint COST = cost * (10 ** 18);
     Participant user = verifiedUsers[msg.sender];
 
     assert(!user.added);
@@ -162,23 +170,7 @@ contract Instrument {
       }
     }
   }
-
-    /**
-   * @dev Returns the index of the correct pool for a given user address
-   * @return idx The index of the pool user of this address is
-   *         allocated to.
-   */
-  function poolForAddress() public returns (uint idx, bool found) {
-    found = false;
-    for (var p = 0; p < pools.length; p++) {
-      if (IterableMapping.contains(pools[p].participants, msg.sender)) {
-        idx = p;
-        found = true;
-        break;
-      }
-    }
-  }
-
+  
   /**
    * @dev A user can invoke this function if they want to exit the 
    *      contract, leave their pool and get their money back. Can only be
@@ -197,10 +189,10 @@ contract Instrument {
         IterableMapping.remove(pools[p].participants, msg.sender);
 
         // send money back
-        uint investment = 10 * (10 ** 18);
-        pendingDividends[msg.sender] = (investment * 9) / 10;
-        pendingDividends[owner] += investment / 10;
-        pools[p].totalEth -= investment;
+        uint invenstment = cost * (10 ** 18);
+        pendingDividends[msg.sender] = (invenstment * 9) / 10;
+        pendingDividends[owner] += invenstment / 10;
+        pools[p].totalEth -= invenstment;
 
         LogDelete(msg.sender, 1, "removed user from pool"); 
         break;
@@ -298,7 +290,6 @@ contract Instrument {
   function breakCircuit() public adminOnly {
     // TODO : kill contract, return eth to users
     // admin
-    stopped = true;
     
   }
 
@@ -324,3 +315,9 @@ contract Instrument {
     selfdestruct(owner);
   }
 }
+ `}
+    </pre>
+  </div>
+)
+
+export default SmartContract;

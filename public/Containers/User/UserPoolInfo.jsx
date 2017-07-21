@@ -25,24 +25,34 @@ class UserPoolInfo extends Component {
   }
 
   verifyButton() {
-    this.props.web3Instance.Instrument.deployed().then(instance => {
-      return instance.sendTransaction({ from: account, value: 10 * (10 ** 18) })
-    })
-    .then((transObj) => {
-      console.log('youre in here')
-      console.log('transaction obj', transObj)
-    })
+    let { web3Instance } = this.props;
+    
+    if(!this.props.userPool.isInPool) {
+      this.props.web3Instance.Instrument.deployed().then(instance => {
+        return instance.sendTransaction({ from: web3Instance.Account, value: 10 * (Math.pow(10, 18)) })
+      })
+      .then((transObj) => {
+        this.props.getPoolInfo(web3Instance.Instrument, web3Instance.Account)
+        console.log('transaction obj', transObj)
+      })
+      .catch(err => {
+        alert('Please use metamask to interact with contract!')
+        console.log(err);
+      })
+    }
+
   }
 
   getDividend() {
     
   }
+  
   render() {
     let isInDatabaseButton = null;
 
-    let { userPool } = this.props;
+    let { userPool, web3Instance } = this.props;
     if( this.state.showPoolInfo === true ) {
-      isInDatabaseButton = <PoolInfo userPoolInfoObj={userPool}/> 
+      isInDatabaseButton = <PoolInfo userPoolInfoObj={userPool} web3={web3Instance}/> 
     } else if(userPool.isInPool) {
       isInDatabaseButton = <button onClick={this.togglePoolInfo}>Get Your Pool Info</button>
     } else if(userPool.isVerified === true && userPool.isInPool === false) {

@@ -20,12 +20,17 @@ class VerifyUser extends Component {
 
   handleSubmit(event) {
     console.log(this.state.walletAddress, this.state.userAge, this.state.isLiving)
+    event.preventDefault()
     const { handleVerifySubmit } = this.props;
     if(this.state.userAge >= 20 && this.state.walletAddress !== '' && this.state.isLiving !== undefined) {
-      handleVerifySubmit(this.state.walletAddress, this.state.userAge)
+      handleVerifySubmit(this.state.walletAddress, this.state.userAge, this.state.isLiving)
+      this.setState({
+        userAge: undefined,
+        walletAddress: '',
+        isLiving: undefined
+      })
     }
     else {
-      event.preventDefault()
       alert('Please completely fill out form')
     }
   }
@@ -37,13 +42,23 @@ class VerifyUser extends Component {
         <form onSubmit={this.handleSubmit}>
           <label>
             User's Wallet Address:  
-            <input name="walletAddress" type="text" value={this.walletAddress} onChange={this.handleChange} />
+            <input name="walletAddress" type="text" value={this.state.walletAddress} onChange={this.handleChange} />
           </label>
           <br />
           <label>
             User's Age:
-            <input name="userAge" type="number" value={this.userAge} onChange={this.handleChange} />
+            <input name="userAge" type="number" value={this.state.userAge} onChange={this.handleChange} />
           </label>
+          <br />
+          <label>
+            Deceased?:
+            <select name="isLiving" value={this.state.isLiving} onChange={this.handleChange}>
+              <option value=""></option>
+              <option value="false">Yes</option>
+              <option value="true">No</option>
+            </select>
+          </label>
+          <br />
           <input type="submit" value="Submit" />
         </form>
       </div>

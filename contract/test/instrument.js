@@ -71,7 +71,7 @@ contract('Instrument', (accounts) => {
       // console.log("contract ether before signup", balance(instrument.contract.address));
       assert.equal(pool[0].c[0], 0, "Initial user number is incorrect");
       assert.equal(pool[2].c[0], midAgeForPool, "Did not place participant in the correct pool");
-      return instrument.sendTransaction({ from: accounts[0], value: price * (10 ** 18) });
+      return instrument.sendTransaction({ from: accounts[0], value: price * (Math.pow(10, 18)) });
     })
     .then(() => {
       assert.approximately(balance(accounts[0]), startingBalance - 20, .1, "Did not remove contract cost from account balance.")
@@ -80,7 +80,7 @@ contract('Instrument', (accounts) => {
     })
     .then(pool => {
       assert.equal(pool[0].c[0], 1, "Failed to create user");
-      assert.equal(JSON.parse(pool[1]), price * (10 ** 18), "Failed to send money to contract");
+      assert.equal(JSON.parse(pool[1]), price * (Math.pow(10,18), "Failed to send money to contract"));
       assert.equal(pool[2].c[0], midAgeForPool, "Did not place participant in the correct pool");
     })
     .catch(e => { 
@@ -150,14 +150,14 @@ contract('Instrument', (accounts) => {
     })
     .then(pool => {
       assert.equal(pool[0].c[0], 0, "Initial user number is incorrect"); 
-      return instrument.sendTransaction({ from: accounts[4], value: price * (10 ** 18) });
+      return instrument.sendTransaction({ from: accounts[4], value: price * (Math.pow(10, 18)) });
     })
     .then(() => {
       return instrument.pool.call(poolIdx);
     })
     .then(pool => {
       assert.equal(pool[0].c[0], 1, "Failed to create user");
-      assert.equal(JSON.parse(pool[1]), (2 * price) * (10 ** 18), "Failed to send money to contract");  // giving me the wrong amount to send had to change to 2 * price
+      assert.equal(JSON.parse(pool[1]), (2 * price) * (Math.pow(10, 18)), "Failed to send money to contract");  // giving me the wrong amount to send had to change to 2 * price
     })
     .then(pool => {
       poolIdx = pool;
@@ -174,7 +174,7 @@ contract('Instrument', (accounts) => {
       return instrument.pendingDividends.call(accounts[4]);
     })
     .then(data => {
-      parsed = JSON.parse(data/(10 ** 18));
+      parsed = JSON.parse(data/(Math.pow(10, 18)));
       assert.equal(parsed ,1, "Failed to allocate dividend");
       return instrument.collectDividend({ from: accounts[4] });
     })
@@ -222,7 +222,7 @@ contract('Instrument', (accounts) => {
       assert.equal(pool[0].c[0], 0, "Initial user number is incorrect"); 
       // assert.equal(pool[2].c[0], midAgeForPool, "Did not place participant in the correct pool");
       midAgeForPool = pool[2].c[0];
-      return instrument.sendTransaction({ from: accounts[1], value: price * (10 ** 18) });
+      return instrument.sendTransaction({ from: accounts[1], value: price * (Math.pow(10, 18)) });
     })
     .then(() => {
       return instrument.pool.call(poolIdx);
@@ -271,7 +271,7 @@ contract('Instrument', (accounts) => {
     })
     .then(pool => {
       poolIdx = pool.c[0];
-      return instrument.sendTransaction({ from: accounts[1], value: price * (10 ** 18) });
+      return instrument.sendTransaction({ from: accounts[1], value: price * (Math.pow(10, 18)) });
     })
     .then(() => {
       return instrument.earlyExit({ from: accounts[1] });
@@ -304,7 +304,7 @@ contract('Instrument', (accounts) => {
   //   })
   //   .then(pool => {
   //     poolIdx = pool.c[0];
-  //     return instrument.sendTransaction({ from: accounts[1], value: price * (10 ** 18) });
+  //     return instrument.sendTransaction({ from: accounts[1], value: price * (Math.pow(10, 18)) });
   //   })
   //   // .then(() => {
   //   //   var promises = [];
@@ -353,7 +353,7 @@ contract('Instrument', (accounts) => {
     })
     .then(pool => {
       poolIdx = pool.c[0];
-      return instrument.sendTransaction({ from: accounts[1], value: price * (10 ** 18) });
+      return instrument.sendTransaction({ from: accounts[1], value: price * (Math.pow(10, 18)) });
     })
     .then(() => {
       return instrument.earlyExit({ from: accounts[1] });
