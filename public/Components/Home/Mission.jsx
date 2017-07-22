@@ -8,7 +8,7 @@ const Mission = (props) => (
     <div className="mission-detail">
       <p>
         Gennuity smart contracts represent the next generation 
-        of personal finance for retirement. Instead of depending on
+        of retirement finance. Instead of depending on
         younger generations to foot bills, or perennial stock market
         record highs, money can be co-invested among similarly-aged individuals
         and distributed after retirement to those still living and paying bills.

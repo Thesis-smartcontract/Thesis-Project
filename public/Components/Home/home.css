@@ -58,7 +58,7 @@ body {
 }
 
 .subhead hr {
-  border-top-color: #0a0a0a;
+  border-top-color: slategray;
   margin: 10px;
 }
 
@@ -114,6 +114,7 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 80px;
+  color: #657382;
 }
 
 img {
@@ -121,7 +122,8 @@ img {
 } 
 
 .mission {
-  background-color: #ebebeb;
+  /* background-color: #ebebeb; */
+  background-color: #f6f6f6;
 }
 
 .mission .mission-title {
@@ -154,7 +156,9 @@ img {
   margin: 15px;
   padding: 13px;
   background-color: #7fbb7f;
-  color: #141414;
+  /* color: #141414; */
+  color: white; 
+  letter-spacing: .5px;
   border: none;
   border-radius: 4px;
   font-size: 18px;
@@ -163,6 +167,11 @@ img {
 .home-buttons button:hover {
   background-color: #b2d6b2;
   color: #323232;
+}
+
+.home-buttons button:active {
+  background-color: #cce4cc;
+  outline: none;
 }
 
 hr.fancy-line { 

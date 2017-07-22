@@ -4,7 +4,7 @@ import { Provider, connect } from 'react-redux';
 import Landing from '../Components/User/LandingPage.jsx';
 import ApprovalPage from '../Components/User/ApprovalPage/ApprovalPage.jsx';
 import Contributing from '../Containers/User/Contributing';
-import About from '../Components/User/About.jsx';
+import About from '../Components/About/About.jsx';
 import FAQ from '../Containers/User/FAQ.jsx';
 import TokenDetail from '../Components/User/TokenDetail.jsx';
 import Admin from '../Containers/Admin/Admin';

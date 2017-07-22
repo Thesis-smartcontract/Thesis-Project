@@ -4,3 +4,4 @@ public/bower_components
 contract/build/contracts
 package-lock.json
 .env
+yarn.lock
