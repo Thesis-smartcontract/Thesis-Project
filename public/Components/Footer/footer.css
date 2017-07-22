@@ -17,6 +17,15 @@
   color: slategray;
 }
 
+.footer a:hover {
+  color: #b2d6b2;
+}
+
+.footer a:active {
+  color: #323232;
+  outline: none;
+}
+
 .vertical-divider {
     color: slategray; 
 }
