@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 
-const GetDividend = () => {
+const GetDividend = ({ handleGetDivClick, adminDividend }) => {
+  let showDivButton = null
+  if(adminDividend !== 0) {
+    showDivButton = <button onClick={handleGetDivClick}>Get Dividend</button>
+  }
   return (
     <div>
-      <button>Get Dividend</button>
+      <p>Current Dividend: {adminDividend} ETH</p>
+      {showDivButton}
     </div>
   )
 }

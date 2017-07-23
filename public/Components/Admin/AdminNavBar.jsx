@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './adminNavbar.css'
 
 const AdminNavBar = ({navBarClick}) => {
   let releaseDividend = null
@@ -8,7 +9,7 @@ const AdminNavBar = ({navBarClick}) => {
   //   releaseDividend = <button onClick={() => navBarClick('releaseDiv')}>Release Dividend</button>
   // }
   return (
-    <div>
+    <div className="navbar">
       <button onClick={() => navBarClick('verifyUser')}>Verify User</button>
       <button onClick={() => navBarClick('deleteUser')}>Delete User</button>
       {releaseDividend}

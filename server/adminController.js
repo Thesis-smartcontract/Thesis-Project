@@ -29,7 +29,7 @@ module.exports = {
                           isDeleted: true,
                         }
                       },
-                      { new: true },
+                      { new: false },
                       (err, updatedUser) => {
                         if(err) return console.log('err', err)
                         if (!updatedUser) return res.json({ success: false, message: "user doesn't exist", user: updatedUser })

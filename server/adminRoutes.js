@@ -20,6 +20,10 @@ adminRouter.put('/deleteUser', (req, res, next) => {
   }
 },AdminController.deleteUser)
 
+adminRouter.post('/releaseDiv', DivTimerController.divCall)
+
+adminRouter.get('/getDivDate', DivTimerController.displayDivTimer)
+
 adminRouter.get('/:walletAddress', (req, res) => {
   Admin.findOne({ walletId: req.params.walletAddress })
     .exec( function(err, admin) {
@@ -39,5 +43,5 @@ adminRouter.post('/', (req, res) => {
     })
 })
 
-adminRouter.post('/releaseDiv', DivTimerController.divCall)
+
 module.exports = adminRouter

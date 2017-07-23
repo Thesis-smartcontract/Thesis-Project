@@ -22,6 +22,7 @@ export const UserPool = (state={
           isInPool: true
         });
       }
+      return state;
     case GET_ETH_PRICE:
       return Object.assign({}, state, { ethPrice: action.payload.data.data.amount });
     case IS_VERIFIED:

@@ -41,13 +41,15 @@ class PoolInfo extends Component {
   }
 
   handleGetDivClick() {
-    const { web3 } = this.props;
-    
-    web3.Instrument.deployed().then(instance => {
-      return instance.collectDividend({from: web3.Account})
+    this.props.web3.Instrument.deployed().then(instance => {
+      return instance.collectDividend({from: this.props.web3.Account })
     })
-    .then(res => {
-      console.log(res)
+    .then((res) => {
+      if(res) {
+        this.setState({
+          currentDiv: 0
+        })
+      }
     })
   }
 

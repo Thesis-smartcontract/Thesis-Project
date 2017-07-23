@@ -25,14 +25,14 @@ class UserPoolInfo extends Component {
   }
 
   verifyButton() {
-    let { web3Instance } = this.props;
+    let { web3 } = this.props;
     
     if(!this.props.userPool.isInPool) {
-      this.props.web3Instance.Instrument.deployed().then(instance => {
-        return instance.sendTransaction({ from: web3Instance.Account, value: 10 * (Math.pow(10, 18)) })
+      web3.Instrument.deployed().then(instance => {
+        return instance.sendTransaction({ from: web3.Account, value: 10 * (Math.pow(10, 18)) })
       })
       .then((transObj) => {
-        this.props.getPoolInfo(web3Instance.Instrument, web3Instance.Account)
+        this.props.getPoolInfo(web3.Instrument, web3.Account)
         console.log('transaction obj', transObj)
       })
       .catch(err => {
@@ -49,10 +49,10 @@ class UserPoolInfo extends Component {
   
   render() {
     let isInDatabaseButton = null;
-
-    let { userPool, web3Instance } = this.props;
+    let { userPool, web3 } = this.props;
+    
     if( this.state.showPoolInfo === true ) {
-      isInDatabaseButton = <PoolInfo userPoolInfoObj={userPool} web3={web3Instance}/> 
+      isInDatabaseButton = <PoolInfo userPoolInfoObj={userPool} web3={web3}/> 
     } else if(userPool.isInPool) {
       isInDatabaseButton = <button onClick={this.togglePoolInfo}>Get Your Pool Info</button>
     } else if(userPool.isVerified === true && userPool.isInPool === false) {
@@ -75,7 +75,7 @@ class UserPoolInfo extends Component {
 const mapStateToProps = state => {
   return {
     userPool: state.UserPool,
-    web3Instance: state.Web3Instance
+    web3: state.Web3Instance
   }
 }
 
