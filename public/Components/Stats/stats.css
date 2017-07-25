@@ -1,0 +1,80 @@
+/* #graph {
+  display: flex;
+  justify-content: center;
+} */
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  padding-top: 160px;
+  padding-bottom: 100px;
+  width: 100%;
+}
+
+.graph-detail {
+  padding: 30px;
+  color: #cecece;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: .5px;
+}
+
+.graph-detail a {
+  display: inline;
+  white-space: nowrap;
+  clear: none;
+}
+ 
+.graph-detail h1 {
+  font-size: 42px;
+  padding-bottom: 20px;
+} 
+
+.graph-col {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; */
+   width: 80%; 
+  display: inline-block;
+}
+
+.y-axis-col {
+  display: inline-block;
+}
+
+.graph-labels {
+    display: flex;
+   align-items: center; 
+  /*  justify-content: center;   
+  /* white-space: nowrap;
+  width: auto !important;
+  min-width: 100px; */
+}
+
+.graph-labels p.title{
+  text-align: center;
+  font-size: 18px;
+  color: #cecece;
+  font-weight: 300;
+}
+
+.graph-labels p.detail{
+  text-align: center;
+  font-size: 14px;
+  color: #cecece;
+  font-weight: 300;
+}
+
+.graph-labels .y-axis{
+  padding-left: 15px;
+}
+
+.label {
+  line-height: .5;
+}
+
+.invisible {
+  visibility: hidden;
+}

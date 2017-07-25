@@ -16,8 +16,15 @@ $speed: 10;
 }
 
 .logo h1.title {
-  font-size: 100px;
+  font-size: 110px;
+  font-weight: 300;
+  letter-spacing: 2px;
   order: 1;
+}
+
+h1.logo-detail {
+  font-weight: 400;
+  letter-spacing: 1px;
 }
 
 .side {

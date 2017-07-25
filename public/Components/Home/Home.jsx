@@ -4,7 +4,7 @@ import Features from './Features.jsx';
 import Headline from './Headline.jsx';
 import Home from './Home.jsx';
 import Mission from './Mission.jsx';
-import Rechart from '../Graph/Rechart.jsx';
+import Stats from '../Stats/Stats.jsx';
 import Subhead from './Subhead.jsx';
 import './home.css';
 // import EthIcon from 'public/Components/Home/eth_icon.png';
@@ -17,7 +17,7 @@ module.exports = class Home extends Component {
         <Headline/>
         <Subhead/>
         <Features/>
-        <Rechart/>
+        <Stats/>
         <Mission/>
       </div>
     )

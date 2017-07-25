@@ -7,7 +7,7 @@ const Features = (props) => {
       title: 'Transparency',
       glyph: 'fa fa-search',
       detail: `Contract source code is freely available on 
-               github, as well as on this website.`
+               github, as well as in our documentation.`
     },
     {
       title: 'Reliablity',
