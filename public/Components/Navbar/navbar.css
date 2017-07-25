@@ -35,7 +35,8 @@
   font-weight: 300;
   letter-spacing: .5px;
   margin: 0px;
-  padding-left: 10px;
+  padding-left: 5px;
+  font-family: 'Ubuntu', sans-serif
 }
 
 ul#nav-item-list {
