@@ -79,10 +79,10 @@
 	-o-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }
-.button a:hover {
+/* .button a:hover {
 	background-position: 0 -135px;
 	color: #00aeef;
-} 
+}  */
 
 .donation {
   text-align: center;

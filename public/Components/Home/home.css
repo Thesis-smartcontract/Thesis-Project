@@ -165,9 +165,23 @@ img {
   font-size: 18px;
 }
 
-.home-buttons button:hover {
+#home a:hover {
+  text-decoration: none;
+}
+
+/* #home-button1 a:hover {
+  text-decoration: none;
+}
+
+#home-button2 a:hover {
+  text-decoration: none;
+} */
+
+#home .home-buttons button:hover {
   background-color: #b2d6b2;
-  color: #323232;
+  text-decoration: none;
+  color: white;
+  box-shadow: 5px 5px 3px 0 rgba(0,0,0,0.24), 7px 7px 15px 0 rgba(0,0,0,0.19);
 }
 
 .home-buttons button:active {

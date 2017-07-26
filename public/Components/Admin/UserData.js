@@ -8,9 +8,9 @@ const UserData = ({filteredUserArr, clickHandler }) => {
     <table>
       <thead>
         <tr>
-          <th className="walletId">User's Wallet Address:</th>
+           <th className="walletId">User's Wallet Address:</th>
           <th className="age">Submitted Age:</th>
-          <th className="email">User's Email:</th>
+          <th className="email">User's Email:</th> 
         </tr>
       </thead>
       <tbody>

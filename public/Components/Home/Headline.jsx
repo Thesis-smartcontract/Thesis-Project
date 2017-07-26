@@ -17,7 +17,7 @@ const Headline = (props) => (
         <div className="side-bottom top-bottom"></div>
       </div>
     </div>
-    <h1 className="logo-detail">Next Generation Social Security</h1>
+    <h1 className="logo-detail">The Next Generation's Social Security</h1>
   </div>
 );
 

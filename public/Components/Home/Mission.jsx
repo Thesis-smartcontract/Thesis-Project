@@ -25,10 +25,10 @@ const Mission = (props) => (
     </div>
     <div className="home-buttons">
       <Link to="/about">
-        <button type="submit" name="learn-more" value="Learn More" className="submit-btn">Learn More</button>
+        <button id="home-button1" type="submit" name="learn-more" value="Learn More" className="submit-btn">Learn More</button>
       </Link>
       <Link to="/approval">
-        <button type="submit" name="learn-more" value="Sign Up" className="submit-btn">Sign Up</button>
+        <button id="home-button2" type="submit" name="learn-more" value="Sign Up" className="submit-btn">Sign Up</button>
       </Link>
     </div>
   </div> 
