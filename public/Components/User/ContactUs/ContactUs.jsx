@@ -3,11 +3,14 @@ import './contactus.css';
 import axios from 'axios';
 
 class ContactUs extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       ethPrice: null
     }
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -27,18 +30,40 @@ class ContactUs extends Component {
       })
   }
 
+  onChange(event) {
+    let state = {};
+    state[event.target.name] = event.target.value;
+    this.setState(state);
+    console.log(this.state)
+  }
+
+  onSubmit() {
+    console.log('submitted');
+    axios.post('/api/user/contact', this.state)
+    .then(result => {
+      alert(result);
+    })
+    .catch(error => {
+      console.log('post error', error);
+    })
+  }
+
   render(){
     return(
   <div className="container" id="contact">
     <section id="content">      
-          <h1>Talk to Support</h1>
-          <h4>Gennuity is always here. Complete the form below to reach out to our customer support team.</h4>
-        <form>
+        <h1>Contact the Team</h1>
+        <p>
+          We'd love to hear feedback from you -- both bad and good. Help us make the 
+          app better!
+        </p>
+        <form onSubmit={this.onSubmit}>
           <div>
             <input 
               className="field"
               type="text" 
               name="name" 
+              onChange={this.onChange}
               placeholder="Name" 
               required/>
           </div>
@@ -46,7 +71,8 @@ class ContactUs extends Component {
             <input 
               className="field"
               type="email" 
-              name="email" 
+              name="email"
+              onChange={this.onChange}
               placeholder="Email" 
               required/>
           </div>
@@ -54,7 +80,8 @@ class ContactUs extends Component {
             <textarea 
               className="field"
               type="text" 
-              name="comments" 
+              name="comments"
+              onChange={this.onChange}
               placeholder="Message" 
               required 
               style={{marginTop: 0 + 'em', height: 22 + 'em'}}></textarea>
@@ -64,10 +91,12 @@ class ContactUs extends Component {
     </section>
       <div className="donation">
           <h1 className="donation-title">Donate to support Development</h1>
-            <p><b>Gennuity's mission</b> is to provide individual's income and help accumulate assests during retirement.</p>
-            <p>All funds received and any proposal to spend it are visible on the blockchain for anyone to see.</p>
-            <p>The process is fully transparent and governed by fraud-proof rules programmed on the blockchain, </p>
-            <p>so you'll know your donations will be well taken care of.</p>
+            <p>
+              <b>Gennuity's mission</b> is to provide individual's income and help accumulate assests during retirement.
+              All funds received and any proposal to spend it are visible on the blockchain for anyone to see.
+              The process is fully transparent and governed by fraud-proof rules programmed on the blockchain, 
+              so you'll know your donations will be well taken care of.
+              </p>
             <div className="donation-address">
               <h3>Donation Address</h3>
               <div><h5>Wallet Address:</h5><h6 className="eth-wallet"> 0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359</h6></div>

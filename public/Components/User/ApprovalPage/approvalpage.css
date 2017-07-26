@@ -89,7 +89,7 @@ li.verification-route {
   margin: 0 auto;
 }
 
-.formStyle { 
+/* .formStyle { 
   background-color: transparent;
   padding: 20px; 
   width: 60%;
@@ -108,6 +108,28 @@ li.verification-route {
 #verification-form input {
   letter-spacing: 1px;
   padding: 10px;
+} */
+
+ .formStyle{
+  min-width: 300px;
+  width: 47%;
+  padding: 7px 20px 7px 20px;
+  border:none;
+  outline:none;
+  background:#f9f9f9;
+  color: #282828;
+  /* font-style:italic; */
+  border-bottom:2px solid #cce4cc;
+  border-radius: 8px;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 1px;
+  margin-bottom:22px; 
+}
+
+.formStyle:focus {
+  background:#f0faf3;
+  font-weight: 400;
 }
 
 .container{

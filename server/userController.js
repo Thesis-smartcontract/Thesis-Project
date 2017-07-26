@@ -67,5 +67,23 @@ module.exports = {
     client.getSellPrice({'currencyPair': 'ETH-USD'}, (err, price) => {
       return res.send(price)
     });
+  },
+  contact: (req, res) => {
+    var data = {
+      from: req.body.email,
+      to: 'gennuity.verify@gmail.com',
+      subject: `Customer feedback from: ${req.body.name}`,
+      html: req.body.comments
+    };
+
+    mailgun.messages().send(data, (err, body) => {
+        if (err) {
+          console.log("got an error: ", err);
+        }
+        else {
+          console.log("feedback sent");
+        }
+    });
+
   }
 };

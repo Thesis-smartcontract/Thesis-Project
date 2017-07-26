@@ -20,6 +20,12 @@ p{
   margin: 0px;
 }
 
+#contact p {
+  padding: 10px;
+  padding-bottom: 40px;
+  font-size: 20px;
+}
+
 h1.donation-title {
   margin-top: 100px;
   margin-bottom: 28px;
@@ -39,16 +45,25 @@ h4{
 }
 
  .field{
-  width:565px;
-  padding:4px;
+  min-width: 300px;
+  width: 47%;
+  padding: 7px 20px 7px 20px;
   border:none;
   outline:none;
-  background:white;
-  color: black;
-  font-style:italic;
+  background:#f9f9f9;
+  color: #282828;
+  /* font-style:italic; */
   border-bottom:2px solid #cce4cc;
+  border-radius: 8px;
+  font-weight: 300;
+  font-size: 16px;
   margin-bottom:22px; 
-} 
+}
+
+.field:focus {
+  background:#f0faf3;
+  font-weight: 400;
+}
 
 .submit-btn {
   display: flex;
