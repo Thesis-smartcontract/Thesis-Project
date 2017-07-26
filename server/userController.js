@@ -1,11 +1,11 @@
 const User = require('../database/userModel');
 const Client = require('coinbase').Client;
 const Mailgun = require('mailgun-js');
+const Promise = require('bluebird');
+const fs = Promise.promisifyAll(require('fs'));
 const dotenv = require('dotenv');
-// const env = process.env.NODE_ENV || 'development';
-// const config = require('../config')[env];
-const result = dotenv.config()
-console.log(result);
+const result = dotenv.config();
+
 const client = new Client({
   apiKey: 'L3KYRril1zRuwQeS',
   apiSecret: '0FK9juFD0mr5wW0sb0o6sCyb6sS4inZ5'
@@ -41,37 +41,23 @@ module.exports = {
     newUser.save(function(err, user) {
       if (!user) return res.json({success: false, message: 'user already exists'})
       if (err) return console.log(err)
+      
+      fs.readFile('server/sign-up.html', 'utf8', (err, email) => {
+        var data = {
+          from: 'verify.gennuity@gmail.com',
+          to: req.body.email,
+          subject: 'Welcome to Gennuity!',
+          html: email
+        };
 
-      var data = {
-        from: 'verify.gennuity@gmail.com',
-        to: req.body.email,
-        subject: 'Welcome to Gennuity!',
-        html: `
-          <p>Hi,</p>
-          <p>
-            Thank you for choosing Gennuity Technologies. Passing our 
-            genetic test with a mailed-in lip swab is the only task required to
-            complete sing-up. This measure allows us to place you in the correct
-            pool of participants based on age. Following that verification, you are
-            free to sign our Ethereum contract within one year of the verification 
-            date.
-          <p>
-   
-          <p>
-            If you have any questions, feel free to reach out.
-          </p>
-   
-          <p>Best,<br/>Gennuity Team</p>
-        `
-      };
-      console.log('data', data);
-      mailgun.messages().send(data, (err, body) => {
-          if (err) {
-              console.log("got an error: ", err);
-          }
-          else {
-              console.log(body);
-          }
+        mailgun.messages().send(data, (err, body) => {
+            if (err) {
+                console.log("got an error: ", err);
+            }
+            else {
+                console.log(body);
+            }
+        });
       });
 
       res.json({success: true, message: 'user created', user: user});
