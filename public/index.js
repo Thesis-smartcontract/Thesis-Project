@@ -16,3 +16,7 @@ curl -d '{"jsonrpc":"2.0","method":"eth_sendTransaction",
  "to":"0x9C9787B8a9b94c70Dd27fFAf58f5c02BFAfB7169", "value": 90e18}],
   "id":1}' -X POST http://localhost:8545/
 */
+
+/*
+testrpc -m together swing unveil odor turtle bronze weekend item staff sea exact skull
+*/

@@ -5,7 +5,7 @@ const ReleaseDividend = ({handleReleaseDivClick, nextDate, displayReleaseButton}
   if(displayReleaseButton) {
     display =  <button onClick={handleReleaseDivClick}>Release Dividend</button>
   } else {
-    display = <p>You will be able to release dividend on: {nextDate}</p>
+    display = <p>You will be able to release dividend again on: {nextDate}</p>
   }
   return (
     <div>

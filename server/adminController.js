@@ -35,5 +35,15 @@ module.exports = {
                         if (!updatedUser) return res.json({ success: false, message: "user doesn't exist", user: updatedUser })
                         res.json({ success: true, message: 'updated user', updatedUser: updatedUser })
                       })
+  },
+  getNonVerifiedUsers: (req, res) => {
+    User.find({
+      verified: false,
+      isDeleted: false
+    })
+    .exec((err, users) => {
+      if (err) return console.log(err)
+      res.json({users: users})
+    })
   }
 }

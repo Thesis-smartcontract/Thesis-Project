@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux'
+import { changeInputValue } from '../../Actions/Admin/UserDataActions.js'
 import { account, web3, Instrument } from '../../web3.js';
 import VerifyUser from '../../Components/Admin/VerifyUser';
 import DeleteUser from '../../Components/Admin/DeleteUser';
 import GetDividend from '../../Components/Admin/GetDividend'
 import ReleaseDividend from '../../Components/Admin/ReleaseDividend'
 import AdminNavBar from '../../Components/Admin/AdminNavBar'
+import UserData from '../../Components/Admin/UserData.js'
 import './admin.css'
+
 
 class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
       clicked: '',
-      displayReleaseButton: false
+      displayReleaseButton: false,
+      usersArr: []
     }
 
     this.navBarClick = this.navBarClick.bind(this);
@@ -50,6 +54,25 @@ class Admin extends Component {
         adminDividend: (JSON.parse(res) / Math.pow(10, 18))
       })
     })
+    
+    axios.get('http://localhost:3000/api/admin/getNonVerifiedUsers')
+      .then(users => {
+        this.setState({
+          initialUsersArr: users.data.users,
+          usersArr: users.data.users
+        })
+      })
+
+  }
+  componentWillReceiveProps(nextProps) {
+    if(this.props.userData !== nextProps.userData) {
+      let updatedList = this.state.initialUsersArr;
+      updatedList = updatedList.filter((user) => {
+        return user.walletId.toLowerCase().search(
+          nextProps.userData.toLowerCase()) !== -1;
+      });
+      this.setState({usersArr: updatedList});
+    }
   }
 
   handleVerifySubmit(userAddress, userAge, isLiving) {
@@ -84,6 +107,14 @@ class Admin extends Component {
     this.props.web3.Instrument.deployed().then(instance => {
       instrument = instance;
       return instrument.verify(userAddress, userAge, { from: this.props.web3.Account });
+    })
+
+    axios.get('http://localhost:3000/api/admin/getNonVerifiedUsers')
+      .then(users => {
+        this.setState({
+          initialUsersArr: users.data.users,
+          usersArr: users.data.users
+        })
     })
   }
 
@@ -162,7 +193,7 @@ class Admin extends Component {
     })
   }
 
-  navBarClick(clicked) {
+  navBarClick(clicked, name) {
     this.setState({
       clicked: clicked
     })
@@ -170,21 +201,25 @@ class Admin extends Component {
 
   render(){
     let currentAdminView = <p>Welcome Admin!</p>;
+    let userDataComp = null
 
-    if(this.state.clicked === 'verifyUser') {
-      currentAdminView = <VerifyUser 
+    if(this.state.clicked === 'Verify a User') {
+      currentAdminView = <VerifyUser
+                          inputValue={this.props.userData}
                           handleVerifySubmit={this.handleVerifySubmit}
+                          changeInputValue={this.props.changeInputValue}
                         />;
-    } else if(this.state.clicked === 'deleteUser') {
+      userDataComp = <UserData filteredUserArr={this.state.usersArr} clickHandler={this.props.changeInputValue}/>
+    } else if(this.state.clicked === 'Delete a User') {
       currentAdminView = <DeleteUser
                           handleDeleteSubmit={this.handleDeleteSubmit}
                         />
-    } else if(this.state.clicked === 'getDiv') {
+    } else if(this.state.clicked === 'Get Admin Dividend') {
       currentAdminView = <GetDividend
                           handleGetDivClick={this.handleGetDivClick}
                           adminDividend={this.state.adminDividend}
                         />
-    } else if(this.state.clicked === 'releaseDiv') {
+    } else if(this.state.clicked === 'Release Yearly Dividend') {
       currentAdminView = <ReleaseDividend
                           handleReleaseDivClick={this.handleReleaseDivClick}
                           nextDate={this.state.nextDate}
@@ -196,7 +231,9 @@ class Admin extends Component {
       <div id="admin">
         <AdminNavBar className="navbar" navBarClick={this.navBarClick}/>
         <div className="view">
+        <h1>{this.state.clicked}</h1>
         {currentAdminView}
+        {userDataComp}
         </div>
       </div>
     )
@@ -205,7 +242,8 @@ class Admin extends Component {
 
 const mapStateToProps = state => ({
   admin: state.Admin,
-  web3: state.Web3Instance
+  web3: state.Web3Instance,
+  userData: state.UserData
 })
 
-export default connect(mapStateToProps)(Admin);
+export default connect(mapStateToProps, { changeInputValue })(Admin);

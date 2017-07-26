@@ -22,7 +22,7 @@ class PoolInfo extends Component {
       poolMidAge: this.props.userPoolInfoObj.poolMidAge,
       numPoolPart: this.props.userPoolInfoObj.numPoolPart,
       ethAmount: (this.props.userPoolInfoObj.ethAmount / Math.pow(10, 18)),
-      ethPrice: this.props.userPoolInfoObj.ethPrice
+      ethPrice: this.props.userPoolInfoObj.ethPrice,
     }
     this.handleGetDivClick = this.handleGetDivClick.bind(this)
   }
@@ -54,6 +54,11 @@ class PoolInfo extends Component {
   }
 
   render() {
+    let getDivButton = null;
+
+    if(this.state.currentDiv > 0) {
+      getDivButton = <button onClick={this.handleGetDivClick}>Get Your Dividend</button>
+    }
     return (
       <div>
         <ul>
@@ -63,7 +68,7 @@ class PoolInfo extends Component {
           <li>Current Eth Price: ${this.state.ethPrice}</li>
           <li>Current Dividend: {this.state.currentDiv} ETH</li>
         </ul>
-        <button onClick={this.handleGetDivClick}>Get Your Dividend</button>
+          {getDivButton}
       </div>
     )
   }

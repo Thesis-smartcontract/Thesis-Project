@@ -24,6 +24,8 @@ adminRouter.post('/releaseDiv', DivTimerController.divCall)
 
 adminRouter.get('/getDivDate', DivTimerController.displayDivTimer)
 
+adminRouter.get('/getNonVerifiedUsers', AdminController.getNonVerifiedUsers)
+
 adminRouter.get('/:walletAddress', (req, res) => {
   Admin.findOne({ walletId: req.params.walletAddress })
     .exec( function(err, admin) {

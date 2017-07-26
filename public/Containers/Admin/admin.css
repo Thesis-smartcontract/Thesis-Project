@@ -6,15 +6,19 @@
 
 .navbar {
   width: 200px;
-  padding-right: 30px;
 }
 .view {
+  display: flex;
   flex:1;
+  flex-direction: column;
+  padding-left: 30px;
+  justify-content: flex-start;
+  align-items: center;
+  height: 432px;
 }
 #admin {
   display: flex;
   flex-direction: row;
-  align-items: center;
   width: 90%;
   margin: auto;
 }

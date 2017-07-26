@@ -17,21 +17,20 @@ import { getEthPrice, getPoolInfo, isVerified } from '../Actions/User/UserAction
 import { isAdmin } from '../Actions/Admin/AdminActions.js';
 import Footer from '../Components/Footer/Footer.jsx'
 import Navbar from '../Components/Navbar/Navbar.jsx'
+import { fetchNewData } from '../Actions/Admin/UserDataActions.js'
 
 class App extends Component {
   constructor(props) {
     super(props);
-
   }
 
   componentDidMount() {
-    const { getEthPrice, isVerified, web3, isAdmin } = this.props;
+    const { getEthPrice, isVerified, web3, isAdmin, fetchNewData } = this.props;
     console.log('this is the web3 account', web3.Account)
     isAdmin(web3.Account)
     getEthPrice()
     isVerified(web3.Account)
     this.props.getPoolInfo(web3.Instrument, web3.Account);
-   
   }
 
  render() {

@@ -36,7 +36,6 @@ class DeleteUser extends Component {
   render() {
     return (
       <div>
-        <p>Delete A User</p>
         <form onSubmit={this.handleSubmit}>
           <label>
             User's Wallet Address:  
