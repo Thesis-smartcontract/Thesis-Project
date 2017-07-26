@@ -48,24 +48,28 @@ class UserPoolInfo extends Component {
   }
   
   render() {
-    let isInDatabaseButton = null;
+    let userView = null;
     let { userPool, web3 } = this.props;
     
-    if( this.state.showPoolInfo === true ) {
-      isInDatabaseButton = <PoolInfo userPoolInfoObj={userPool} web3={web3}/> 
-    } else if(userPool.isInPool) {
-      isInDatabaseButton = <button onClick={this.togglePoolInfo}>Get Your Pool Info</button>
+    // if( this.state.showPoolInfo === true ) {
+    //   userView = <PoolInfo userPoolInfoObj={userPool} web3={web3}/> 
+    // } else if(userPool.isInPool) {
+    //   userView = <button onClick={this.togglePoolInfo}>Get Your Pool Info</button>
+    // } 
+    
+    if (userPool.isInPool) {
+      userView = <PoolInfo userPoolInfoObj={userPool} web3={web3}/> 
     } else if(userPool.isVerified === true && userPool.isInPool === false) {
-      isInDatabaseButton = <div><p>Your DNA has been verified!</p><button onClick={this.verifyButton}>Sign Contract</button></div>
+      userView = <div><p>Your DNA has been verified!</p><button onClick={this.verifyButton}>Sign Contract</button></div>
     } else if(userPool.isVerified === false) {
-      isInDatabaseButton = <p>Awaiting to verify your DNA Sample</p>
+      userView = <p>Awaiting to verify your DNA Sample</p>
     } else if (userPool.isVerified === null) {
-      isInDatabaseButton = <p>Please Sign Up!</p>
+      userView = <p>Please Sign Up!</p>
     }
 
     return (
       <div id="pool-info" className="top-of-page">
-        {isInDatabaseButton}
+        {userView}
       </div>
     )
   }

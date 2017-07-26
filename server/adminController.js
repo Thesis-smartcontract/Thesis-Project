@@ -62,7 +62,6 @@ module.exports = {
       if (err) return console.log(err)
       res.json({users: users})
     })
-<<<<<<< HEAD
   },
   getVerifiedUsers: (req, res) => {
     User.find({
@@ -73,7 +72,5 @@ module.exports = {
       if (err) return console.log(err)
       res.json({users: users})
     })
-=======
->>>>>>> a292b58cdb368fe36530d5471ae0caf6bc235168
   }
 }

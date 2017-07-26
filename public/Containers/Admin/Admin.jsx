@@ -111,7 +111,7 @@ class Admin extends Component {
       console.log(updatedUser)
       if(!updatedUser.success) {
         alert(updatedUser.message)
-      } else if(!updatedUser.updatedUser.isDeleted && !updatedUser.updatedUser.verified) {
+      } else if(!updatedUser.updatedUser.isDeleted && !updatedUser.updatedUser.verified && isLiving) {
         this.props.web3.Instrument.deployed().then(instance => {
           instrument = instance;
           return instrument.verify(userAddress, userAge, { from: this.props.web3.Account });
@@ -155,15 +155,17 @@ class Admin extends Component {
       console.log(updatedUser)
       if(!updatedUser.success) {
         alert(updatedUser.message)
-      } else if(!updatedUser.updatedUser.isDeleted && !updatedUser.updatedUser.verified) {
-        this.props.web3.Instrument.deployed().then(instance => {
-          instrument = instance;
-          return instrument.verify(userAddress, userAge, { from: this.props.web3.Account });
-        })
+      } else if(!isLiving) {
+          this.props.web3.Instrument.deployed().then(instance => {
+            instrument = instance;
+            instrument.removeFromPool([userAddress], { from: this.props.web3.Account });
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        alert('User has been deleted from contract due to inactivity or is deceased')
       } else if(updatedUser.updatedUser.isDeleted) {
         alert('User used to be in a contract, but has been removed from contract for a reason')
-      } else if(updatedUser.updatedUser.verified) {
-        alert('User has already been verified in the database')
       }
     })
 
