@@ -7,7 +7,7 @@
   <title>Document</title>
 </head>
 <body>
-  <div className="smart-cnrt-header">
+  <div class="smart-cnrt-header">
     <h3>Smart Contract</h3>
     <p><b>Verification: </b>
       <a href="etherscan.io/address">etherscan.io/address</a>
@@ -251,7 +251,10 @@
         if(pools[p].midAge >= 70) {
           uint size = pools[p].participants.size;
           uint totalEth = pools[p].totalEth;
-          for (var i = IterableMapping.iterate_start(pools[p].participants); IterableMapping.iterate_valid(pools[p].participants, i); i = IterableMapping.iterate_next(pools[p].participants, i)) {
+          for (var i = IterableMapping.iterate_start(pools[p].participants); 
+            IterableMapping.iterate_valid(pools[p].participants, i);
+            i = IterableMapping.iterate_next(pools[p].participants, i)) 
+          {
             var (addr, _)  = IterableMapping.iterate_get(pools[p].participants, i);
             pendingDividends[addr] = totalEth / (size * 20);
           }
@@ -302,9 +305,15 @@
     *      emergency state that locks down most functions.
     */
     function breakCircuit() public adminOnly {
-      // TODO : kill contract, return eth to users
-      // admin
-      
+      stopped = true;
+    }
+
+    /**
+    * @dev This will pause the contract. Triggers the program
+    *      emergency state that locks down most functions.
+    */
+    function fixCircuit() public adminOnly {
+      stopped = false;
     }
 
     /**

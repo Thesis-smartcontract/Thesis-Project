@@ -290,16 +290,21 @@ contract Instrument {
       return true;
   }
 
-  /**
-   * @dev This will pause the contract. Triggers the program
-   *      emergency state that locks down most functions.
-   */
-  function breakCircuit() public adminOnly {
-    // TODO : kill contract, return eth to users
-    // admin
-    stopped = true;
-    
-  }
+    /**
+    * @dev This will pause the contract. Triggers the program
+    *      emergency state that locks down most functions.
+    */
+    function breakCircuit() public adminOnly {
+      stopped = true;
+    }
+
+    /**
+    * @dev This will pause the contract. Triggers the program
+    *      emergency state that locks down most functions.
+    */
+    function fixCircuit() public adminOnly {
+      stopped = false;
+    }
 
   /**
    * @dev Called when updating the terms of the contract. Migrates
