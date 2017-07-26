@@ -1,35 +1,43 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:700);
 
 #contributing{
-  padding-top: 61px;
+	padding-top: 61px;
+	padding-bottom: 66px;
 }
 
 #about{
-  padding-top: 61px;
+	padding-top: 61px;
+	padding-bottom: 66px;
 }
 
 #home{
-  padding-top: 61px;
+	padding-top: 61px;
+	padding-bottom: 66px;
 }
 
 #pool-info{
-  padding-top: 61px;
+	padding-top: 61px;
+	padding-bottom: 66px;
 }
 
 #admin{
-  padding-top: 61px;
+	padding-top: 61px;
+	padding-bottom: 66px;
 }
 
 #contact{
-  padding-top: 100px;
+	padding-top: 100px;
+	padding-bottom: 66px;
 }
 
 #approval{
-  padding-top: 100px;
+	padding-top: 100px;
+	padding-bottom: 66px;
 }
 
 #documentation{
-  padding-top: 61px;
+	padding-top: 61px;
+	padding-bottom: 66px;
   width: 80%;
   margin: 0 auto;
 }
@@ -39,7 +47,8 @@
 }
 
 .top-of-page {
-  padding-top: 61px;
+	padding-top: 61px;
+	padding-bottom: 66px;
 }
 
   /* .smart-contract{

@@ -9,6 +9,14 @@
   background-color:#f6f6f6;
 }
 
+.fixed-bottom {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+
 .footer p {
   color: slategrey;
 }
@@ -34,4 +42,11 @@
   /* text-align: center; */
   margin: 0px;
   padding: 8px;
+}
+
+body {
+  position: relative; 
+  margin: 0;
+  /* padding-bottom: 66px; */
+  min-height: 100%;
 }
