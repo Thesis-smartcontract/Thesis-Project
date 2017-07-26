@@ -25,6 +25,13 @@ pre.prettyprint {
 	white-space: pre-wrap;
 }
 
+.smart-cnrt-header h3 {
+  margin-top: 0px;
+}
+
+.smart-cnrt-header {
+  padding: 35px 0 10px 2em;
+}
 
 /* Specify class=linenums on a pre to get line numbering */
 ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE; } /* IE indents via margin-left */

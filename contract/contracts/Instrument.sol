@@ -44,12 +44,6 @@ contract Instrument {
     string msg
   );
 
-  event Delete(
-    address addr,
-    uint count,
-    string msg
-  );
-
   event Size(
     uint size
   );

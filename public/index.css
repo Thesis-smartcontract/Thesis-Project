@@ -1,5 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:700);
 
+body p, li {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+}
+
+body h1 {
+	font-family: 'Lato', sans-serif;
+}
+
 #contributing{
 	padding-top: 61px;
 	padding-bottom: 66px;
@@ -40,10 +49,6 @@
 	padding-bottom: 66px;
   width: 80%;
   margin: 0 auto;
-}
-
-#documentation .smart-cnrt-header {
-  padding: 2em;
 }
 
 .top-of-page {

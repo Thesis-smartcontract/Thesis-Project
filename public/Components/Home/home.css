@@ -104,9 +104,11 @@ body {
 }
 
 .feature p.feature-detail {
-  font-size: 22px;
-  padding-left: 30px;
+  font-size: 20px;
+  padding-left: 50px;
   padding-right: 30px;
+  font-weight: 300;
+  letter-spacing: .5px;
 }
 
 .feature .fa {
@@ -124,10 +126,12 @@ img {
 .mission {
   /* background-color: #ebebeb; */
   background-color: #f6f6f6;
+  padding-top: 60px;
 }
 
 .mission .mission-title {
   text-align: center;
+  padding: 10px;
 }
 
 .mission .mission-detail { 
@@ -137,7 +141,7 @@ img {
 
 .mission p {
   text-indent: 40px;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .mission hr {

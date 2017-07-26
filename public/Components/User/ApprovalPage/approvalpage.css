@@ -63,10 +63,12 @@ img.down-arw-swab:hover{
 
 li.swab-route {
   list-style-type: none;
+  cursor: pointer;
 }
 
 li.verification-route {
   list-style-type: none;
+  cursor: pointer;
 }
 
 .page-header{
@@ -77,20 +79,14 @@ li.verification-route {
 }
 
 .page-title{
-  /* font-family: "Whitney SSm A","Whitney SSm B","Helvetica Neue",Helvetica,Arial; */
-  font-family: 'Helvetica', sans-serif;
-  /* margin-top: 149px; */
   text-align: center;
   padding: 20px;
 }
 
 .page-subtitle{
   font-weight: 200;
-  /* padding-bottom: 40px; */
-}
-
-#approval{
-  /* padding-top: 33px; */
+  width: 80%;
+  margin: 0 auto;
 }
 
 .formStyle { 
@@ -107,6 +103,11 @@ li.verification-route {
   font-size: 1em;
   font-weight: 100;
   color: black;
+}
+
+#verification-form input {
+  letter-spacing: 1px;
+  padding: 10px;
 }
 
 .container{

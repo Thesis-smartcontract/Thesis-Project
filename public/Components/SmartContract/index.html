@@ -27,6 +27,7 @@
   contract Instrument {
 
     /* Contract-specific structures */
+    
     struct Participant {
       uint startAge;
       bool verified;
@@ -41,6 +42,7 @@
     }
 
     /* Local variables */
+
     Pool[] pools;
     mapping(address => Participant) private verifiedUsers;
     mapping(address => uint) public pendingDividends;
@@ -48,12 +50,14 @@
     address owner;
 
     /* Constants */
+
     uint cost = 10;
     uint poolShiftCounter = 0;
     uint poolGap = 6;
     uint minAge = 20;
 
     /* Events */
+
     event LogEvent(
       address addr,
       uint value,
@@ -64,16 +68,6 @@
       address addr,
       uint count,
       string msg
-    );
-
-    event Delete(
-      address addr,
-      uint count,
-      string msg
-    );
-
-    event Size(
-      uint size
     );
 
     /* Modifiers */
