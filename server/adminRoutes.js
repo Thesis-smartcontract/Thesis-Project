@@ -12,6 +12,14 @@ adminRouter.put('/addTestResult',  (req, res, next) => {
   }
 },AdminController.addTestResultToUser)
 
+adminRouter.put('/verifyUser', (req, res, next) => {
+  if(autho) {
+    next()
+  } else {
+    res.sendStatus(401)
+  }
+}, AdminController.verifyUser)
+
 adminRouter.put('/deleteUser', (req, res, next) => {
   if(autho) {
     next()
@@ -25,6 +33,8 @@ adminRouter.post('/releaseDiv', DivTimerController.divCall)
 adminRouter.get('/getDivDate', DivTimerController.displayDivTimer)
 
 adminRouter.get('/getNonVerifiedUsers', AdminController.getNonVerifiedUsers)
+
+adminRouter.get('/getVerifiedUsers', AdminController.getVerifiedUsers)
 
 adminRouter.get('/:walletAddress', (req, res) => {
   Admin.findOne({ walletId: req.params.walletAddress })

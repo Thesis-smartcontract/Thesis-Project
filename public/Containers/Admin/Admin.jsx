@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux'
 import { changeInputValue } from '../../Actions/Admin/UserDataActions.js'
+import { changeTestInputValue } from '../../Actions/Admin/VerifiedUserDataActions.js'
 import { account, web3, Instrument } from '../../web3.js';
 import VerifyUser from '../../Components/Admin/VerifyUser';
 import DeleteUser from '../../Components/Admin/DeleteUser';
@@ -9,6 +10,7 @@ import GetDividend from '../../Components/Admin/GetDividend'
 import ReleaseDividend from '../../Components/Admin/ReleaseDividend'
 import AdminNavBar from '../../Components/Admin/AdminNavBar'
 import UserData from '../../Components/Admin/UserData.js'
+import AddTestResults from '../../Components/Admin/AddTestResults.js'
 import './admin.css'
 
 
@@ -18,11 +20,13 @@ class Admin extends Component {
     this.state = {
       clicked: '',
       displayReleaseButton: false,
-      usersArr: []
+      usersArr: [],
+      verifiedUsersArr: []
     }
 
     this.navBarClick = this.navBarClick.bind(this);
     this.handleVerifySubmit = this.handleVerifySubmit.bind(this);
+    this.handleAddTestResultSubmit = this.handleAddTestResultSubmit.bind(this);
     this.handleDeleteSubmit = this.handleDeleteSubmit.bind(this);
     this.handleReleaseDivClick = this.handleReleaseDivClick.bind(this);
     this.handleGetDivClick = this.handleGetDivClick.bind(this);
@@ -62,7 +66,14 @@ class Admin extends Component {
           usersArr: users.data.users
         })
       })
-
+    
+    axios.get('http://localhost:3000/api/admin/getVerifiedUsers')
+      .then(users => {
+        this.setState({
+          initialVerifiedUsersArr: users.data.users,
+          verifiedUsersArr: users.data.users
+        })
+      })
   }
   componentWillReceiveProps(nextProps) {
     if(this.props.userData !== nextProps.userData) {
@@ -73,6 +84,15 @@ class Admin extends Component {
       });
       this.setState({usersArr: updatedList});
     }
+
+    if(this.props.verifiedUserData !== nextProps.verifiedUserData) {
+      let updatedList = this.state.initialVerifiedUsersArr;
+      updatedList = updatedList.filter((user) => {
+        return user.walletId.toLowerCase().search(
+          nextProps.verifiedUserData.toLowerCase()) !== -1;
+      });
+      this.setState({verifiedUsersArr: updatedList});
+    }
   }
 
   handleVerifySubmit(userAddress, userAge, isLiving) {
@@ -80,7 +100,7 @@ class Admin extends Component {
     userAge = parseInt(userAge)
     isLiving = (isLiving === 'true')
 
-    axios.put('http://localhost:3000/api/admin/addTestResult', {
+    axios.put('http://localhost:3000/api/admin/verifyUser', {
       walletId: userAddress,
       isLiving: isLiving,
       age: userAge,
@@ -114,6 +134,44 @@ class Admin extends Component {
         this.setState({
           initialUsersArr: users.data.users,
           usersArr: users.data.users
+        })
+    })
+  }
+
+  handleAddTestResultSubmit(userAddress, userAge, isLiving) {
+    console.log('added test result')
+    let instrument;
+    userAge = parseInt(userAge)
+    isLiving = (isLiving === 'true')
+
+    axios.put('http://localhost:3000/api/admin/addTestResult', {
+      walletId: userAddress,
+      isLiving: isLiving,
+      age: userAge,
+    })
+    .then(res => {
+      console.log(res)
+      const updatedUser = res.data
+      console.log(updatedUser)
+      if(!updatedUser.success) {
+        alert(updatedUser.message)
+      } else if(!updatedUser.updatedUser.isDeleted && !updatedUser.updatedUser.verified) {
+        this.props.web3.Instrument.deployed().then(instance => {
+          instrument = instance;
+          return instrument.verify(userAddress, userAge, { from: this.props.web3.Account });
+        })
+      } else if(updatedUser.updatedUser.isDeleted) {
+        alert('User used to be in a contract, but has been removed from contract for a reason')
+      } else if(updatedUser.updatedUser.verified) {
+        alert('User has already been verified in the database')
+      }
+    })
+
+    axios.get('http://localhost:3000/api/admin/getVerifiedUsers')
+      .then(users => {
+        this.setState({
+          initialVerifiedUsersArr: users.data.users,
+          verifiedUsersArr: users.data.users
         })
     })
   }
@@ -209,7 +267,20 @@ class Admin extends Component {
                           handleVerifySubmit={this.handleVerifySubmit}
                           changeInputValue={this.props.changeInputValue}
                         />;
-      userDataComp = <UserData filteredUserArr={this.state.usersArr} clickHandler={this.props.changeInputValue}/>
+      userDataComp = <UserData 
+                      filteredUserArr={this.state.usersArr}
+                      clickHandler={this.props.changeInputValue}
+                      />
+    } else if(this.state.clicked === 'Add Test Result'){
+      currentAdminView = <AddTestResults
+                          testInputValue={this.props.verifiedUserData}
+                          handleAddTestResultSubmit={this.handleAddTestResultSubmit}
+                          changeTestInputValue={this.props.changeTestInputValue}
+                        />;
+      userDataComp = <UserData
+                      filteredUserArr={this.state.verifiedUsersArr}
+                      clickHandler={this.props.changeTestInputValue}
+                      />
     } else if(this.state.clicked === 'Delete a User') {
       currentAdminView = <DeleteUser
                           handleDeleteSubmit={this.handleDeleteSubmit}
@@ -229,7 +300,10 @@ class Admin extends Component {
 
     return(
       <div id="admin">
-        <AdminNavBar className="navbar" navBarClick={this.navBarClick}/>
+        <AdminNavBar
+         className="navbar"
+         navBarClick={this.navBarClick}
+        />
         <div className="view">
         <h1>{this.state.clicked}</h1>
         {currentAdminView}
@@ -243,7 +317,8 @@ class Admin extends Component {
 const mapStateToProps = state => ({
   admin: state.Admin,
   web3: state.Web3Instance,
-  userData: state.UserData
+  userData: state.UserData,
+  verifiedUserData: state.VerifiedUserData
 })
 
-export default connect(mapStateToProps, { changeInputValue })(Admin);
+export default connect(mapStateToProps, { changeInputValue, changeTestInputValue })(Admin);

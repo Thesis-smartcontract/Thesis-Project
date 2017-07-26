@@ -11,6 +11,7 @@ const AdminNavBar = ({navBarClick, style}) => {
   return (
     <div className="navbar">
       <button onClick={() => navBarClick('Verify a User')}>Verify User</button>
+      <button onClick={() => navBarClick('Add Test Result')}>Add Test Result</button>
       <button onClick={() => navBarClick('Delete a User')}>Delete User</button>
       <button onClick={() => navBarClick('Release Yearly Dividend')}>Release Dividend</button>
       <button onClick={() => navBarClick('Get Admin Dividend')}>Get Dividend</button>
