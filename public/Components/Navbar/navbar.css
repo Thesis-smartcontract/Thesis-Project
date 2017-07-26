@@ -32,7 +32,8 @@
 .logo h1 {
   font-size: 20px;
   color: #cce4cc;
-  font-weight: bold;
+  font-weight: 300;
+  letter-spacing: .5px;
   margin: 0px;
   padding-left: 10px;
 }
@@ -61,7 +62,7 @@ li.nav-item a {
   color: #cce4cc;
 } 
 
-a::after {
+.nav-item a::after {
   display: block;
   content: attr(title);
   font-weight: bold;

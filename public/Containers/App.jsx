@@ -12,7 +12,7 @@ import NavBar from '../Containers/NavBar';
 import ContactUs from '../Components/User/ContactUs/ContactUs.jsx';
 import Home from '../Components/Home/Home.jsx'
 import UserPoolInfo from '../Containers/User/UserPoolInfo';
-import SmartContract from '../Containers/User/SmartContract.jsx';
+import SmartContract from '../Components/SmartContract/SmartContract.jsx';
 import { getEthPrice, getPoolInfo, isVerified } from '../Actions/User/UserActions.js';
 import { isAdmin } from '../Actions/Admin/AdminActions.js';
 import Footer from '../Components/Footer/Footer.jsx'

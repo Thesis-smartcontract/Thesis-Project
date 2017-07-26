@@ -2,24 +2,6 @@ import React, { Component } from 'react';
 import './contactus.css';
 import axios from 'axios';
 
-// const ContactUs = () => (
-//   <div className="bg10">
-//       <form>
-//         <input type="text" className="cont" id="name" name="firstname" placeholder="Name" required><span className="fa fa-user user"></span> <br/>
-        
-//         <input type="text" id="email" className="cont" name="email" placeholder="Email" required>
-//         <span className="fa fa-envelope-o email_icon"></span>
-//         <br/>
-        
-//         <input type="text" id="subjecting" className="cont" name="subject" placeholder="Subject" required> <span className="fa fa fa-pencil subject"></span> <br/>
-        
-//         <textarea rows="10" cols="40" id="boxing"  className="cont" placeholder="Message"></textarea> <span className="fa fa-comment-o comment"></span><br/>
-        
-//         <input type="submit" value="Send a message" id="submit_button">
-//       </form>
-//   </div>
-// )
-
 class ContactUs extends Component {
   constructor(){
     super();
@@ -27,7 +9,6 @@ class ContactUs extends Component {
       ethPrice: null
     }
   }
-
 
   componentDidMount() {
     const addCommas = str => {
@@ -50,42 +31,49 @@ class ContactUs extends Component {
     return(
   <div className="container" id="contact">
     <section id="content">      
+          <h1>Talk to Support</h1>
+          <h4>Gennuity is always here. Complete the form below to reach out to our customer support team.</h4>
         <form>
-          <h1>Contact Us</h1>
           <div>
-            <input type="text" name="name" placeholder="Name" required/>
+            <input 
+              className="field"
+              type="text" 
+              name="name" 
+              placeholder="Name" 
+              required/>
           </div>
           <div>
-            <input  type="email" name="email" placeholder="Email" required/>
+            <input 
+              className="field"
+              type="email" 
+              name="email" 
+              placeholder="Email" 
+              required/>
           </div>
           <div>
-            <textarea type="text" name="comments" placeholder="Message" required style={{marginTop: 0 + 'em', height: 22 + 'em'}}></textarea>
+            <textarea 
+              className="field"
+              type="text" 
+              name="comments" 
+              placeholder="Message" 
+              required 
+              style={{marginTop: 0 + 'em', height: 22 + 'em'}}></textarea>
           </div>
-          <button type="submit" className="submit">Submit</button>
+          <button type="submit" className="submit-btn">Submit</button>
         </form>
     </section>
       <div className="donation">
-        <br />
-        <br />
-          <h1>Donate to support Development</h1>
-          <br/>
+          <h1 className="donation-title">Donate to support Development</h1>
             <p><b>Gennuity's mission</b> is to provide individual's income and help accumulate assests during retirement.</p>
-            <p></p>
-            <p></p>
             <p>All funds received and any proposal to spend it are visible on the blockchain for anyone to see.</p>
             <p>The process is fully transparent and governed by fraud-proof rules programmed on the blockchain, </p>
             <p>so you'll know your donations will be well taken care of.</p>
-            <br/>
-            <br/>
-            <br/>
-            <div>
+            <div className="donation-address">
               <h3>Donation Address</h3>
-              <br/>
-              <h5>0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359</h5>
-              <br/>
+              <div><h5>Wallet Address:</h5><h6 className="eth-wallet"> 0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359</h6></div>
             </div>
             <div>
-              <h6>Amount Received: {this.state.ethPrice} Eth </h6>
+              <div><h5>Amount Received:</h5><h6 className="eth-amount"> {this.state.ethPrice} Ether </h6></div>
             </div>
       </div>
   </div>
@@ -93,18 +81,4 @@ class ContactUs extends Component {
   }
 }
 
-        // <div className="name">
-        //   <input placeholder="Name" />
-        //   <span className="fa fa-user user"></span>
-        // </div>
-
-        // <div className="email">
-        //   <input placeholder="Email" />
-        //   <span className="fa fa-envelope-o email_icon"></span>
-        // </div>
-
-        // <div className="comment">
-        //   <input placeholder="Message" />
-        //   <span className="fa fa-comment-o comment"></span>
-        // </div>
 export default ContactUs;
