@@ -52,10 +52,10 @@ module.exports = {
 
         mailgun.messages().send(data, (err, body) => {
             if (err) {
-                console.log("got an error: ", err);
+              console.log("got an error: ", err);
             }
             else {
-                console.log(body);
+              console.log(body);
             }
         });
       });
