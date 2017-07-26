@@ -5,12 +5,17 @@ const express = require('express'),
       mongoose = require('mongoose'),
       userRoutes = require('./userRoutes'),
       adminRoutes = require('./adminRoutes'),
+      dotenv = require('dotenv'),
       env = process.env.NODE_ENV || 'development',
       config = require('../config')[env];
 
+const result = dotenv.config()
+
+if (result.error) {
+  throw result.error
+}
 
 mongoose.connect(config.url);
-
 var db = mongoose.connection;
 
 
