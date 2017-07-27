@@ -1,0 +1,15 @@
+.custom-tooltip {
+  background-color: white;
+  opacity: .75;
+  padding: 7px;
+  border-radius: 3px;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.custom-tooltip p {
+  color: black;
+  display: inline;
+  letter-spacing: .5px;
+  width: 100%;
+}

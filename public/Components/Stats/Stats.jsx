@@ -6,7 +6,7 @@ import './stats.css';
 const Stats = (props) => (
   <div className="stats">
     <div className="graph-labels">
-      <div className="y-axis-xol">
+      <div className="y-axis-col">
         <Label class="y-axis" title="ROI" detail="%, normalized"/>
         <Label class="invisible" title="Age" detail="years"/>
       </div>
