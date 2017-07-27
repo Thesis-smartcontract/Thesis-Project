@@ -312,7 +312,7 @@ class Admin extends Component {
         {userDataComp}
         </div>
       </div>
-    )
+    );
   }
 }
 

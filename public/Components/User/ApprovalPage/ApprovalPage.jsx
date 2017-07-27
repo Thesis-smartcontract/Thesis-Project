@@ -71,7 +71,7 @@ class ApprovalPage extends Component {
               <form>
                 <div>
                   <input 
-                    className="formStyle"
+                    className="field"
                     name="walletId" 
                     type="text" 
                     placeholder="Enter Ethereum Wallet" 
@@ -80,7 +80,7 @@ class ApprovalPage extends Component {
                 </div>
               <div>
                 <input 
-                  className="formStyle"
+                  className="field"
                   name="email" 
                   type="email" 
                   placeholder="Enter Email" 
@@ -89,7 +89,7 @@ class ApprovalPage extends Component {
               </div>
               <div>
                 <input 
-                  className="formStyle"
+                  className="field"
                   name="startAge" 
                   type="number" 
                   placeholder="Enter Age" 
@@ -125,7 +125,7 @@ class ApprovalPage extends Component {
 {/* 
 <div>
   <form action="">
-    <input type="text" name="name" class="formStyle" placeholder="Name (required)" required />
+    <input type="text" name="name" class="field" placeholder="Name (required)" required />
     <input type="email" name="email" class="formStyle" placeholder="Email (required)" required />
     <a href="#" class="formButton">Subscribe</a>
   </form>

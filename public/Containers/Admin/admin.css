@@ -6,6 +6,7 @@
 
 .navbar {
   width: 200px;
+  padding-top: 40px;
 }
 .view {
   display: flex;
@@ -16,9 +17,15 @@
   align-items: center;
   height: 432px;
 }
+
+.view h1 {
+  padding: 20px;
+}
 #admin {
   display: flex;
   flex-direction: row;
   width: 90%;
-  margin: auto;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }

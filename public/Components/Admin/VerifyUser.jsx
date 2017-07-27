@@ -47,8 +47,8 @@ class VerifyUser extends Component {
         <form onSubmit={this.handleSubmit}>
           <table>
             <tbody>
-              <tr><td><label>User's Wallet Address:</label></td><td><input name="walletAddress" type="text" value={this.props.inputValue} onChange={this.handleChange}/></td></tr>
-              <tr><td><label>User's Verified Age:</label></td><td><input name="userAge" type="number" value={this.state.userAge} onChange={this.handleChange}/></td></tr>
+              <tr><td><label>User's Wallet Address:</label></td><td><input className="field" name="walletAddress" type="text" value={this.props.inputValue} onChange={this.handleChange}/></td></tr>
+              <tr><td><label>User's Verified Age:</label></td><td><input className="field" name="userAge" type="number" value={this.state.userAge} onChange={this.handleChange}/></td></tr>
               <tr><td><label>Deceased?:</label></td><td><select name="isLiving" value={this.state.isLiving} onChange={this.handleChange}>
               <option value=""></option>
               <option value="false">Yes</option>

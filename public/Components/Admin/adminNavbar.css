@@ -100,12 +100,17 @@ form input[type="submit"]:hover {
 }
 
 .userData table {
-    width: 100%;
+    width: 85%;
     height: 100%;
     border-spacing: 0;
+    margin: 0 auto;
 }
 
 .userData thead, .userData tbody, .userData tr, .userData th, .userData td { display: block; }
+
+.userData thead {
+  font-weight: 500;
+}
 
 .userData thead tr {
     /* fallback */
