@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import DateAndTimeClock from './DateAndTimeClock'
 import './poolInfo.css'
+import PoolTile from './PoolTile'
+import PriceChart from './PriceChart'
 
 class PoolInfo extends Component {
   constructor(props) {
@@ -10,7 +13,7 @@ class PoolInfo extends Component {
       poolMidAge: this.props.userPoolInfoObj.poolMidAge,
       numPoolPart: this.props.userPoolInfoObj.numPoolPart,
       ethAmount: (this.props.userPoolInfoObj.ethAmount / Math.pow(10, 18)),
-      ethPrice: this.props.userPoolInfoObj.ethPrice,
+      ethPrice: this.props.userPoolInfoObj.ethPrice
     }
     this.handleGetDivClick = this.handleGetDivClick.bind(this)
   }
@@ -42,6 +45,37 @@ class PoolInfo extends Component {
   }
 
   render() {
+    let row1 = [
+      {
+        title: 'Pool Mid-Age',
+        glyph: 'fa fa-calendar',
+        detail: this.state.poolMidAge
+      },
+      {
+        title: 'Pool Participants',
+        glyph: 'fa fa-users',
+        detail: this.state.numPoolPart
+      },
+      {
+        title: 'Pool Total Amount',
+        glyph: 'fa fa-university',
+        detail: `${this.state.ethAmount} ETH`
+      }
+    ]
+
+    let row2 = [
+      {
+        title: 'Current ETH Price',
+        glyph: 'fa fa-line-chart',
+        detail: `$${this.state.ethPrice}`
+      },
+      {
+        title: 'Your Dividend',
+        glyph: 'fa fa-money',
+        detail: `${this.state.currentDiv} ETH`
+      }
+    ]
+
     let getDivButton = null;
 
     if(this.state.currentDiv > 0) {
@@ -49,19 +83,41 @@ class PoolInfo extends Component {
     }
     return (
       <div className="poolInfo">
-        <div className="header">
-          <h1>Welcome Back!</h1>
+        <div className="poolheader">
+          <h1>{this.props.web3.Account}'s Profile</h1>
           <DateAndTimeClock />
         </div>
         <div className="row1">
-          <span className="row1-item">Pool Mid-Age: {this.state.poolMidAge} years</span>
+          {
+            row1.map((feat, idx) =>
+              < PoolTile
+                key={idx}
+                glyph={feat.glyph}
+                title={feat.title} 
+                detail={feat.detail}
+                rowNum={"row1"}
+              />
+            )
+          }
+          {/* <span className="row1-item">Pool Mid-Age: {this.state.poolMidAge} years</span>
           <span className="row1-item">Number of Participants: {this.state.numPoolPart}</span>
-          <span className="row1-item">Total Eth In Pool: {this.state.ethAmount} ETH</span>
+          <span className="row1-item">Total Eth In Pool: {this.state.ethAmount} ETH</span> */}
         </div>
         <div className="row2">
-          <span className="row2-item">Current Eth Price: ${this.state.ethPrice}</span>
-          <span className="row2-item">Current Dividend: {this.state.currentDiv} ETH</span>
+          {
+            row2.map((feat, idx) => 
+              < PoolTile
+                key={idx}
+                glyph={feat.glyph}
+                title={feat.title} 
+                detail={feat.detail}
+                rowNum={"row2"}
+                getDiv={this.props.getDiv}
+              />
+            )
+          }
         </div>
+
       </div>
     )
   }
@@ -77,3 +133,4 @@ export default PoolInfo
   <li>Current Dividend: {this.state.currentDiv} ETH</li>
 </ul>
   {getDivButton} */}
+

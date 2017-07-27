@@ -4,13 +4,13 @@ import { connect } from 'react-redux'
 import { changeInputValue } from '../../Actions/Admin/UserDataActions.js'
 import { changeTestInputValue } from '../../Actions/Admin/VerifiedUserDataActions.js'
 import { account, web3, Instrument } from '../../web3.js';
-import VerifyUser from '../../Components/Admin/VerifyUser';
-import DeleteUser from '../../Components/Admin/DeleteUser';
-import GetDividend from '../../Components/Admin/GetDividend'
-import ReleaseDividend from '../../Components/Admin/ReleaseDividend'
+import VerifyUser from '../../Components/Admin/VerifyUser/VerifyUser';
+import DeleteUser from '../../Components/Admin/DeleteUser/DeleteUser';
+import GetDividend from '../../Components/Admin/GetDividend/GetDividend'
+import ReleaseDividend from '../../Components/Admin/ReleaseDividend/ReleaseDividend'
 import AdminNavBar from '../../Components/Admin/AdminNavBar'
-import UserData from '../../Components/Admin/UserData.js'
-import AddTestResults from '../../Components/Admin/AddTestResults.js'
+import UserData from '../../Components/Admin/UserData/UserData.js'
+import AddTestResults from '../../Components/Admin/AddTestResults/AddTestResults.js'
 import './admin.css'
 
 

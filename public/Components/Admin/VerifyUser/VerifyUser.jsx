@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './adminNavbar.css'
+import '../adminNavbar.css'
 
 class VerifyUser extends Component {
   constructor(props) {

@@ -1,0 +1,52 @@
+#pool-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-verify {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+}
+
+.awaiting-user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  padding-top: 60px;
+}
+
+.signup-userpool {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  padding-top: 60px;
+}
+.user-verify p {
+  font-size: 15px;
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.user-verify button {
+  background: #8cce97;
+	border-radius: 30px;
+	border: 1px solid #8cce97;
+  color: white;
+  cursor: pointer;
+  font-weight: 300;
+	height: 35px;
+	width: 120px;
+}
+
+.user-verify button:hover {
+  background: #85BC8E;
+}

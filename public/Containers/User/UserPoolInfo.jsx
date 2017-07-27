@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import PoolInfo from '../../Components/User/PoolInfo/PoolInfo'
 // delete this after only here for testing purposes
 import Admin from '../Admin/Admin'
+import './UserPoolInfo.css'
 
 class UserPoolInfo extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class UserPoolInfo extends Component {
     
     this.togglePoolInfo = this.togglePoolInfo.bind(this)
     this.verifyButton = this.verifyButton.bind(this)
+    this.getDividend = this.getDividend.bind(this)
   }
 
   togglePoolInfo() {
@@ -44,7 +46,16 @@ class UserPoolInfo extends Component {
   }
 
   getDividend() {
-    
+    this.props.web3.Instrument.deployed().then(instance => {
+      return instance.collectDividend({from: this.props.web3.Account })
+    })
+    .then((res) => {
+      if(res) {
+        this.setState({
+          adminDividend: 0
+        })
+      }
+    })
   }
   
   render() {
@@ -58,18 +69,18 @@ class UserPoolInfo extends Component {
     // } 
     
     if (userPool.isInPool) {
-      userView = <PoolInfo userPoolInfoObj={userPool} web3={web3}/> 
+      userView = <PoolInfo userPoolInfoObj={userPool} web3={web3} getDiv={this.getDividend}/> 
     } else if(userPool.isVerified === true && userPool.isInPool === false) {
-      userView = <div><p>Your DNA has been verified!</p><button onClick={this.verifyButton}>Sign Contract</button></div>
+      userView = <div className="user-verify"><p>Your DNA has been verified!</p><button onClick={this.verifyButton}>Sign Contract</button></div>
     } else if(userPool.isVerified === false) {
-      userView = <p>Awaiting to verify your DNA Sample</p>
+      userView = <div className="awaiting-user"><p>Awaiting to verify your DNA Sample</p><p>Wallet Address: {this.props.web3.Account}</p></div>
     } else if (userPool.isVerified === null) {
-      userView = <p>Please Sign Up!</p>
+      userView = <p className="signup-userpool">Please Sign Up!</p>
     }
 
     return (
       <div id="pool-info" className="top-of-page">
-        {userView}
+           {userView}  
       </div>
     )
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import './adminNavbar.css'
+import '../adminNavbar.css'
 
 const UserData = ({filteredUserArr, clickHandler }) => {
   console.log(filteredUserArr)

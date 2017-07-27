@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './poolInfo.css'
 
 class DateAndTimeClock extends Component {
   constructor() {
@@ -51,7 +52,7 @@ class DateAndTimeClock extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="userClock">
         <span>{this.state.clock}</span>
       </div>
     );

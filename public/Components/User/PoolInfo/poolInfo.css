@@ -6,44 +6,136 @@
   height: 90%;
 }
 
-.header {
-  height: 2.1 em;
-  width: 90%;
-}
 .row1 {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 90%
+  justify-content: space-around;
+  width: 90%;
+  margin-top: 30px;
 }
 
 .row1-item {
-  background: tomato;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
   padding: 5px;
   width: 250px;
   height: 250px;
-  margin-top: 10px;
-  line-height: 150px;
-  color: white;
+  color: black;
   font-weight: bold;
-  text-align: center;
+  border: 1.5px solid #D9DDD9;
+  border-radius: 150px;
 }
 
-.row2-item {
-  background: tomato;
-  padding: 5px;
-  width: 48%;
-  height: 400px;
-  margin-top: 10px;
-  line-height: 150px;
-  color: white;
+.row1-item .fa {
+  font-size: 60px;
+  color: #85BC8E;
+  margin-bottom: 20px;
+}
+
+.row1-detail {
+  font-size: 50px;
+  color: grey;
   font-weight: bold;
-  text-align: center;
+}
+
+.row1-title {
+  font-size: 18px;
+  font-weight: 300;
+  color: grey;
 }
 
 .row2 {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 90%
+  justify-content: space-around;
+  width: 90%;
+  margin-top: 40px;
+}
+
+.row2-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  width: 48%;
+  height: 400px;
+  color: black;
+  background: white;
+  font-weight: bold;
+  border: 1.5px solid #D9DDD9;
+  border-radius: 30px;
+}
+.row2-item .fa {
+  font-size: 150px;
+  color: #85BC8E;
+  margin-bottom: 20px;
+}
+
+.row2-item #linechart {
+  font-size: 150px;
+  margin-bottom: 20px;
+}
+
+.row2-detail {
+  font-size: 50px;
+  color: grey;
+  font-weight: bold;
+}
+
+.row2-zerodetail {
+  font-size: 50px;
+  color: #E86868;
+  font-weight: bold;
+}
+
+.row2-revdetail {
+  font-size: 50px;
+  color: #75CC75;
+  font-weight: bold;
+}
+
+.row2-title {
+  font-size: 18px;
+  font-weight: 300;
+  color: grey;
+}
+
+.collectButton {
+  background: #8cce97;
+	border-radius: 30px;
+	border: 1px solid #8cce97;
+  color: white;
+	cursor: pointer;
+  font-weight: 300;
+	height: 25px;
+	width: 90px;
+}
+
+.collectButton:hover {
+  background: #85BC8E;
+}
+
+.poolheader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+}
+
+.poolheader h1 {
+  font-weight: 300;
+  color: grey;
+}
+
+.userClock {
+  font-weight: 300;
+  color: #85BC8E;
+}
+.ccc-widget.ccc-chart {
+  width: 48%;
+  height: 400px;
 }
