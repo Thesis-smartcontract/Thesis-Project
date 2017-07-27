@@ -43,7 +43,7 @@ const SimpleAreaChart = (props) => (
           fillOpacity={1}
           fill="url(#colorROI)"
           stroke="whitesmoke"
-          activeDot={{r: 8}}
+          activeDot={{r: 5}}
         />
       </AreaChart>
     </ResponsiveContainer>
