@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getEthPrice, getPoolInfo, isVerified } from '../../Actions/User/UserActions.js'
 import { connect } from 'react-redux'
-import PoolInfo from '../../Components/User/PoolInfo.js'
+import PoolInfo from '../../Components/User/PoolInfo/PoolInfo'
 // delete this after only here for testing purposes
 import Admin from '../Admin/Admin'
 

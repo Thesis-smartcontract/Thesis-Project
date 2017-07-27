@@ -1,18 +1,6 @@
 import React, { Component } from 'react';
-
-// const PoolInfo = ({ userPoolInfoObj, web3 }) => {
-
-//   return (
-//   <div>
-//     <ul>
-//       <li>Pool Mid-Age: {userPoolInfoObj.poolMidAge}</li>
-//       <li>Number of Participants: {userPoolInfoObj.numPoolPart}</li>
-//       <li>Total Eth In Pool: {(userPoolInfoObj.ethAmount / Math.pow(10, 18))}</li>
-//       <li>Current Eth Price: {userPoolInfoObj.ethPrice}</li>
-//     </ul>
-//   </div>
-//   )
-// }
+import DateAndTimeClock from './DateAndTimeClock'
+import './poolInfo.css'
 
 class PoolInfo extends Component {
   constructor(props) {
@@ -60,17 +48,32 @@ class PoolInfo extends Component {
       getDivButton = <button onClick={this.handleGetDivClick}>Get Your Dividend</button>
     }
     return (
-      <div>
-        <ul>
-          <li>Pool Mid-Age: {this.state.poolMidAge} years</li>
-          <li>Number of Participants: {this.state.numPoolPart}</li>
-          <li>Total Eth In Pool: {this.state.ethAmount} ETH</li>
-          <li>Current Eth Price: ${this.state.ethPrice}</li>
-          <li>Current Dividend: {this.state.currentDiv} ETH</li>
-        </ul>
-          {getDivButton}
+      <div className="poolInfo">
+        <div className="header">
+          <h1>Welcome Back!</h1>
+          <DateAndTimeClock />
+        </div>
+        <div className="row1">
+          <span className="row1-item">Pool Mid-Age: {this.state.poolMidAge} years</span>
+          <span className="row1-item">Number of Participants: {this.state.numPoolPart}</span>
+          <span className="row1-item">Total Eth In Pool: {this.state.ethAmount} ETH</span>
+        </div>
+        <div className="row2">
+          <span className="row2-item">Current Eth Price: ${this.state.ethPrice}</span>
+          <span className="row2-item">Current Dividend: {this.state.currentDiv} ETH</span>
+        </div>
       </div>
     )
   }
 }
 export default PoolInfo
+
+
+{/* <ul>
+  <li>Pool Mid-Age: {this.state.poolMidAge} years</li>
+  <li>Number of Participants: {this.state.numPoolPart}</li>
+  <li>Total Eth In Pool: {this.state.ethAmount} ETH</li>
+  <li>Current Eth Price: ${this.state.ethPrice}</li>
+  <li>Current Dividend: {this.state.currentDiv} ETH</li>
+</ul>
+  {getDivButton} */}
