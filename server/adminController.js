@@ -24,7 +24,7 @@ module.exports = {
           }
         }
       },
-      { new: true },
+      { new: false },
       (err, updatedUser) => {
         if(err) return console.log('err', err)
         if (!updatedUser) return res.json({ success: false, message: "user doesn't exist", user: updatedUser })
@@ -48,7 +48,7 @@ module.exports = {
           }
         }
       },
-      { new: true },
+      { new: false },
       (err, updatedUser) => {
         if(err) return console.log('err', err)
         if (!updatedUser) return res.json({ success: false, message: "user doesn't exist", user: updatedUser })
@@ -56,7 +56,7 @@ module.exports = {
         fs.readFile('server/verify.html', 'utf8', (err, email) => {
           var data = {
             from: 'verify.gennuity@gmail.com',
-            to: updateUser.email,
+            to: updatedUser.email,
             subject: 'Genetic test from Gennuity',
             html: email
           };

@@ -3,7 +3,7 @@ const DivTimer= require('../database/divTimerModel')
 module.exports = {  
 
   divCall: (req, res) => {
-        DivTimer.findOne({ admin: "userDiv"}, 'createdAt', (err, date) => {
+        DivTimer.findOne({ admin: "Admin"}, 'createdAt', (err, date) => {
           if(err) return console.log(err)
           if(date === null) {
             const divTimer = new DivTimer({ admin: "Admin"})
@@ -17,7 +17,7 @@ module.exports = {
         })
   },
   displayDivTimer: (req, res) => {
-    DivTimer.findOne({admin: "userDiv"}, 'createdAt', (err, date) => {
+    DivTimer.findOne({admin: "Admin"}, 'createdAt', (err, date) => {
       if(err) return console.log(err)
       if(date === null) {
         res.json({success: true, message: 'Can release dividends'})

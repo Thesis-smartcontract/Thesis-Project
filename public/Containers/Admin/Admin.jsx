@@ -79,6 +79,7 @@ class Admin extends Component {
         })
       })
   }
+
   componentWillReceiveProps(nextProps) {
     if(this.props.userData !== nextProps.userData) {
       let updatedList = this.state.initialUsersArr;
@@ -141,12 +142,6 @@ class Admin extends Component {
           })
       }
     })
-    //TESTING STUFF:
-    //delete lines below 83 - 85 using this for testing purposes
-    this.props.web3.Instrument.deployed().then(instance => {
-      instrument = instance;
-      return instrument.verify(userAddress, userAge, { from: this.props.web3.Account });
-    })
 
     axios.get('/api/admin/getNonVerifiedUsers')
       .then(users => {
@@ -158,50 +153,84 @@ class Admin extends Component {
   }
 
   handleAddTestResultSubmit(userAddress, userAge, isLiving) {
-    console.log('added test result')
     let instrument;
     userAge = parseInt(userAge)
     isLiving = (isLiving === 'true')
-
-    axios.put('/api/admin/addTestResult', {
-      walletId: userAddress,
-      isLiving: isLiving,
-      age: userAge,
-    })
-    .then(res => {
-      console.log(res)
-      const updatedUser = res.data
-      console.log(updatedUser)
-      if(!updatedUser.success) {
-        swal({
-          title: 'You have been created!',
-          text: updatedUser.message,
-          type: 'success',
-          confirmButtonText: 'Ok!'
-        })
-      } else if(!isLiving) {
-          this.props.web3.Instrument.deployed().then(instance => {
-            instrument = instance;
-            instrument.removeFromPool([userAddress], { from: this.props.web3.Account });
+    
+    if(!isLiving) {
+      axios.put('/api/admin/deleteUser', {
+        walletId: userAddress
+      })    
+      .then(user => {
+        if(!user) {
+          swal({
+            title: 'Error',
+            text: 'User does not exist'
+            type: 'error',
+            confirmButtonText: 'Dismiss'
           })
-          .catch(err => {
-            console.log(err)
+        } else {
+          if(!user.data.updatedUser.isDeleted) {
+            // TESTING STUFF:
+            // once removing user from pool works in smart contract uncomment the code below!!
+            // let instrument;
+            // this.props.web3.Instrument.deployed().then(instance => {
+            //   instrument = instance;
+            //   instrument.removeFromPool([userAddress], { from: this.props.web3.Account });
+            // })
+            // .catch(err => {
+            //   console.log(err)
+            // })
+            swal({
+              title: 'Success',
+              text: 'User has been deleted from contract due to inactivity or is deceased'
+              type: 'success',
+              confirmButtonText: 'Ok!'
+            })
+          } else {
+            swal({
+              title: 'Error',
+              text: 'User has already deleted from contract due to inactivity or is deceased'
+              type: 'error',
+              confirmButtonText: 'Dismiss'
+            })
+          }
+        }
+      })
+    } else {
+      axios.put('/api/admin/addTestResult', {
+        walletId: userAddress,
+        isLiving: isLiving,
+        age: userAge,
+      })
+      .then(res => {
+        console.log(res)
+        const updatedUser = res.data
+        console.log(updatedUser)
+        if(updatedUser.success) {
+          swal({
+            title: 'Success',
+            text: updatedUser.message,
+            type: 'success',
+            confirmButtonText: 'Ok!'
           })
-        swal({
-          title: 'User has been deleted from contract due to inactivity or is deceased',
-          text: 'User has been deleted from contract due to inactivity or is deceased',
-          type: 'error',
-          confirmButtonText: 'Try Again!'
-        })
-      } else if(updatedUser.updatedUser.isDeleted) {
-        swal({
-          title: 'User used to be in a contract, but has been removed from contract for a reason',
-          text: 'User used to be in a contract, but has been removed from contract for a reason',
-          type: 'error',
-          confirmButtonText: 'Try Again!'
-        })
-      }
-    })
+        } else if(!updatedUser.success) {
+          swal({
+            title: 'Fix this shit!',
+            text: updatedUser.message,
+            type: 'error',
+            confirmButtonText: 'Ok!'
+          })
+        } else if(updatedUser.updatedUser.isDeleted) {
+          swal({
+            title: 'Error',
+            text: 'User used to be in a contract, but has been removed from contract for a reason',
+            type: 'error',
+            confirmButtonText: 'Dismiss'
+          })
+        }
+      })
+    }
 
     axios.get('/api/admin/getVerifiedUsers')
       .then(users => {
@@ -226,20 +255,37 @@ class Admin extends Component {
           confirmButtonText: 'Try Again!'
         })
       } else {
-        // TESTING STUFF:
-        // take out the if statement if the user is in database to test
-        // contract function to delete the user from contract
-        // if(!user.data.updatedUser.isDeleted) {
-          let instrument;
-          this.props.web3.Instrument.deployed().then(instance => {
-            instrument = instance;
-            instrument.removeFromPool([userAddress], { from: this.props.web3.Account });
-          })
-          .catch(err => {
-            console.log(err)
-          })
-        // }
+        if(!user.data.updatedUser.isDeleted) {
+          // TESTING STUFF:
+          // once removing user from pool works in smart contract uncomment the code below!!
+          // let instrument;
+          // this.props.web3.Instrument.deployed().then(instance => {
+          //   instrument = instance;
+          //   instrument.removeFromPool([userAddress], { from: this.props.web3.Account });
+          // })
+          // .catch(err => {
+          //   console.log(err)
+          // })
+          alert('User has been deleted from contract due to inactivity or is deceased')
+        } else {
+          alert('User has already been deleted because they are deceased or for a admin reason')
+        }
       }
+    })
+
+    axios.get('http://localhost:3000/api/admin/getVerifiedUsers')
+      .then(users => {
+        this.setState({
+          initialVerifiedUsersArr: users.data.users,
+          verifiedUsersArr: users.data.users
+        })
+    })
+    axios.get('http://localhost:3000/api/admin/getNonVerifiedUsers')
+      .then(users => {
+        this.setState({
+          initialUsersArr: users.data.users,
+          usersArr: users.data.users
+        })
     })
   }
   
@@ -249,6 +295,7 @@ class Admin extends Component {
     })
     axios.post('/api/admin/releaseDiv')
       .then(res => {
+        console.log(res.data)
         res = res.data
         if(res.success) {
           let instrument;
@@ -279,8 +326,8 @@ class Admin extends Component {
           })
         } else {
             swal({
-              title: 'User does not exist',
-              text: res.message,
+              title: 'Cannot Release Dividend',
+              text: res.message + ' ' + res.date,
               type: 'error',
               confirmButtonText: 'Try Again!'
             })
