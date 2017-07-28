@@ -54,11 +54,11 @@ ul#nav-item-list {
 
 li.nav-item a {
   color: #cccccc;
-  transition: font-weight .1s ease-in;
+  transition: font-weight .07s ease-in;
 }
 
  li.nav-item a:hover {
-  font-weight: bold;
+  font-weight: 700;
   text-decoration: none;
   color: #cce4cc;
 } 

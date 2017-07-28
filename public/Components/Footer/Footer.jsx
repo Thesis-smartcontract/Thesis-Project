@@ -10,7 +10,7 @@ const Footer = (props) => (
       <VertDiv />
       <Icon href="https://twitter.com/" icon="fa fa-twitter"/>
       <VertDiv />
-      <Icon href="https://github.com/" icon="fa fa-github"/>
+      <Icon href="https://github.com/Thesis-smartcontract/Thesis-Project.git" icon="fa fa-github"/>
     </div>
   </div>
 );
