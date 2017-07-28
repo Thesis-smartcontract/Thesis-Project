@@ -37,7 +37,7 @@ adminRouter.get('/getNonVerifiedUsers', AdminController.getNonVerifiedUsers)
 adminRouter.get('/getVerifiedUsers', AdminController.getVerifiedUsers)
 
 adminRouter.get('/:walletAddress', (req, res) => {
-  Admin.findOne({ walletId: req.params.walletAddress })
+  Admin.findOne({ walletId: req.params.walletAddress.toLowerCase() })
     .exec( function(err, admin) {
       if (err) return console.log(err);
       if (!admin) return res.json({ success: false, message: "admin doesn't exist", admin: admin });

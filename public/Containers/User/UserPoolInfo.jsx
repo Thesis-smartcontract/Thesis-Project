@@ -42,10 +42,10 @@ class UserPoolInfo extends Component {
       })
       .catch(err => {
         swal({
-          title: 'Please use metamask to interact with contract!',
+          title: 'Error',
           text: 'Please use metamask to interact with contract!',
           type: 'error',
-          confirmButtonText: 'Try Again!'
+          confirmButtonText: 'Dismiss'
         })
         console.log(err);
       })

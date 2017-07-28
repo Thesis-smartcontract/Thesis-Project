@@ -28,7 +28,7 @@ module.exports = {
   getUserInfo: (req, res) => {
     User
       .findOne({
-        walletId: req.params.walletAddress
+        walletId: req.params.walletAddress.toLowerCase()
       })
       .exec( function(err, user) {
         if (err) return console.log(err)

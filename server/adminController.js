@@ -14,7 +14,7 @@ module.exports = {
     const testResults = req.body;
     console.log(req.body)
     User.findOneAndUpdate(
-      { walletId: testResults.walletId }, 
+      { walletId: testResults.walletId.toLowerCase() }, 
       { 
         $push: {
           testResults: {
@@ -35,7 +35,7 @@ module.exports = {
   verifyUser: (req, res) => {
     const testResults = req.body;
     User.findOneAndUpdate(
-      { walletId: testResults.walletId }, 
+      { walletId: testResults.walletId.toLowerCase() }, 
       { 
         $set: {
           verified: true
@@ -77,7 +77,7 @@ module.exports = {
   },
   deleteUser: (req, res) => {
     User.findOneAndUpdate(
-      { walletId: req.body.walletId }, 
+      { walletId: req.body.walletId.toLowerCase() }, 
       {
         $set: {
           isDeleted: true,

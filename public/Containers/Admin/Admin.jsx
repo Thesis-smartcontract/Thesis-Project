@@ -111,15 +111,13 @@ class Admin extends Component {
       age: userAge,
     })
     .then(res => {
-      console.log(res)
       const updatedUser = res.data
-      console.log(updatedUser)
       if(!updatedUser.success) {
         swal({
-          title: 'You have been created!',
+          title: 'Error',
           text: updatedUser.message,
-          type: 'success',
-          confirmButtonText: 'Ok!'
+          type: 'error',
+          confirmButtonText: 'Dismiss'
         })
       } else if(!updatedUser.updatedUser.isDeleted && !updatedUser.updatedUser.verified && isLiving) {
         this.props.web3.Instrument.deployed().then(instance => {
@@ -128,17 +126,17 @@ class Admin extends Component {
         })
       } else if(updatedUser.updatedUser.isDeleted) {
           swal({
-            title: 'User used to be in a contract, but has been removed from contract for a reason',
+            title: 'Error',
             text: 'User used to be in a contract, but has been removed from contract for a reason',
             type: 'error',
-            confirmButtonText: 'OK!'
+            confirmButtonText: 'Dismiss'
           })
       } else if(updatedUser.updatedUser.verified) {
           swal({
-            title: 'User has already been verified in the database',
+            title: 'Error',
             text: 'User has already been verified in the database',
             type: 'error',
-            confirmButtonText: 'OK!'
+            confirmButtonText: 'Dismiss'
           })
       }
     })
@@ -165,7 +163,7 @@ class Admin extends Component {
         if(!user) {
           swal({
             title: 'Error',
-            text: 'User does not exist'
+            text: 'User does not exist',
             type: 'error',
             confirmButtonText: 'Dismiss'
           })
@@ -183,14 +181,14 @@ class Admin extends Component {
             // })
             swal({
               title: 'Success',
-              text: 'User has been deleted from contract due to inactivity or is deceased'
+              text: 'User has been deleted from contract due to inactivity or is deceased',
               type: 'success',
               confirmButtonText: 'Ok!'
             })
           } else {
             swal({
               title: 'Error',
-              text: 'User has already deleted from contract due to inactivity or is deceased'
+              text: 'User has already deleted from contract due to inactivity or is deceased',
               type: 'error',
               confirmButtonText: 'Dismiss'
             })
@@ -273,14 +271,14 @@ class Admin extends Component {
       }
     })
 
-    axios.get('http://localhost:3000/api/admin/getVerifiedUsers')
+    axios.get('/api/admin/getVerifiedUsers')
       .then(users => {
         this.setState({
           initialVerifiedUsersArr: users.data.users,
           verifiedUsersArr: users.data.users
         })
     })
-    axios.get('http://localhost:3000/api/admin/getNonVerifiedUsers')
+    axios.get('/api/admin/getNonVerifiedUsers')
       .then(users => {
         this.setState({
           initialUsersArr: users.data.users,
@@ -300,6 +298,12 @@ class Admin extends Component {
         if(res.success) {
           let instrument;
           this.props.web3.Instrument.deployed().then(instance => {
+            const nextAvailableYear = (parseInt(res.timer.slice(0, 4)) + 1)
+            const nextAvailableMonthAndDay = res.timer.slice(5, 10)
+            const nextAvailableTime = res.timer.slice(11, 19)
+            this.setState({
+              nextDate : `${nextAvailableMonthAndDay}-${nextAvailableYear} at ${nextAvailableTime}`
+            })
             instrument =  instance;
             return instrument.releaseDividends({ from: this.props.web3.Account })
           })
@@ -310,19 +314,13 @@ class Admin extends Component {
             return Promise.all(promises);
           })
           .then((pools) => {
+            swal({
+              title: 'Success',
+              text: 'Funds have been released!',
+              type: 'success',
+              confirmButtonText: 'Ok!'
+            })
             console.log(pools);
-          })
-          swal({
-            title: 'Funds have been released!',
-            text: 'Funds have been released!',
-            type: 'success',
-            confirmButtonText: 'Ok!'
-          })
-          const nextAvailableYear = (parseInt(res.timer.slice(0, 4)) + 1)
-          const nextAvailableMonthAndDay = res.timer.slice(5, 10)
-          const nextAvailableTime = res.timer.slice(11, 19)
-          this.setState({
-            nextDate : `${nextAvailableMonthAndDay}-${nextAvailableYear} at ${nextAvailableTime}`
           })
         } else {
             swal({

@@ -23,7 +23,7 @@ class ApprovalPage extends Component {
   handleSubmitClick(stateObj) {
     if(stateObj.startAge >= 20){
     axios.post('/api/user/', {
-      walletId: stateObj.walletId,
+      walletId: stateObj.walletId.toLowerCase(),
       email: stateObj.email,
       startAge: stateObj.startAge
     })
