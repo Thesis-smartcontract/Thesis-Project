@@ -10,26 +10,26 @@ const Features = (props) => {
                github, as well as in our documentation.`
     },
     {
-      title: 'Reliablity',
+      title: 'Reliability',
       glyph: 'fa fa-shield',
-      detail: `The platform is self-executing. The only admin
+      detail: `The platform is self executing. The only admin
                required is verifying user age with a genetic
-               swab test, and triggering yearly dividends.`
+               swab test and triggering yearly dividends.`
     },
     {
       title: 'Security',
       glyph: 'fa fa-key',
       detail: `The contract is heavily tested within our
-               own platform, as well as by leading 3rd party
+               own platform, as well as by leading third party
                vendors. Built with circuit-break guards, 
                built-in upgrade mechanisms, and fail-safe
                self-destruct support.`
     },
     {
-      title: 'Anonimity',
+      title: 'Anonymity',
       glyph: 'fa fa-user-secret',
-      detail: `An ether wallet is the only personal data 
-               required. Genetic swabs are used to ensure age,
+      detail: `An Ether Wallet is the only personal data 
+               required. Genetic swabs are used to verify age
                but cannot be used to trace users.`
     },
   ];

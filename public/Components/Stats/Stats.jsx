@@ -22,8 +22,8 @@ const Stats = (props) => (
         fewer participants are left to collect the dividend. This means participants
         would recieve twice the rate of natural returns over the full dividend period.
         It is useful to keep in mind that these are approximations based on 
-        life-expectancies among U.S. residents as a whole. The percents are 
-        approximations based on Social Security life-expectancy
+        life expectancies among U.S. residents as a whole. The percents are 
+        approximations based on Social Security life expectancy
         <a href="https://www.ssa.gov/oact/NOTES/as120/images/LD_fig5.html"
         > tables</a> for 2100, and are normalized such that
         these fail to account for any market changes or inflation.

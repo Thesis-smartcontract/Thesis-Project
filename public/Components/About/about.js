@@ -1,4 +1,4 @@
-module.exports = [
+  module.exports = [
   {
     title: 'Problem',
     text: `
@@ -16,9 +16,9 @@ module.exports = [
     text: `
       Age insurance has long been illegal, and often for good reason.
       Trusting third party vendors to handle large sums amounts of money invites corruption.
-      Profitting from neighbors' deaths is a cloud of moral ambiguity. We live in a 
+      Profiting from neighbors' deaths is a cloud of moral ambiguity. We live in a 
       digital age, however, where societies can reap the rewards of retirement sharing 
-      without suffering the corruption or mobidity of previous generations' attempts.
+      without suffering the corruption or morbidity of previous generations' attempts.
       Dividing investment returns among a retirement pool as members pass is the most
       straightforward way of making ends meet through old age. Enforcing that
       contract with the distributed ledger of the blockchain means that no organization
@@ -41,9 +41,9 @@ module.exports = [
       a rogue miner, that individual would need to command more than half of the computing
       power of the entire network to defraud the system. \n\r
       Where Ethereum differs from Bitcoin how the market resource of computing power is used.
-      The Ethereum network hosts "smart contracts," whose funtions are invoked by users and
+      The Ethereum network hosts "smart contracts," whose functions are invoked by users and
       executed using the computing power of miners. Smart contracts allow the Ethereum
-      ecosystem to host any imaginable set of programs that benefit from the transparancy and 
+      ecosystem to host any imaginable set of programs that benefit from the transparency and 
       lack of 3rd party oversight on the blockchain. Popular examples include voting systems
       and blind auctions.
     `
@@ -55,7 +55,7 @@ module.exports = [
       a decade or two, but inward signs have only become visible more recently. DNA ages
       every time it replicates, yielding shorter telomeres and increasingly methylated
       strands at every pass. Recent papers have estimated age with a 6 year window 
-      with ever-increasing accuracy, giving a reliable, even if glacially paced, machanism
+      with ever-increasing accuracy, giving a reliable, even if glacially paced, mechanism
       for identifying individuals based on age. Using a mailed-in lip swab, we can very
       cheaply verify both a person's age, as well as if they have aged since the last test.
       Our contract only requires the swab at signup, and regularly during dividend
@@ -67,11 +67,11 @@ module.exports = [
     title: 'What are the downsides?',
     text: `
       The dividends are only as reliable as the market, as with all investment
-      strategies. Identical twins, unfortunately for us, cannot be distinguished soley
+      strategies. Identical twins, unfortunately for us, cannot be distinguished solely
       by their DNA, so they cannot be reliably identified. The genetic testing involves
       statistical analysis, which always involves margins of error. Therefore, pools are grouped
-      in clusters of ages rather than single years. Fund withdrawl can disadvantage other
-      participants, so there are time restrictions and early exit penalties. Conctracts
+      in clusters of ages rather than single years. Fund withdrawal can disadvantage other
+      participants, so there are time restrictions and early exit penalties. Contracts
       are susceptible to security flaws, and are difficult to update. We built in ways to
       handle unforeseen problems, but distributed contracts are only as strong as the code.
     `

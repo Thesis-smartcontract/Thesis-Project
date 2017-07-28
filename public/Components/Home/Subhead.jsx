@@ -13,8 +13,8 @@ const Subhead = (props) => (
         <ul>
           <li>Self-sustained pension</li>
           <li>Money distributed to those alive</li>
-          <li>Twice the return of tranditional investment</li>
-          <li>Genetic proof of identity/life (mail-in lip swab)</li>
+          <li>Twice the return of traditional investment</li>
+          <li>Genetic proof of identity/ life (mail-in lip swab)</li>
           <li>Easy signup with aged-based cost</li>
           <li>Easy collection with aged-based dividends</li>
           <li>Ethereum blockchain self-enforces contract</li>

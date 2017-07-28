@@ -17,9 +17,9 @@ const Mission = (props) => (
         At sign up, and after retirement, DNA methylation tests from lip 
         swabs are used to verify both the age and livelihood of participants.
         This allows participants to identify themselves anonymously while 
-        simulataneously preventing fraud. The source code for the contract is freely 
-        available and self-executing, so investors can be guarenteed of simple and
-        easy to verify agreement terms. Best practice fail safes are built-in to
+        simultaneously preventing fraud. The source code for the contract is freely 
+        available and self-executing, so investors can be guaranteed of simple and
+        easy to verify agreement terms. Best practice fail safes are built into
         the system to allow for flexibility in contract protection.
       </p>
     </div>
