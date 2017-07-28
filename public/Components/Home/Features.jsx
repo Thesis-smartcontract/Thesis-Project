@@ -26,7 +26,7 @@ const Features = (props) => {
                self-destruct support.`
     },
     {
-      title: 'Anonimity',
+      title: 'Anonymity',
       glyph: 'fa fa-user-secret',
       detail: `An ether wallet is the only personal data 
                required. Genetic swabs are used to ensure age,

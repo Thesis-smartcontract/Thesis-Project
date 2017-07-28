@@ -11,8 +11,8 @@ module.exports = {
       script    : 'server/server.js',
       env: {
         COMMON_VARIABLE: 'true',
-        MG_KEY: 'key-bd23c419f97d297c4dfddf069c04974d',
-        MG_DOMAIN: 'mg.gennuity.org'
+        MG_KEY: '',
+        MG_DOMAIN: ''
       },
       env_production : {
         NODE_ENV: 'production'
